@@ -1,27 +1,57 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class OnboardingScreen extends StatelessWidget {
+class OnboardingScreen extends StatefulWidget {
+  OnboardingScreen({Key? key}) : super(key: key);
+
+  @override
+  _OnboardingScreenState createState() => _OnboardingScreenState();
+}
+
+class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
   final List<Widget> _pages = [
     const OnboardingPage(
       title: 'Explorar',
       description: 'Quer esteja à procura de um novo brinquedo para o seu cão ou de uma cama confortável para o seu gato, a nossa loja de artigos para animais de estimação tem tudo o que precisa',
-      imagePath: 'assets/images/onboarding/explore.svg',
+      imagePath: 'assets/images/onboarding/explorar.svg',
     ),
     const OnboardingPage(
       title: 'Encomendar',
       description: 'Todos os animais de companhia merecem o melhor. Por isso, comprometemos em tornar o processo de compra muito mais fácil e entregar os itens pretendidos diretamente à sua porta',
-      imagePath: 'assets/images/onboarding/explore.svg',
+      imagePath: 'assets/images/onboarding/encomendar.svg',
     ),
     const OnboardingPage(
       title: 'Partilhar',
       description: 'Salva os teus itens favoritos e partilha a tua lista de desejos para a comunidade. Além disso, os teus amigos podem comprar e encomendar os teus itens favoritos que partilhaste para ti',
-      imagePath: 'assets/images/onboarding/explore.svg',
+      imagePath: 'assets/images/onboarding/partilhar.svg',
     ),
   ];
 
-  OnboardingScreen({super.key});
+  bool _isLastPage = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _pageController.addListener(() {
+      if (_pageController.page == _pages.length - 1) {
+        setState(() {
+          _isLastPage = true;
+        });
+      } else {
+        setState(() {
+          _isLastPage = false;
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,13 +91,13 @@ class OnboardingScreen extends StatelessWidget {
                 ElevatedButton(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      Text('Seguinte'),
-                      Icon(Icons.chevron_right),
+                    children: [
+                      Text(_isLastPage ? 'Concluir' : 'Seguinte'),
+                      const Icon(Icons.chevron_right),
                     ],
                   ),
                   onPressed: () {
-                    if (_pageController.page == _pages.length - 1) {
+                    if (_isLastPage) {
                       Navigator.of(context).pushReplacementNamed('/home');
                     } else {
                       _pageController.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
