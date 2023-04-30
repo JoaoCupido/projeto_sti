@@ -11,7 +11,22 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'My App',
+      title: 'PetSupply',
+      theme: ThemeData(
+        colorScheme: const ColorScheme(
+          primary: Color(0xFFF28A0C),
+          secondary: Color(0xFFF2E0CB),
+          surface: Colors.white,
+          background: Color(0xFFEDFFFC),
+          error: Colors.red,
+          onPrimary: Colors.white,
+          onSecondary: Colors.white,
+          onSurface: Colors.black,
+          onBackground: Colors.black,
+          onError: Colors.white,
+          brightness: Brightness.light, // Set the theme brightness to light
+        ),
+      ),
       home: OnboardingScreen(), // Set OnboardingScreen as the home screen
     );
   }

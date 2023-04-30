@@ -1,28 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class OnboardingScreen extends StatelessWidget {
   final PageController _pageController = PageController();
   final List<Widget> _pages = [
-    OnboardingPage(
-      title: 'Welcome to My App',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      imagePath: 'assets/images/placeholder.jpg',
+    const OnboardingPage(
+      title: 'Explorar',
+      description: 'Quer esteja à procura de um novo brinquedo para o seu cão ou de uma cama confortável para o seu gato, a nossa loja de artigos para animais de estimação tem tudo o que precisa',
+      imagePath: 'assets/images/onboarding/explore.svg',
     ),
-    OnboardingPage(
-      title: 'Discover New Features',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      imagePath: 'assets/images/placeholder.jpg',
+    const OnboardingPage(
+      title: 'Encomendar',
+      description: 'Todos os animais de companhia merecem o melhor. Por isso, comprometemos em tornar o processo de compra muito mais fácil e entregar os itens pretendidos diretamente à sua porta',
+      imagePath: 'assets/images/onboarding/explore.svg',
     ),
-    OnboardingPage(
-      title: 'Get Started Now',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      imagePath: 'assets/images/placeholder.jpg',
+    const OnboardingPage(
+      title: 'Partilhar',
+      description: 'Salva os teus itens favoritos e partilha a tua lista de desejos para a comunidade. Além disso, os teus amigos podem comprar e encomendar os teus itens favoritos que partilhaste para ti',
+      imagePath: 'assets/images/onboarding/explore.svg',
     ),
   ];
+
+  OnboardingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: Column(
         children: [
           Expanded(
@@ -31,31 +35,47 @@ class OnboardingScreen extends StatelessWidget {
               children: _pages,
             ),
           ),
-          SizedBox(height: 16.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              TextButton(
-                child: Text('SKIP'),
-                onPressed: () {
-                  Navigator.of(context).pushReplacementNamed('/home');
-                },
-              ),
-              DotsIndicator(
-                controller: _pageController,
-                itemCount: _pages.length,
-              ),
-              TextButton(
-                child: Text('NEXT'),
-                onPressed: () {
-                  if (_pageController.page == _pages.length - 1) {
+          Container(
+            padding: const EdgeInsets.only(bottom: 24.0),
+            child: DotsIndicator(
+              controller: _pageController,
+              itemCount: _pages.length,
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.only(bottom: 32.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                TextButton(
+                  child: const Text(
+                    'Saltar',
+                    style: TextStyle(
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                  onPressed: () {
                     Navigator.of(context).pushReplacementNamed('/home');
-                  } else {
-                    _pageController.nextPage(duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
-                  }
-                },
-              ),
-            ],
+                  },
+                ),
+                ElevatedButton(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: const [
+                      Text('Seguinte'),
+                      Icon(Icons.chevron_right),
+                    ],
+                  ),
+                  onPressed: () {
+                    if (_pageController.page == _pages.length - 1) {
+                      Navigator.of(context).pushReplacementNamed('/home');
+                    } else {
+                      _pageController.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
+                    }
+                  },
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -68,20 +88,23 @@ class OnboardingPage extends StatelessWidget {
   final String description;
   final String imagePath;
 
-  OnboardingPage({required this.title, required this.description, required this.imagePath});
+  const OnboardingPage({super.key, required this.title, required this.description, required this.imagePath});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Image.asset(imagePath, height: 200.0),
-          SizedBox(height: 32.0),
-          Text(title, style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold)),
-          SizedBox(height: 16.0),
-          Text(description, textAlign: TextAlign.center, style: TextStyle(fontSize: 16.0)),
+          SvgPicture.asset(
+            imagePath,
+            width: 400,
+            height: 400,
+          ),
+          Text(title, style: const TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 16.0),
+          Text(description, textAlign: TextAlign.center, style: const TextStyle(fontSize: 16.0)),
         ],
       ),
     );
@@ -92,20 +115,22 @@ class DotsIndicator extends AnimatedWidget {
   final PageController controller;
   final int itemCount;
 
-  DotsIndicator({required this.controller, required this.itemCount}) : super(listenable: controller);
+  const DotsIndicator({super.key, required this.controller, required this.itemCount}) : super(listenable: controller);
 
   @override
   Widget build(BuildContext context) {
+    ColorScheme colorScheme = Theme.of(context).colorScheme;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(itemCount, (index) {
         return Container(
-          width: 10.0,
-          height: 10.0,
-          margin: EdgeInsets.symmetric(horizontal: 8.0),
+          width: 20.0,
+          height: 20.0,
+          margin: const EdgeInsets.symmetric(horizontal: 8.0),
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: controller.page == index ? Colors.blue : Colors.grey,
+            color: controller.page == index ? colorScheme.primary : colorScheme.secondary,
           ),
         );
       }),
