@@ -85,7 +85,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.of(context).pushReplacementNamed('/home');
+                    Navigator.of(context).pushReplacementNamed('/login');
                   },
                 ),
                 ElevatedButton(
@@ -98,7 +98,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                   onPressed: () {
                     if (_isLastPage) {
-                      Navigator.of(context).pushReplacementNamed('/home');
+                      Navigator.of(context).pushReplacementNamed('/login');
                     } else {
                       _pageController.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
                     }
@@ -132,9 +132,12 @@ class OnboardingPage extends StatelessWidget {
             width: 400,
             height: 400,
           ),
-          Text(title, style: const TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold)),
+          Text(title, style: Theme.of(context).textTheme.displaySmall),
           const SizedBox(height: 16.0),
-          Text(description, textAlign: TextAlign.center, style: const TextStyle(fontSize: 16.0)),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24.0),
+            child: Text(description, style: Theme.of(context).textTheme.bodyLarge, textAlign: TextAlign.center),
+          ),
         ],
       ),
     );
