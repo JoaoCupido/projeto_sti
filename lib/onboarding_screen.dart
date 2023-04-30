@@ -160,7 +160,7 @@ class DotsIndicator extends AnimatedWidget {
           margin: const EdgeInsets.symmetric(horizontal: 8.0),
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: controller.page == index ? colorScheme.primary : colorScheme.secondary,
+            color: (controller.page?.round() ?? 0) == index ? colorScheme.primary : colorScheme.secondary,
           ),
         );
       }),
