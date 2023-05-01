@@ -1,20 +1,215 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class AccountSessionScreen extends StatefulWidget {
+  const AccountSessionScreen({Key? key}) : super(key: key);
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _AccountSessionScreenState createState() => _AccountSessionScreenState();
 }
 
-class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixin {
+class _AccountSessionScreenState extends State<AccountSessionScreen> with SingleTickerProviderStateMixin {
   late TabController _tabController;
-
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-
+  bool _obscureText = true;
   bool _rememberMe = false;
+  bool _agreeToTerms = false;
+
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _usernameController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  TextEditingController _confirmPasswordController = TextEditingController();
+  TextEditingController _birthdayController = TextEditingController();
+
+  DateTime _selectedDate = DateTime.now();
+
+  bool _validateForm() {
+    final email = _emailController.text.trim();
+    final username = _usernameController.text.trim();
+    final password = _passwordController.text.trim();
+    final confirmPassword = _confirmPasswordController.text.trim();
+
+    final RegExp emailRegex = RegExp(
+      r'^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+',
+    );
+    final RegExp usernameRegex = RegExp(r'^[a-zA-Z0-9]+$');
+    final RegExp passwordRegex = RegExp(r'^\S+$');
+
+    if (email.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text('O campo "Email" é obrigatório!'),
+        backgroundColor: Theme.of(context).colorScheme.error,
+      ));
+      return false;
+    } else if (!emailRegex.hasMatch(email)) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text('Por favor, digite um email válido!'),
+        backgroundColor: Theme.of(context).colorScheme.error,
+      ));
+      return false;
+    }
+
+    if (username.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text('O campo "Nome do utilizador" é obrigatório!'),
+        backgroundColor: Theme.of(context).colorScheme.error,
+      ));
+      return false;
+    } else if (!usernameRegex.hasMatch(username)) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text(
+            'Por favor, digite um nome de usuário válido (apenas letras e números)!'),
+        backgroundColor: Theme.of(context).colorScheme.error,
+      ));
+      return false;
+    }
+
+    if (password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text('O campo "Senha" é obrigatório!'),
+        backgroundColor: Theme.of(context).colorScheme.error,
+      ));
+      return false;
+    } else if (!passwordRegex.hasMatch(password)) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text('A senha não pode conter espaços em branco!'),
+        backgroundColor: Theme.of(context).colorScheme.error,
+      ));
+      return false;
+    }
+
+    if (confirmPassword.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text('O campo "Confirmar senha" é obrigatório!'),
+        backgroundColor: Theme.of(context).colorScheme.error,
+      ));
+      return false;
+    } else if (password != confirmPassword) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text('As senhas não coincidem!'),
+        backgroundColor: Theme.of(context).colorScheme.error,
+      ));
+      return false;
+    }
+
+    if (!_agreeToTerms) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text('Você precisa concordar com os Termos & Condições!'),
+        backgroundColor: Theme.of(context).colorScheme.error,
+      ));
+      return false;
+    }
+
+    if (_selectedDate == null) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text('Por favor, selecione uma data de nascimento válida!'),
+        backgroundColor: Theme.of(context).colorScheme.error,
+      ));
+      return false;
+    }
+
+    // The validation was successful
+    return true;
+  }
+
+  List<int> _daysInMonth(int year, int month) {
+    var days = 31;
+    if ([4, 6, 9, 11].contains(month)) {
+      days = 30;
+    } else if (month == 2) {
+      if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) {
+        days = 29;
+      } else {
+        days = 28;
+      }
+    }
+    return List.generate(days, (index) => index + 1);
+  }
+
+  List<int> _years() {
+    var currentYear = DateTime.now().year;
+    return List.generate(100, (index) => currentYear - index);
+  }
+
+  List<int> _months() {
+    return List.generate(12, (index) => index + 1);
+  }
+
+  Widget _buildDropdownButton(
+      String label,
+      List<dynamic> items,
+      dynamic value,
+      ValueChanged<dynamic> onChanged,
+      ) {
+    return Expanded(
+      child: DropdownButtonFormField(
+        decoration: InputDecoration(
+          labelText: label,
+          labelStyle: Theme.of(context).textTheme.bodyMedium,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(4.0),
+            borderSide: BorderSide(
+              color: Theme.of(context).colorScheme.outlineVariant,
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(4.0),
+            borderSide: BorderSide(
+              color: Theme.of(context).colorScheme.outlineVariant,
+            ),
+          ),
+          filled: true,
+          fillColor: Theme.of(context).colorScheme.surface,
+        ),
+        value: value,
+        items: items
+            .map((item) => DropdownMenuItem(
+          value: item,
+          child: Text(item.toString()),
+        ))
+            .toList(),
+        onChanged: onChanged,
+      ),
+    );
+  }
+
+  Widget _buildDateInput(BuildContext context) {
+    return Row(
+      children: [
+        _buildDropdownButton(
+          'Dia',
+          _daysInMonth(_selectedDate.year, _selectedDate.month),
+          _selectedDate.day,
+              (value) {
+            setState(() {
+              _selectedDate = DateTime(_selectedDate.year, _selectedDate.month, value);
+            });
+          },
+        ),
+        const SizedBox(width: 10),
+        _buildDropdownButton(
+          'Mês',
+          _months(),
+          _months()[_selectedDate.month - 1],
+              (value) {
+            setState(() {
+              _selectedDate = DateTime(_selectedDate.year, _months().indexOf(value) + 1, _selectedDate.day);
+            });
+          },
+        ),
+        const SizedBox(width: 10),
+        _buildDropdownButton(
+          'Ano',
+          _years(),
+          _selectedDate.year,
+              (value) {
+            setState(() {
+              _selectedDate = DateTime(value, _selectedDate.month, _selectedDate.day);
+            });
+          },
+        ),
+      ],
+    );
+  }
 
   @override
   void initState() {
@@ -24,9 +219,11 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
 
   @override
   void dispose() {
-    _tabController.dispose();
     _emailController.dispose();
+    _usernameController.dispose();
     _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    _birthdayController.dispose();
     super.dispose();
   }
 
@@ -34,104 +231,355 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      body: SingleChildScrollView(
-        child: Column(
-          //crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 24.0),
-              child: ColoredBox(
-                color: Theme.of(context).colorScheme.surface,
-                child: TabBar(
-                  controller: _tabController,
-                  tabs: const [
-                    Tab(text: 'Login'),
-                    Tab(text: 'Criar conta'),
-                  ],
-                  indicatorColor: Theme.of(context).colorScheme.primary,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Image.asset('assets/images/login.png'),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 16.0),
-                  Text('Email', style: Theme.of(context).textTheme.labelLarge),
-                  const SizedBox(height: 8.0),
-                  TextField(
-                    controller: _emailController,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                  const SizedBox(height: 16.0),
-                  Text('Password', style: Theme.of(context).textTheme.labelLarge),
-                  const SizedBox(height: 8.0),
-                  TextField(
-                    controller: _passwordController,
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                  const SizedBox(height: 16.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      appBar: AppBar(
+        //title: Text('Sessão de conta', style: Theme.of(context).textTheme.labelLarge),
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        bottom: TabBar(
+          controller: _tabController,
+          indicatorColor: Theme.of(context).colorScheme.primary,
+          labelColor: Theme.of(context).colorScheme.primary,
+          unselectedLabelColor: Theme.of(context).colorScheme.onSurface,
+          tabs: const [
+            Tab(text: 'Login'),
+            Tab(text: 'Criar conta'),
+          ],
+        ),
+      ),
+      body: TabBarView(
+        controller: _tabController,
+        children: [
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                SvgPicture.asset('assets/images/login.svg', width: 300, height: 300),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
                     children: [
-                      Row(
-                        children: [
-                          Checkbox(
-                            value: _rememberMe,
-                            onChanged: (value) {
+                      TextField(
+                        controller: _emailController,
+                        decoration: InputDecoration(
+                          labelText: 'Email',
+                          labelStyle: Theme.of(context).textTheme.bodyMedium,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4.0),
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.outlineVariant,
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4.0),
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.outlineVariant,
+                            ),
+                          ),
+                          filled: true,
+                          fillColor: Theme.of(context).colorScheme.surface,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      TextField(
+                        controller: _passwordController,
+                        decoration: InputDecoration(
+                          labelText: 'Senha',
+                          labelStyle: Theme.of(context).textTheme.bodyMedium,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4.0),
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.outlineVariant,
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4.0),
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.outlineVariant,
+                            ),
+                          ),
+                          filled: true,
+                          fillColor: Theme.of(context).colorScheme.surface,
+                          suffixIcon: IconButton(
+                            icon: Icon(_obscureText ? Icons.visibility_off : Icons.visibility),
+                            onPressed: () {
                               setState(() {
-                                _rememberMe = value ?? false;
+                                _obscureText = !_obscureText;
                               });
                             },
                           ),
-                          Text('Remember me', style: Theme.of(context).textTheme.bodyText1),
+                        ),
+                        obscureText: _obscureText,
+                      ),
+                      const SizedBox(height: 5),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Checkbox(
+                                value: _rememberMe,
+                                onChanged: (value) {
+                                  setState(() {
+                                    _rememberMe = value!;
+                                  });
+                                },
+                                activeColor: Theme.of(context).colorScheme.primary,
+                              ),
+                              Text('Lembrar-me', style: Theme.of(context).textTheme.bodyMedium),
+                            ],
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              // implementar função
+                            },
+                            child: Text(
+                              'Esqueceu da senha?',
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.primary,
+                                decoration: TextDecoration.underline,
+                              ),
+                            ),
+                          ),
                         ],
                       ),
-                      TextButton(
-                        onPressed: () {
-                          // TODO: Implement forgot password functionality
-                        },
-                        child: Text('Forgot password?', style: Theme.of(context).textTheme.bodyText1),
+                      const SizedBox(height: 20),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: OutlinedButton(
+                              onPressed: () {
+                                // implement function
+                              },
+                              style: OutlinedButton.styleFrom(
+                                side: BorderSide(
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                                backgroundColor: Theme.of(context).colorScheme.surface,
+                              ),
+                              child: const Text('Entrar sem sessão'),
+                            ),
+                          ),
+                          const SizedBox(width: 20),
+                          Expanded(
+                            child: ElevatedButton(
+                              onPressed: () {
+                                // implementar função
+                              },
+                              child: const Text('Login'),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                  const SizedBox(height: 32.0),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: OutlinedButton(
-                          onPressed: () {
-                            // TODO: Implement go back functionality
-                          },
-                          child: const Text('Go back'),
-                        ),
-                      ),
-                      const SizedBox(width: 16.0),
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {
-                            // TODO: Implement login functionality
-                          },
-                          child: const Text('Submit Login'),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 60),
+                      TextField(
+                        controller: _emailController,
+                        decoration: InputDecoration(
+                          labelText: 'Email',
+                          labelStyle: Theme.of(context).textTheme.bodyMedium,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4.0),
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.outlineVariant,
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4.0),
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.outlineVariant,
+                            ),
+                          ),
+                          filled: true,
+                          fillColor: Theme.of(context).colorScheme.surface,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      TextField(
+                        controller: _usernameController,
+                        decoration: InputDecoration(
+                          labelText: 'Nome do utilizador',
+                          labelStyle: Theme.of(context).textTheme.bodyMedium,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4.0),
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.outlineVariant,
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4.0),
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.outlineVariant,
+                            ),
+                          ),
+                          filled: true,
+                          fillColor: Theme.of(context).colorScheme.surface,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      TextField(
+                        controller: _passwordController,
+                        decoration: InputDecoration(
+                          labelText: 'Senha',
+                          labelStyle: Theme.of(context).textTheme.bodyMedium,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4.0),
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.outlineVariant,
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4.0),
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.outlineVariant,
+                            ),
+                          ),
+                          filled: true,
+                          fillColor: Theme.of(context).colorScheme.surface,
+                          suffixIcon: IconButton(
+                            icon: Icon(_obscureText ? Icons.visibility_off : Icons.visibility),
+                            onPressed: () {
+                              setState(() {
+                                _obscureText = !_obscureText;
+                              });
+                            },
+                          ),
+                        ),
+                        obscureText: _obscureText,
+                      ),
+                      const SizedBox(height: 20),
+                      TextField(
+                        controller: _confirmPasswordController,
+                        decoration: InputDecoration(
+                          labelText: 'Confirmar senha',
+                          labelStyle: Theme.of(context).textTheme.bodyMedium,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4.0),
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.outlineVariant,
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4.0),
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.outlineVariant,
+                            ),
+                          ),
+                          filled: true,
+                          fillColor: Theme.of(context).colorScheme.surface,
+                        ),
+                        obscureText: _obscureText,
+                      ),
+                      const SizedBox(height: 10),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 6.0),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Data de nascimento',
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      _buildDateInput(context),
+                      const SizedBox(height: 20),
+                      Row(
+                        children: [
+                          Checkbox(
+                            value: _agreeToTerms,
+                            onChanged: (value) {
+                              setState(() {
+                                _agreeToTerms = value!;
+                              });
+                            },
+                            activeColor: Theme.of(context).colorScheme.primary,
+                          ),
+                          Text.rich(
+                            TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: 'Concordo com os ',
+                                  style: Theme.of(context).textTheme.bodyMedium,
+                                ),
+                                TextSpan(
+                                  text: 'Termos & Condições',
+                                  style: TextStyle(
+                                    color: Theme.of(context).colorScheme.primary, // Altera a cor do texto
+                                    decoration: TextDecoration.underline, // Insere sublinhado
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: OutlinedButton(
+                              onPressed: () {
+                                // implement function
+                              },
+                              style: OutlinedButton.styleFrom(
+                                side: BorderSide(
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                                backgroundColor: Theme.of(context).colorScheme.surface,
+                              ),
+                              child: const Text('Entrar sem sessão'),
+                            ),
+                          ),
+                          const SizedBox(width: 20),
+                          Expanded(
+                            child: ElevatedButton(
+                              onPressed: () {
+                                if (_validateForm()) {
+                                  // implementar função de criar conta - backend
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => Center(
+                                      child: AlertDialog(
+                                        title: const Text('Sucesso!'),
+                                        content: const Text('A sua conta foi criada com sucesso.'),
+                                        actions: [
+                                          Center(
+                                            child: ElevatedButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                                _tabController.animateTo(0);
+                                              },
+                                              child: const Text('Continuar'),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                }
+                              },
+                              child: const Text('Criar conta'),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),// implementar tela de criar conta
+        ],
       ),
     );
   }

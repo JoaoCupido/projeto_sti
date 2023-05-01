@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           title: 'PetSupply',
           routes: {
-            '/login': (context) => const LoginPage(),
+            '/login': (context) => const AccountSessionScreen(),
           },
           theme: ThemeData(
             colorScheme: const ColorScheme(
@@ -35,6 +35,8 @@ class MyApp extends StatelessWidget {
               onSurface: Color(0xFF111111),
               onBackground: Color(0xFF111111),
               onError: Colors.white,
+              outline: Color(0xFF111111),
+              outlineVariant: Color(0xFFAAAAAA),
               brightness: Brightness.light, // Set the theme brightness to light
             ),
             textTheme: const TextTheme(
@@ -45,14 +47,15 @@ class MyApp extends StatelessWidget {
               bodyLarge: TextStyle(
                 color: Color(0xFF767676),
               ),
+              bodyMedium: TextStyle(
+                color: Color(0xFF767676),
+              ),
               labelLarge: TextStyle(
                 color: Color(0xFF767676),
               ),
-            ),
-            tabBarTheme: const TabBarTheme(
-              labelColor: Color(0xFFF28A0C),
-              unselectedLabelColor: Color(0xFF111111),
-              //indicatorSize: TabBarIndicatorSize.tab,
+              labelMedium: TextStyle(
+                color: Color(0xFF111111),
+              ),
             ),
           ),
           home: OnboardingScreen(), // Set OnboardingScreen as the home screen
