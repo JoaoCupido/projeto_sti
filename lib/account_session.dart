@@ -13,6 +13,7 @@ class _AccountSessionScreenState extends State<AccountSessionScreen> with Single
   bool _obscureText = true;
   bool _rememberMe = false;
   bool _agreeToTerms = false;
+  bool _isLoading = false;
 
   TextEditingController _emailController = TextEditingController();
   TextEditingController _usernameController = TextEditingController();
@@ -22,7 +23,47 @@ class _AccountSessionScreenState extends State<AccountSessionScreen> with Single
 
   DateTime _selectedDate = DateTime.now();
 
-  bool _validateForm() {
+  bool _validateLoginForm() {
+    final email = _emailController.text.trim();
+    final password = _passwordController.text.trim();
+
+    final RegExp emailRegex = RegExp(
+      r'^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+',
+    );
+    final RegExp passwordRegex = RegExp(r'^\S+$');
+
+    if (email.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text('O campo "Email" é obrigatório!'),
+        backgroundColor: Theme.of(context).colorScheme.error,
+      ));
+      return false;
+    } else if (!emailRegex.hasMatch(email)) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text('Por favor, digite um email válido!'),
+        backgroundColor: Theme.of(context).colorScheme.error,
+      ));
+      return false;
+    }
+
+    if (password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text('O campo "Senha" é obrigatório!'),
+        backgroundColor: Theme.of(context).colorScheme.error,
+      ));
+      return false;
+    } else if (!passwordRegex.hasMatch(password)) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text('A senha não pode conter espaços em branco!'),
+        backgroundColor: Theme.of(context).colorScheme.error,
+      ));
+      return false;
+    }
+
+    return true;
+  }
+
+  bool _validateCreateAccountForm() {
     final email = _emailController.text.trim();
     final username = _usernameController.text.trim();
     final password = _passwordController.text.trim();
@@ -365,10 +406,35 @@ class _AccountSessionScreenState extends State<AccountSessionScreen> with Single
                           const SizedBox(width: 20),
                           Expanded(
                             child: ElevatedButton(
-                              onPressed: () {
-                                // implementar função
+                              onPressed: () async {
+                                if (_validateLoginForm()) {
+                                  setState(() {
+                                    _isLoading = true;
+                                  });
+
+                                  // implement login function here
+                                  await Future.delayed(const Duration(seconds: 2)); // simulating login delay
+
+                                  // Navigate to the new route after the loading spinner is done
+                                  // TODO: Mudar routing para pagina principal
+                                  Navigator.of(context).pushReplacementNamed('/tutorial');
+
+                                  setState(() {
+                                    _isLoading = false;
+                                  });
+                                }
                               },
-                              child: const Text('Login'),
+                              child: _isLoading
+                                  ? SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                      Theme.of(context).colorScheme.onPrimary),
+                                ),
+                              )
+                                  : const Text('Login'),
                             ),
                           ),
                         ],
@@ -486,7 +552,7 @@ class _AccountSessionScreenState extends State<AccountSessionScreen> with Single
                       ),
                       const SizedBox(height: 10),
                       Padding(
-                        padding: const EdgeInsets.only(left: 6.0),
+                        padding: const EdgeInsets.only(left: 12.0),
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
@@ -549,7 +615,7 @@ class _AccountSessionScreenState extends State<AccountSessionScreen> with Single
                           Expanded(
                             child: ElevatedButton(
                               onPressed: () {
-                                if (_validateForm()) {
+                                if (_validateCreateAccountForm()) {
                                   // implementar função de criar conta - backend
                                   showDialog(
                                     context: context,

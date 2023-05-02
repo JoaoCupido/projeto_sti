@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           title: 'PetSupply',
           routes: {
+            '/tutorial': (context) => const OnboardingScreen(),
             '/login': (context) => const AccountSessionScreen(),
           },
           theme: ThemeData(
