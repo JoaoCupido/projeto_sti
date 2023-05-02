@@ -146,6 +146,18 @@ class _AccountSessionScreenState extends State<AccountSessionScreen> with Single
         backgroundColor: Theme.of(context).colorScheme.error,
       ));
       return false;
+    } else if (_selectedDate.isAfter(DateTime.now())) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text('A data de nascimento não pode ser posterior à data atual!'),
+        backgroundColor: Theme.of(context).colorScheme.error,
+      ));
+      return false;
+    } else if (_selectedDate.isAfter((DateTime.now()).subtract(const Duration(days: 365*18)))) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text('Por motivos legais, você precisa de ter pelo menos 18 anos para realizar esta ação!'),
+        backgroundColor: Theme.of(context).colorScheme.error,
+      ));
+      return false;
     }
 
     // The validation was successful
@@ -168,7 +180,7 @@ class _AccountSessionScreenState extends State<AccountSessionScreen> with Single
 
   List<int> _years() {
     var currentYear = DateTime.now().year;
-    return List.generate(100, (index) => currentYear - index);
+    return List.generate(120, (index) => currentYear - index);
   }
 
   List<int> _months() {
