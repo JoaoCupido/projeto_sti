@@ -232,7 +232,12 @@ class _AccountSessionScreenState extends State<AccountSessionScreen> with Single
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        //title: Text('Sessão de conta', style: Theme.of(context).textTheme.labelLarge),
+        centerTitle: true,
+        title: SvgPicture.asset(
+          'assets/images/logo.svg',
+          width: 20,
+          height: 20,
+        ),
         backgroundColor: Theme.of(context).colorScheme.surface,
         bottom: TabBar(
           controller: _tabController,
