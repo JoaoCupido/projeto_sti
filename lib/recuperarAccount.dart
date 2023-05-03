@@ -23,10 +23,11 @@ class _RecuperarAccountState extends State<RecuperarAccount> {
         Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   'Recuperação de Senha\n',
-                  style: Theme.of(context).textTheme.bodyLarge,
+                  style: Theme.of(context).textTheme.displayMedium,
                 ),
                 Text(
                   'Insere o seu email associado à sua conta.\n\n'
@@ -54,27 +55,37 @@ class _RecuperarAccountState extends State<RecuperarAccount> {
                     fillColor: Theme.of(context).colorScheme.surface,
                   ),
                 ),
-                const SizedBox(height: 10),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    OutlinedButton(
-                      onPressed: () {
-                        // implement function
-                      },
-                      style: OutlinedButton.styleFrom(
-                        side: BorderSide(
-                          color: Theme.of(context).colorScheme.primary,
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 80, 0, 0),
+                      child: OutlinedButton(
+                        onPressed: () {
+                          // implement function
+                        },
+                        style: OutlinedButton.styleFrom(
+                          side: BorderSide(
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                          backgroundColor:
+                              Theme.of(context).colorScheme.surface,
+                          padding: EdgeInsets.fromLTRB(50, 25, 50, 25),
                         ),
-                        backgroundColor: Theme.of(context).colorScheme.surface,
+                        child: const Text('Voltar'),
                       ),
-                      child: const Text('Entrar sem sessão'),
                     ),
-                    const SizedBox(width: 65),
-                    ElevatedButton(
-                      onPressed: () {
-                        // implement function
-                      },
-                      child: const Text('Entrar sem sessão2'),
+                    const SizedBox(width: 0),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 80, 0, 0),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.fromLTRB(50, 25, 50, 25)),
+                        onPressed: () {
+                          // implement function
+                        },
+                        child: const Text('Enviar'),
+                      ),
                     ),
                   ],
                 )
