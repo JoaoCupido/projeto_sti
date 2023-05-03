@@ -49,6 +49,7 @@ class MyApp extends StatelessWidget {
               ),
               bodyLarge: TextStyle(
                 color: Color(0xFF767676),
+                fontWeight: FontWeight.bold,
               ),
               bodyMedium: TextStyle(
                 color: Color(0xFF767676),
