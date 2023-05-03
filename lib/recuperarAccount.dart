@@ -14,7 +14,7 @@ class _RecuperarAccountState extends State<RecuperarAccount> {
     return Scaffold(
       body: Column(children: [
         SvgPicture.asset(
-          'assets/images/locker.svg',
+          'assets/images/292-cadeado.svg',
           width: 200,
           height: 200,
         ),
