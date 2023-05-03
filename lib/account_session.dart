@@ -8,7 +8,8 @@ class AccountSessionScreen extends StatefulWidget {
   _AccountSessionScreenState createState() => _AccountSessionScreenState();
 }
 
-class _AccountSessionScreenState extends State<AccountSessionScreen> with SingleTickerProviderStateMixin {
+class _AccountSessionScreenState extends State<AccountSessionScreen>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
   bool _obscureText = true;
   bool _rememberMe = false;
@@ -134,7 +135,8 @@ class _AccountSessionScreenState extends State<AccountSessionScreen> with Single
 
     if (!_agreeToTerms) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: const Text('Você precisa concordar com os Termos & Condições!'),
+        content:
+            const Text('Você precisa concordar com os Termos & Condições!'),
         backgroundColor: Theme.of(context).colorScheme.error,
       ));
       return false;
@@ -142,19 +144,23 @@ class _AccountSessionScreenState extends State<AccountSessionScreen> with Single
 
     if (_selectedDate == null) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: const Text('Por favor, selecione uma data de nascimento válida!'),
+        content:
+            const Text('Por favor, selecione uma data de nascimento válida!'),
         backgroundColor: Theme.of(context).colorScheme.error,
       ));
       return false;
     } else if (_selectedDate.isAfter(DateTime.now())) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: const Text('A data de nascimento não pode ser posterior à data atual!'),
+        content: const Text(
+            'A data de nascimento não pode ser posterior à data atual!'),
         backgroundColor: Theme.of(context).colorScheme.error,
       ));
       return false;
-    } else if (_selectedDate.isAfter((DateTime.now()).subtract(const Duration(days: 365*18)))) {
+    } else if (_selectedDate
+        .isAfter((DateTime.now()).subtract(const Duration(days: 365 * 18)))) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: const Text('Por motivos legais, você precisa de ter pelo menos 18 anos para realizar esta ação!'),
+        content: const Text(
+            'Por motivos legais, você precisa de ter pelo menos 18 anos para realizar esta ação!'),
         backgroundColor: Theme.of(context).colorScheme.error,
       ));
       return false;
@@ -188,11 +194,11 @@ class _AccountSessionScreenState extends State<AccountSessionScreen> with Single
   }
 
   Widget _buildDropdownButton(
-      String label,
-      List<dynamic> items,
-      dynamic value,
-      ValueChanged<dynamic> onChanged,
-      ) {
+    String label,
+    List<dynamic> items,
+    dynamic value,
+    ValueChanged<dynamic> onChanged,
+  ) {
     return Expanded(
       child: DropdownButtonFormField(
         decoration: InputDecoration(
@@ -216,9 +222,9 @@ class _AccountSessionScreenState extends State<AccountSessionScreen> with Single
         value: value,
         items: items
             .map((item) => DropdownMenuItem(
-          value: item,
-          child: Text(item.toString()),
-        ))
+                  value: item,
+                  child: Text(item.toString()),
+                ))
             .toList(),
         onChanged: onChanged,
       ),
@@ -232,9 +238,10 @@ class _AccountSessionScreenState extends State<AccountSessionScreen> with Single
           'Dia',
           _daysInMonth(_selectedDate.year, _selectedDate.month),
           _selectedDate.day,
-              (value) {
+          (value) {
             setState(() {
-              _selectedDate = DateTime(_selectedDate.year, _selectedDate.month, value);
+              _selectedDate =
+                  DateTime(_selectedDate.year, _selectedDate.month, value);
             });
           },
         ),
@@ -243,9 +250,10 @@ class _AccountSessionScreenState extends State<AccountSessionScreen> with Single
           'Mês',
           _months(),
           _months()[_selectedDate.month - 1],
-              (value) {
+          (value) {
             setState(() {
-              _selectedDate = DateTime(_selectedDate.year, _months().indexOf(value) + 1, _selectedDate.day);
+              _selectedDate = DateTime(_selectedDate.year,
+                  _months().indexOf(value) + 1, _selectedDate.day);
             });
           },
         ),
@@ -254,9 +262,10 @@ class _AccountSessionScreenState extends State<AccountSessionScreen> with Single
           'Ano',
           _years(),
           _selectedDate.year,
-              (value) {
+          (value) {
             setState(() {
-              _selectedDate = DateTime(value, _selectedDate.month, _selectedDate.day);
+              _selectedDate =
+                  DateTime(value, _selectedDate.month, _selectedDate.day);
             });
           },
         ),
@@ -309,7 +318,8 @@ class _AccountSessionScreenState extends State<AccountSessionScreen> with Single
           SingleChildScrollView(
             child: Column(
               children: [
-                SvgPicture.asset('assets/images/login.svg', width: 300, height: 300),
+                SvgPicture.asset('assets/images/login.svg',
+                    width: 300, height: 300),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
@@ -322,13 +332,15 @@ class _AccountSessionScreenState extends State<AccountSessionScreen> with Single
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(4.0),
                             borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.outlineVariant,
+                              color:
+                                  Theme.of(context).colorScheme.outlineVariant,
                             ),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(4.0),
                             borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.outlineVariant,
+                              color:
+                                  Theme.of(context).colorScheme.outlineVariant,
                             ),
                           ),
                           filled: true,
@@ -344,19 +356,23 @@ class _AccountSessionScreenState extends State<AccountSessionScreen> with Single
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(4.0),
                             borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.outlineVariant,
+                              color:
+                                  Theme.of(context).colorScheme.outlineVariant,
                             ),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(4.0),
                             borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.outlineVariant,
+                              color:
+                                  Theme.of(context).colorScheme.outlineVariant,
                             ),
                           ),
                           filled: true,
                           fillColor: Theme.of(context).colorScheme.surface,
                           suffixIcon: IconButton(
-                            icon: Icon(_obscureText ? Icons.visibility_off : Icons.visibility),
+                            icon: Icon(_obscureText
+                                ? Icons.visibility_off
+                                : Icons.visibility),
                             onPressed: () {
                               setState(() {
                                 _obscureText = !_obscureText;
@@ -379,15 +395,20 @@ class _AccountSessionScreenState extends State<AccountSessionScreen> with Single
                                     _rememberMe = value!;
                                   });
                                 },
-                                activeColor: Theme.of(context).colorScheme.primary,
+                                activeColor:
+                                    Theme.of(context).colorScheme.primary,
                               ),
-                              Text('Lembrar-me', style: Theme.of(context).textTheme.bodyMedium),
+                              Text('Lembrar-me',
+                                  style:
+                                      Theme.of(context).textTheme.bodyMedium),
                             ],
                           ),
-                          GestureDetector(
-                            onTap: () {
-                              // implementar função
-                            },
+                          TextButton(
+                            style: ButtonStyle(
+                              foregroundColor:
+                                  MaterialStateProperty.all<Color>(Colors.blue),
+                            ),
+                            onPressed: () {},
                             child: Text(
                               'Esqueceu da senha?',
                               style: TextStyle(
@@ -395,7 +416,7 @@ class _AccountSessionScreenState extends State<AccountSessionScreen> with Single
                                 decoration: TextDecoration.underline,
                               ),
                             ),
-                          ),
+                          )
                         ],
                       ),
                       const SizedBox(height: 20),
@@ -410,7 +431,8 @@ class _AccountSessionScreenState extends State<AccountSessionScreen> with Single
                                 side: BorderSide(
                                   color: Theme.of(context).colorScheme.primary,
                                 ),
-                                backgroundColor: Theme.of(context).colorScheme.surface,
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.surface,
                               ),
                               child: const Text('Entrar sem sessão'),
                             ),
@@ -425,11 +447,13 @@ class _AccountSessionScreenState extends State<AccountSessionScreen> with Single
                                   });
 
                                   // implement login function here
-                                  await Future.delayed(const Duration(seconds: 2)); // simulating login delay
+                                  await Future.delayed(const Duration(
+                                      seconds: 2)); // simulating login delay
 
                                   // Navigate to the new route after the loading spinner is done
                                   // TODO: Mudar routing para pagina principal
-                                  Navigator.of(context).pushReplacementNamed('/tutorial');
+                                  Navigator.of(context)
+                                      .pushReplacementNamed('/tutorial');
 
                                   setState(() {
                                     _isLoading = false;
@@ -438,14 +462,17 @@ class _AccountSessionScreenState extends State<AccountSessionScreen> with Single
                               },
                               child: _isLoading
                                   ? SizedBox(
-                                height: 20,
-                                width: 20,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                      Theme.of(context).colorScheme.onPrimary),
-                                ),
-                              )
+                                      height: 20,
+                                      width: 20,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                                Theme.of(context)
+                                                    .colorScheme
+                                                    .onPrimary),
+                                      ),
+                                    )
                                   : const Text('Login'),
                             ),
                           ),
@@ -473,13 +500,15 @@ class _AccountSessionScreenState extends State<AccountSessionScreen> with Single
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(4.0),
                             borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.outlineVariant,
+                              color:
+                                  Theme.of(context).colorScheme.outlineVariant,
                             ),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(4.0),
                             borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.outlineVariant,
+                              color:
+                                  Theme.of(context).colorScheme.outlineVariant,
                             ),
                           ),
                           filled: true,
@@ -495,13 +524,15 @@ class _AccountSessionScreenState extends State<AccountSessionScreen> with Single
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(4.0),
                             borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.outlineVariant,
+                              color:
+                                  Theme.of(context).colorScheme.outlineVariant,
                             ),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(4.0),
                             borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.outlineVariant,
+                              color:
+                                  Theme.of(context).colorScheme.outlineVariant,
                             ),
                           ),
                           filled: true,
@@ -517,19 +548,23 @@ class _AccountSessionScreenState extends State<AccountSessionScreen> with Single
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(4.0),
                             borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.outlineVariant,
+                              color:
+                                  Theme.of(context).colorScheme.outlineVariant,
                             ),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(4.0),
                             borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.outlineVariant,
+                              color:
+                                  Theme.of(context).colorScheme.outlineVariant,
                             ),
                           ),
                           filled: true,
                           fillColor: Theme.of(context).colorScheme.surface,
                           suffixIcon: IconButton(
-                            icon: Icon(_obscureText ? Icons.visibility_off : Icons.visibility),
+                            icon: Icon(_obscureText
+                                ? Icons.visibility_off
+                                : Icons.visibility),
                             onPressed: () {
                               setState(() {
                                 _obscureText = !_obscureText;
@@ -548,13 +583,15 @@ class _AccountSessionScreenState extends State<AccountSessionScreen> with Single
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(4.0),
                             borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.outlineVariant,
+                              color:
+                                  Theme.of(context).colorScheme.outlineVariant,
                             ),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(4.0),
                             borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.outlineVariant,
+                              color:
+                                  Theme.of(context).colorScheme.outlineVariant,
                             ),
                           ),
                           filled: true,
@@ -597,8 +634,11 @@ class _AccountSessionScreenState extends State<AccountSessionScreen> with Single
                                 TextSpan(
                                   text: 'Termos & Condições',
                                   style: TextStyle(
-                                    color: Theme.of(context).colorScheme.primary, // Altera a cor do texto
-                                    decoration: TextDecoration.underline, // Insere sublinhado
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .primary, // Altera a cor do texto
+                                    decoration: TextDecoration
+                                        .underline, // Insere sublinhado
                                   ),
                                 ),
                               ],
@@ -618,7 +658,8 @@ class _AccountSessionScreenState extends State<AccountSessionScreen> with Single
                                 side: BorderSide(
                                   color: Theme.of(context).colorScheme.primary,
                                 ),
-                                backgroundColor: Theme.of(context).colorScheme.surface,
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.surface,
                               ),
                               child: const Text('Entrar sem sessão'),
                             ),
@@ -634,7 +675,8 @@ class _AccountSessionScreenState extends State<AccountSessionScreen> with Single
                                     builder: (context) => Center(
                                       child: AlertDialog(
                                         title: const Text('Sucesso!'),
-                                        content: const Text('A sua conta foi criada com sucesso.'),
+                                        content: const Text(
+                                            'A sua conta foi criada com sucesso.'),
                                         actions: [
                                           Center(
                                             child: ElevatedButton(
@@ -661,7 +703,7 @@ class _AccountSessionScreenState extends State<AccountSessionScreen> with Single
                 ),
               ],
             ),
-          ),// implementar tela de criar conta
+          ), // implementar tela de criar conta
         ],
       ),
     );

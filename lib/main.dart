@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:projeto_sti/onboarding_screen.dart';
 import 'package:projeto_sti/account_session.dart';
+import 'package:projeto_sti/recuperarAccount.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
           routes: {
             '/tutorial': (context) => const OnboardingScreen(),
             '/login': (context) => const AccountSessionScreen(),
+            '/recuperarAccount': (context) => const RecuperarAccount(),
           },
           theme: ThemeData(
             colorScheme: const ColorScheme(
