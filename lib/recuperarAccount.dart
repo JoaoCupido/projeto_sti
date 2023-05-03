@@ -11,6 +11,14 @@ class RecuperarAccount extends StatefulWidget {
 class _RecuperarAccountState extends State<RecuperarAccount> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: Column(children: [
+        SvgPicture.asset(
+          'assets/images/locker.svg',
+          width: 200,
+          height: 200,
+        ),
+      ]),
+    );
   }
 }

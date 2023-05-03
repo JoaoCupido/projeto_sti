@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:projeto_sti/recuperarAccount.dart';
 
 class AccountSessionScreen extends StatefulWidget {
   const AccountSessionScreen({Key? key}) : super(key: key);
@@ -408,7 +409,13 @@ class _AccountSessionScreenState extends State<AccountSessionScreen>
                               foregroundColor:
                                   MaterialStateProperty.all<Color>(Colors.blue),
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const RecuperarAccount()));
+                            },
                             child: Text(
                               'Esqueceu da senha?',
                               style: TextStyle(
