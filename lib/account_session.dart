@@ -74,7 +74,7 @@ class _AccountSessionScreenState extends State<AccountSessionScreen>
     final RegExp emailRegex = RegExp(
       r'^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+',
     );
-    final RegExp usernameRegex = RegExp(r'^[a-zA-Z0-9]+$');
+    final RegExp usernameRegex = RegExp(r'^[\w\s]+$');
     final RegExp passwordRegex = RegExp(r'^\S+$');
 
     if (email.isEmpty) {
@@ -433,6 +433,8 @@ class _AccountSessionScreenState extends State<AccountSessionScreen>
                             child: OutlinedButton(
                               onPressed: () {
                                 // implement function
+                                Navigator.of(context)
+                                    .pushReplacementNamed('/home');
                               },
                               style: OutlinedButton.styleFrom(
                                 side: BorderSide(
@@ -458,9 +460,8 @@ class _AccountSessionScreenState extends State<AccountSessionScreen>
                                       seconds: 2)); // simulating login delay
 
                                   // Navigate to the new route after the loading spinner is done
-                                  // TODO: Mudar routing para pagina principal
                                   Navigator.of(context)
-                                      .pushReplacementNamed('/tutorial');
+                                      .pushReplacementNamed('/home');
 
                                   setState(() {
                                     _isLoading = false;
@@ -660,6 +661,8 @@ class _AccountSessionScreenState extends State<AccountSessionScreen>
                             child: OutlinedButton(
                               onPressed: () {
                                 // implement function
+                                Navigator.of(context)
+                                    .pushReplacementNamed('/home');
                               },
                               style: OutlinedButton.styleFrom(
                                 side: BorderSide(
