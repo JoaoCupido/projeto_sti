@@ -108,8 +108,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> with SingleTickerProvid
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(4.0),
               borderSide: BorderSide(
-                color:
-                Theme.of(context).colorScheme.outlineVariant,
+                color: Theme.of(context).colorScheme.outlineVariant,
               ),
             ),
             filled: true,
@@ -119,20 +118,18 @@ class _MainMenuScreenState extends State<MainMenuScreen> with SingleTickerProvid
           ),
         ),
         actions: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              IconButton(
-                onPressed: () {
-                  // TODO: Implementar ação de conta do usuário
-                },
-                icon: Icon(
-                  Icons.account_circle_outlined,
-                  color: Theme.of(context).colorScheme.onSurface,
-                  size: 32,
-                ),
+          Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: IconButton(
+              onPressed: () {
+                // TODO: Implementar ação de conta do usuário
+              },
+              icon: Icon(
+                Icons.account_circle,
+                color: Theme.of(context).colorScheme.onBackground,
+                size: 36,
               ),
-            ],
+            ),
           ),
         ],
       ),
@@ -168,11 +165,11 @@ class _MainMenuScreenState extends State<MainMenuScreen> with SingleTickerProvid
           labelColor: Theme.of(context).colorScheme.primary,
           unselectedLabelColor: Theme.of(context).colorScheme.onSurface,
           tabs: const [
-            Tab(icon: Icon(Icons.home_filled)),
-            Tab(icon: Icon(Icons.category)),
-            Tab(icon: Icon(Icons.shopping_cart)),
-            Tab(icon: Icon(Icons.favorite)),
-            Tab(icon: Icon(Icons.delivery_dining)),
+            Tab(icon: Icon(Icons.home_outlined)),
+            Tab(icon: Icon(Icons.category_outlined)),
+            Tab(icon: Icon(Icons.shopping_cart_outlined)),
+            Tab(icon: Icon(Icons.favorite_outline)),
+            Tab(icon: Icon(Icons.delivery_dining_outlined)),
           ],
         ),
       ),
@@ -212,7 +209,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> with SingleTickerProvid
                   // Use the controller to change the current page
                   carouselController.previousPage();
                 },
-                icon: const Icon(Icons.arrow_back_ios),
+                icon: const Icon(Icons.arrow_circle_left_outlined),
                 color: Theme.of(context).colorScheme.primary,
               ),
             ),
@@ -223,7 +220,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> with SingleTickerProvid
                   // Use the controller to change the current page
                   carouselController.nextPage();
                 },
-                icon: const Icon(Icons.arrow_forward_ios),
+                icon: const Icon(Icons.arrow_circle_right_outlined),
                 color: Theme.of(context).colorScheme.primary,
               ),
             ),
