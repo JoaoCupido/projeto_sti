@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:projeto_sti/onboarding_screen.dart';
 import 'package:projeto_sti/account_session.dart';
 import 'package:projeto_sti/recover_account_1.dart';
+import 'package:projeto_sti/recover_account_2.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
             '/tutorial': (context) => const OnboardingScreen(),
             '/login': (context) => const AccountSessionScreen(),
             '/recover-account': (context) => const RecoverAccount1(),
+            '/recover-account-2': (context) => const RecoverAccount2(),
           },
           theme: ThemeData(
             colorScheme: const ColorScheme(
