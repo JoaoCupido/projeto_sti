@@ -8,7 +8,8 @@ class RecoverAccount1 extends StatefulWidget {
   State<RecoverAccount1> createState() => _RecoverAccount1State();
 }
 
-class _RecoverAccount1State extends State<RecoverAccount1> with SingleTickerProviderStateMixin {
+class _RecoverAccount1State extends State<RecoverAccount1>
+    with SingleTickerProviderStateMixin {
   TextEditingController _emailController = TextEditingController();
 
   bool _validateEmailForm() {
@@ -54,14 +55,19 @@ class _RecoverAccount1State extends State<RecoverAccount1> with SingleTickerProv
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 0.5),
-                    child: Text("Recuperação de Senha", style: Theme.of(context).textTheme.displaySmall, textAlign: TextAlign.center),
+                    child: Text("Recuperação de Senha",
+                        style: Theme.of(context).textTheme.displaySmall,
+                        textAlign: TextAlign.center),
                   ),
                   const SizedBox(height: 16.0),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24.0),
-                    child: Text("Insere o seu email associado à sua conta.\n"
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 24.0),
+                    child: Text(
+                        "Insere o seu email associado à sua conta.\n"
                         "Nós vamos enviar para si um código de ativação para poder alterar a sua senha.",
-                        style: Theme.of(context).textTheme.bodyLarge, textAlign: TextAlign.center),
+                        style: Theme.of(context).textTheme.bodyLarge,
+                        textAlign: TextAlign.center),
                   ),
                 ],
               ),
@@ -79,15 +85,13 @@ class _RecoverAccount1State extends State<RecoverAccount1> with SingleTickerProv
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(4.0),
                         borderSide: BorderSide(
-                          color:
-                          Theme.of(context).colorScheme.outlineVariant,
+                          color: Theme.of(context).colorScheme.outlineVariant,
                         ),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(4.0),
                         borderSide: BorderSide(
-                          color:
-                          Theme.of(context).colorScheme.outlineVariant,
+                          color: Theme.of(context).colorScheme.outlineVariant,
                         ),
                       ),
                       filled: true,
@@ -108,7 +112,7 @@ class _RecoverAccount1State extends State<RecoverAccount1> with SingleTickerProv
                               color: Theme.of(context).colorScheme.primary,
                             ),
                             backgroundColor:
-                            Theme.of(context).colorScheme.surface,
+                                Theme.of(context).colorScheme.surface,
                           ),
                           child: const Text('Voltar'),
                         ),
@@ -119,10 +123,10 @@ class _RecoverAccount1State extends State<RecoverAccount1> with SingleTickerProv
                           onPressed: () {
                             if (_validateEmailForm()) {
                               Navigator.of(context)
-                                  .pushReplacementNamed('/tutorial');
+                                  .pushReplacementNamed('/recover-account-2');
                             }
                           },
-                          child : const Text('Enviar'),
+                          child: const Text('Enviar'),
                         ),
                       ),
                     ],
