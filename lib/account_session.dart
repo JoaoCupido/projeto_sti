@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:projeto_sti/recuperarAccount.dart';
+import 'package:projeto_sti/recover_account_1.dart';
 
 class AccountSessionScreen extends StatefulWidget {
   const AccountSessionScreen({Key? key}) : super(key: key);
@@ -414,7 +414,7 @@ class _AccountSessionScreenState extends State<AccountSessionScreen>
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const RecuperarAccount()));
+                                          const RecoverAccount1()));
                             },
                             child: Text(
                               'Esqueceu da senha?',
