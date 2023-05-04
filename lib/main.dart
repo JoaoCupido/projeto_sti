@@ -4,6 +4,7 @@ import 'package:projeto_sti/onboarding_screen.dart';
 import 'package:projeto_sti/account_session.dart';
 import 'package:projeto_sti/recover_account_1.dart';
 import 'package:projeto_sti/recover_account_2.dart';
+import 'package:projeto_sti/recover_account_3.dart';
 import 'package:projeto_sti/home_screen.dart';
 
 void main() {
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
             '/login': (context) => const AccountSessionScreen(),
             '/recover-account': (context) => const RecoverAccount1(),
             '/recover-account-2': (context) => const RecoverAccount2(),
+            '/recover-account-3': (context) => const RecoverAccount3(),
             '/home': (context) => const MainMenuScreen(),
           },
           theme: ThemeData(

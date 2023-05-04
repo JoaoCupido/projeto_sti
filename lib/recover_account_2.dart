@@ -206,7 +206,7 @@ class _RecoverAccount2State extends State<RecoverAccount2>
                           onPressed: () {
                             if (_validateEmailForm()) {
                               Navigator.of(context)
-                                  .pushReplacementNamed('/tutorial');
+                                  .pushReplacementNamed('/recover-account-3');
                             }
                           },
                           child: const Text('Validar'),
