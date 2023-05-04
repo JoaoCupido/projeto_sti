@@ -47,6 +47,7 @@ class MyApp extends StatelessWidget {
               outline: Color(0xFF111111),
               outlineVariant: Color(0xFFAAAAAA),
 
+              //Para a estrela/review
               surfaceVariant: Colors.amberAccent,
 
               brightness: Brightness.light, // Set the theme brightness to light
