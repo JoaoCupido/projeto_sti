@@ -2,14 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class RecoverAccount2 extends StatefulWidget {
-  const RecoverAccount2({super.key});
+  final String emailName;
+
+  const RecoverAccount2({Key? key, required this.emailName}) : super(key: key);
 
   @override
-  State<RecoverAccount2> createState() => _RecoverAccount2State();
+  State<RecoverAccount2> createState() => _RecoverAccount2State(emailName);
 }
 
 class _RecoverAccount2State extends State<RecoverAccount2>
     with SingleTickerProviderStateMixin {
+  String emailName;
+  _RecoverAccount2State(this.emailName);
   TextEditingController _emailController = TextEditingController();
   final FocusNode _firstTextFieldFocusNode = FocusNode();
   final FocusNode _secondTextFieldFocusNode = FocusNode();
@@ -91,7 +95,7 @@ class _RecoverAccount2State extends State<RecoverAccount2>
                     padding: const EdgeInsets.symmetric(
                         vertical: 8.0, horizontal: 24.0),
                     child: Text(
-                        "Por favor insere o código de 4 dígitos enviado a johndoe@gmail.com",
+                        "Por favor insere o código de 4 dígitos enviado a $emailName",
                         style: Theme.of(context).textTheme.bodyLarge,
                         textAlign: TextAlign.center),
                   ),

@@ -10,24 +10,26 @@ class RecoverAccount3 extends StatefulWidget {
 
 class _RecoverAccount3State extends State<RecoverAccount3>
     with SingleTickerProviderStateMixin {
-  TextEditingController _emailController = TextEditingController();
+  TextEditingController _email1 = TextEditingController();
+  TextEditingController _email2 = TextEditingController();
 
   bool _validateEmailForm() {
-    final email = _emailController.text.trim();
+    final email1 = _email1.text.trim();
+    final email2 = _email2.text.trim();
 
     final RegExp emailRegex = RegExp(
       r'^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+',
     );
 
-    if (email.isEmpty) {
+    if (email1.isEmpty && email2.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: const Text('O campo "Email" é obrigatório!'),
         backgroundColor: Theme.of(context).colorScheme.error,
       ));
       return false;
-    } else if (!emailRegex.hasMatch(email)) {
+    } else if (email1 != email2) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: const Text('Por favor, digite um email válido!'),
+        content: const Text('As senhas são diferentes.'),
         backgroundColor: Theme.of(context).colorScheme.error,
       ));
       return false;
@@ -77,7 +79,8 @@ class _RecoverAccount3State extends State<RecoverAccount3>
               child: Column(
                 children: [
                   TextField(
-                    controller: _emailController,
+                    obscureText: true,
+                    controller: _email1,
                     decoration: InputDecoration(
                       labelText: 'Nova Senha',
                       labelStyle: Theme.of(context).textTheme.bodyMedium,
@@ -99,7 +102,8 @@ class _RecoverAccount3State extends State<RecoverAccount3>
                   ),
                   const SizedBox(height: 40),
                   TextField(
-                    controller: _emailController,
+                    obscureText: true,
+                    controller: _email2,
                     decoration: InputDecoration(
                       labelText: 'Confirmar Senha',
                       labelStyle: Theme.of(context).textTheme.bodyMedium,
@@ -121,17 +125,16 @@ class _RecoverAccount3State extends State<RecoverAccount3>
                   ),
                   const SizedBox(height: 40),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {
-                            if (_validateEmailForm()) {
-                              Navigator.of(context)
-                                  .pushReplacementNamed('/recover-account-2');
-                            }
-                          },
-                          child: const Text('Salvar'),
-                        ),
+                      ElevatedButton(
+                        onPressed: () {
+                          if (_validateEmailForm()) {
+                            Navigator.of(context)
+                                .pushReplacementNamed('/login');
+                          }
+                        },
+                        child: const Text('Salvar'),
                       ),
                     ],
                   ),

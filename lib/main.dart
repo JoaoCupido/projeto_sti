@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
             '/tutorial': (context) => const OnboardingScreen(),
             '/login': (context) => const AccountSessionScreen(),
             '/recover-account': (context) => const RecoverAccount1(),
-            '/recover-account-2': (context) => const RecoverAccount2(),
+            '/recover-account-2': (context) => RecoverAccount2(emailName: ''),
             '/recover-account-3': (context) => const RecoverAccount3(),
           },
           theme: ThemeData(
