@@ -5,6 +5,7 @@ import 'package:projeto_sti/account_session.dart';
 import 'package:projeto_sti/recover_account_1.dart';
 import 'package:projeto_sti/recover_account_2.dart';
 import 'package:projeto_sti/recover_account_3.dart';
+import 'package:projeto_sti/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
             '/recover-account': (context) => const RecoverAccount1(),
             '/recover-account-2': (context) => RecoverAccount2(emailName: ''),
             '/recover-account-3': (context) => const RecoverAccount3(),
+            '/home': (context) => const MainMenuScreen(),
           },
           theme: ThemeData(
             colorScheme: const ColorScheme(
@@ -44,6 +46,10 @@ class MyApp extends StatelessWidget {
               onError: Colors.white,
               outline: Color(0xFF111111),
               outlineVariant: Color(0xFFAAAAAA),
+
+              //Para a estrela/review
+              surfaceVariant: Colors.amberAccent,
+
               brightness: Brightness.light, // Set the theme brightness to light
             ),
             textTheme: const TextTheme(
@@ -55,6 +61,12 @@ class MyApp extends StatelessWidget {
                 color: Color(0xFF111111),
                 fontWeight: FontWeight.w500,
                 fontSize: 35,
+              ),
+              titleLarge: TextStyle(
+                color: Color(0xFF111111),
+              ),
+              titleMedium: TextStyle(
+                color: Color(0xFF111111),
               ),
               bodyLarge: TextStyle(
                 color: Color(0xFF767676),
