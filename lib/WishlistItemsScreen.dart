@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'wishlist_item.dart';
 
 class WishlistItemsScreen extends StatelessWidget {
   final List<WishlistItem> wishlistItems;
@@ -23,11 +24,4 @@ class WishlistItemsScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-class WishlistItem {
-  final String name;
-  final String imageUrl;
-
-  WishlistItem({required this.name, required this.imageUrl});
 }

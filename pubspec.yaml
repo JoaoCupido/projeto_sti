@@ -36,7 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.2
 
   flutter_svg: ^0.22.0
-  carousel_slider: ^4.0.0
+  carousel_slider: ^4.2.1
 
   easy_search_bar: ^2.5.0
 
@@ -68,6 +68,7 @@ flutter:
     - assets/images/
     - assets/images/onboarding/
     - assets/images/category/
+    - assets/images/carousel-item/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
