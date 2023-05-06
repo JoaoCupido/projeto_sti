@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_sti/search_bar.dart';
 import 'package:projeto_sti/wishlistScreen.dart';
+import 'category_screen.dart';
 import 'home_screen.dart';
 
 class BottomNavBarScreen extends StatefulWidget {
@@ -32,7 +33,7 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> with SingleTick
     }
     _screens = [
       HomeScreen(emailName: emailName),
-      HomeScreen(emailName: emailName),
+      const CategoryScreen(),
       HomeScreen(emailName: emailName),
       WishlistScreen(emailName: emailName),
       HomeScreen(emailName: emailName),

@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:projeto_sti/classes/product.dart';
 
 class HomeScreen extends StatefulWidget {
   final String emailName;
@@ -8,26 +11,6 @@ class HomeScreen extends StatefulWidget {
 
   @override
   _HomeScreenState createState() => _HomeScreenState(emailName);
-}
-
-class Product {
-  final String title;
-  final String brand;
-  final String imageUrl;
-  final double price;
-  final double? discountPrice;
-  final String description;
-  final double rating;
-
-  const Product({
-    required this.title,
-    required this.brand,
-    required this.imageUrl,
-    required this.price,
-    this.discountPrice,
-    required this.description,
-    required this.rating,
-  });
 }
 
 class _HomeScreenState extends State<HomeScreen>
@@ -41,43 +24,6 @@ class _HomeScreenState extends State<HomeScreen>
     'assets/images/campanha1.png',
     'assets/images/campanha2.png',
     'assets/images/campanha3.png'
-  ];
-
-  List<Product> popularProducts = [
-    const Product(
-      title: 'Biscoitos para cão Biscrok',
-      brand: 'Pedigree',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      price: 3.99,
-      discountPrice: 4.99,
-      imageUrl: 'assets/images/150x150placeholder.png',
-      rating: 4.7,
-    ),
-    const Product(
-      title: 'Comida húmida para cão',
-      brand: 'Royal Canin',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      price: 1.99,
-      imageUrl: 'assets/images/150x150placeholder.png',
-      rating: 4.2,
-    ),
-    const Product(
-      title: 'Ração para gato',
-      brand: 'Purina',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      price: 5.99,
-      discountPrice: 7.99,
-      imageUrl: 'assets/images/150x150placeholder.png',
-      rating: 4.9,
-    ),
-    const Product(
-      title: 'Comida húmida para gato',
-      brand: 'Whiskas',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      price: 0.99,
-      imageUrl: 'assets/images/150x150placeholder.png',
-      rating: 4.5,
-    ),
   ];
 
   @override
@@ -156,6 +102,9 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   Widget _buildPopularProductsList(BuildContext context, String textLabel) {
+    final random = Random();
+    final List<Product> shuffledProducts = List.of(popularProducts)..shuffle(random);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -170,9 +119,9 @@ class _HomeScreenState extends State<HomeScreen>
           height: 225,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: popularProducts.length,
+            itemCount: shuffledProducts.length,
             itemBuilder: (BuildContext context, int index) {
-              final popularProduct = popularProducts[index];
+              final popularProduct = shuffledProducts[index];
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 5),
                 child: SizedBox(
