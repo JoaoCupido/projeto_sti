@@ -187,30 +187,6 @@ class _WishlistScreenState extends State<WishlistScreen>
             ],
           ),
         ),
-        bottomNavigationBar: BottomAppBar(
-          child: TabBar(
-            controller: _tabController,
-            indicator: BoxDecoration(
-              border: Border(
-                top: BorderSide(
-                  width: 2.0,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              ),
-            ),
-            indicatorSize: TabBarIndicatorSize.tab,
-            labelColor: Theme.of(context).colorScheme.primary,
-            unselectedLabelColor: Theme.of(context).colorScheme.onSurface,
-            tabs: const [
-              Tab(icon: Icon(Icons.home_outlined)),
-              Tab(icon: Icon(Icons.category_outlined)),
-              Tab(icon: Icon(Icons.shopping_cart_outlined)),
-              Tab(icon: Icon(Icons.favorite_outline)),
-              Tab(icon: Icon(Icons.delivery_dining_outlined)),
-            ],
-            onTap: handleTabTap,
-          ),
-        ),
       );
     }
     return Scaffold(
@@ -362,30 +338,6 @@ class _WishlistScreenState extends State<WishlistScreen>
               ],
             ),
           ],
-        ),
-      ),
-      bottomNavigationBar: BottomAppBar(
-        child: TabBar(
-          controller: _tabController,
-          indicator: BoxDecoration(
-            border: Border(
-              top: BorderSide(
-                width: 2.0,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-            ),
-          ),
-          indicatorSize: TabBarIndicatorSize.tab,
-          labelColor: Theme.of(context).colorScheme.primary,
-          unselectedLabelColor: Theme.of(context).colorScheme.onSurface,
-          tabs: const [
-            Tab(icon: Icon(Icons.home_outlined)),
-            Tab(icon: Icon(Icons.category_outlined)),
-            Tab(icon: Icon(Icons.shopping_cart_outlined)),
-            Tab(icon: Icon(Icons.favorite_outline)),
-            Tab(icon: Icon(Icons.delivery_dining_outlined)),
-          ],
-          onTap: handleTabTap,
         ),
       ),
     );

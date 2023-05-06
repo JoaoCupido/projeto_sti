@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'home_screen.dart';
+import 'wishlistScreen.dart';
 
 class BottomNavBarScreen extends StatefulWidget {
   const BottomNavBarScreen({Key? key}) : super(key: key);
@@ -9,7 +10,8 @@ class BottomNavBarScreen extends StatefulWidget {
   _BottomNavBarScreenState createState() => _BottomNavBarScreenState();
 }
 
-class _BottomNavBarScreenState extends State<BottomNavBarScreen> with SingleTickerProviderStateMixin {
+class _BottomNavBarScreenState extends State<BottomNavBarScreen>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   late List<Widget> _screens = [];
@@ -33,7 +35,7 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> with SingleTick
       HomeScreen(emailName: emailName),
       HomeScreen(emailName: emailName),
       HomeScreen(emailName: emailName),
-      HomeScreen(emailName: emailName),
+      WishlistScreen(),
       HomeScreen(emailName: emailName),
     ];
   }
@@ -53,36 +55,37 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> with SingleTick
   @override
   Widget build(BuildContext context) {
     //print(emailName);
-    return _screens.isNotEmpty ? Scaffold(
-      body: TabBarView(
-        controller: _tabController,
-        children: _screens,
-      ),
-      bottomNavigationBar: BottomAppBar(
-        child: TabBar(
-          controller: _tabController,
-          indicator: BoxDecoration(
-            border: Border(
-              top: BorderSide(
-                width: 2.0,
-                color: Theme.of(context).colorScheme.primary,
+    return _screens.isNotEmpty
+        ? Scaffold(
+            body: TabBarView(
+              controller: _tabController,
+              children: _screens,
+            ),
+            bottomNavigationBar: BottomAppBar(
+              child: TabBar(
+                controller: _tabController,
+                indicator: BoxDecoration(
+                  border: Border(
+                    top: BorderSide(
+                      width: 2.0,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
+                ),
+                indicatorSize: TabBarIndicatorSize.tab,
+                labelColor: Theme.of(context).colorScheme.primary,
+                unselectedLabelColor: Theme.of(context).colorScheme.onSurface,
+                tabs: const [
+                  Tab(icon: Icon(Icons.home_outlined)),
+                  Tab(icon: Icon(Icons.category_outlined)),
+                  Tab(icon: Icon(Icons.shopping_cart_outlined)),
+                  Tab(icon: Icon(Icons.favorite_outline)),
+                  Tab(icon: Icon(Icons.delivery_dining_outlined)),
+                ],
+                onTap: handleTabTap,
               ),
             ),
-          ),
-          indicatorSize: TabBarIndicatorSize.tab,
-          labelColor: Theme.of(context).colorScheme.primary,
-          unselectedLabelColor: Theme.of(context).colorScheme.onSurface,
-          tabs: const [
-            Tab(icon: Icon(Icons.home_outlined)),
-            Tab(icon: Icon(Icons.category_outlined)),
-            Tab(icon: Icon(Icons.shopping_cart_outlined)),
-            Tab(icon: Icon(Icons.favorite_outline)),
-            Tab(icon: Icon(Icons.delivery_dining_outlined)),
-          ],
-          onTap: handleTabTap,
-        ),
-      ),
-    ) : const Scaffold();
+          )
+        : const Scaffold();
   }
-
 }
