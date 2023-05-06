@@ -36,7 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.2
 
   flutter_svg: ^0.22.0
-  carousel_slider: ^4.0.0
+
 
   easy_search_bar: ^2.5.0
 

@@ -18,7 +18,7 @@ class _WishlistScreenState extends State<WishlistScreen>
   _WishlistScreenState(this.emailName);
 
   String _newWishlistName = "Lista pré-definida";
-  List<WishlistItem> _wishlistItems = [];
+  WishlistItem _wishlistItems = WishlistItem(name: 'ddfs', imageUrl: 'dfs');
   List<Map<String, dynamic>> _wishlists = [
     {
       'name': 'Wishlist 1',
@@ -38,14 +38,18 @@ class _WishlistScreenState extends State<WishlistScreen>
   ];
   String _currentWishlistName = "My Wishlist";
 
-  void _confirmNewWishlist(String name) {
+  void _confirmNewWishlist(String name, WishlistItem list) {
     setState(() {
       _wishlists.add({
         "name": _newWishlistName,
-        "items": _wishlistItems,
+        "item": [
+          {'name': 'Item 3', 'imageUrl': 'image3.jpg'},
+          {'name': 'Item 4', 'imageUrl': 'image4.jpg'},
+          {'name': 'Item 5', 'imageUrl': 'image5.jpg'},
+        ],
       });
       _newWishlistName = name;
-      _wishlistItems = [];
+      _wishlistItems = list;
     });
   }
 
@@ -100,7 +104,8 @@ class _WishlistScreenState extends State<WishlistScreen>
                               Center(
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    _confirmNewWishlist("My Wishlist");
+                                    _confirmNewWishlist(
+                                        "My Wishlist", _wishlistItems);
                                     Navigator.of(context).pop();
                                     Navigator.of(context).pushReplacementNamed(
                                         '/WishlistScreen');
@@ -222,7 +227,8 @@ class _WishlistScreenState extends State<WishlistScreen>
                           actions: [
                             ElevatedButton(
                               onPressed: () {
-                                _confirmNewWishlist(_newWishlistName);
+                                _confirmNewWishlist(
+                                    _newWishlistName, _wishlistItems);
                                 Navigator.of(context).pop();
                               },
                               child: const Text('Create'),
