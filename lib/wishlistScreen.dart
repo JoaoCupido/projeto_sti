@@ -20,20 +20,24 @@ class _WishlistScreenState extends State<WishlistScreen>
   late TabController _tabController;
   String _newWishlistName = "Lista pré-definida";
   List<WishlistItem> _wishlistItems = [];
-  List<Map<String, dynamic>> _wishlists = [];
+  List<Map<String, dynamic>> _wishlists = [
+    {
+      'name': 'Wishlist 1',
+      'items': [
+        {'name': 'Item 1', 'imageUrl': 'image1.jpg'},
+        {'name': 'Item 2', 'imageUrl': 'image2.jpg'},
+      ],
+    },
+    {
+      'name': 'Wishlist 2',
+      'items': [
+        {'name': 'Item 3', 'imageUrl': 'image3.jpg'},
+        {'name': 'Item 4', 'imageUrl': 'image4.jpg'},
+        {'name': 'Item 5', 'imageUrl': 'image5.jpg'},
+      ],
+    },
+  ];
   String _currentWishlistName = "My Wishlist";
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 5, vsync: this, initialIndex: 3);
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
 
   void _confirmNewWishlist(String name) {
     setState(() {
