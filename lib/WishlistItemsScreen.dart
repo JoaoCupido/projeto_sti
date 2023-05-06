@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'wishlist_item.dart';
 
 class WishlistItemsScreen extends StatelessWidget {
-  final Map<String, String> wishlistItems1;
+  final List<WishlistItem> wishlistItems;
 
-  WishlistItemsScreen({required this.wishlistItems1});
+  WishlistItemsScreen({required this.wishlistItems});
 
   @override
   Widget build(BuildContext context) {
@@ -12,24 +13,15 @@ class WishlistItemsScreen extends StatelessWidget {
         title: Text('Wishlist Items'),
       ),
       body: ListView.builder(
-        itemCount: wishlistItems1.length,
+        itemCount: wishlistItems.length,
         itemBuilder: (context, index) {
-          final itemName = wishlistItems1.keys.elementAt(index);
-          final itemImageUrl = wishlistItems1[itemName];
-
+          final item = wishlistItems[index];
           return ListTile(
-            title: Text(itemName),
-            leading: Image.network(itemImageUrl!),
+            title: Text(item.name),
+            leading: Image.network(item.imageUrl),
           );
         },
       ),
     );
   }
-}
-
-class WishlistItem {
-  final String name;
-  final String imageUrl;
-
-  WishlistItem({required this.name, required this.imageUrl});
 }

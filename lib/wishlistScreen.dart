@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'WishlistItemsScreen.dart';
-
-class WishlistItem {
-  final String name;
-  final String imageUrl;
-
-  WishlistItem({required this.name, required this.imageUrl});
-}
+import 'wishlist_item.dart';
 
 class WishlistScreen extends StatefulWidget {
   final String emailName;
@@ -20,7 +14,6 @@ class WishlistScreen extends StatefulWidget {
 
 class _WishlistScreenState extends State<WishlistScreen>
     with SingleTickerProviderStateMixin {
-
   String emailName;
   _WishlistScreenState(this.emailName);
 
@@ -152,8 +145,15 @@ class _WishlistScreenState extends State<WishlistScreen>
               itemCount: _wishlists.length,
               itemBuilder: (context, index) {
                 final wishlist = _wishlists[index];
+                final wishlistItemsData =
+                    wishlist['items'] as List<Map<String, String>>;
                 final wishlistName = wishlist['name'] as String;
-                final wishlistItems = wishlist['items'] as List<WishlistItem>;
+                final wishlistItems = wishlistItemsData.map((itemData) {
+                  return WishlistItem(
+                    name: itemData['name']!,
+                    imageUrl: itemData['imageUrl']!,
+                  );
+                }).toList();
 
                 return Card(
                   child: ListTile(
@@ -165,8 +165,8 @@ class _WishlistScreenState extends State<WishlistScreen>
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => WishlistItemsScreen(
-                              wishlistItems1: wishlistItems),
+                          builder: (context) =>
+                              WishlistItemsScreen(wishlistItems: wishlistItems),
                         ),
                       );
                     },
