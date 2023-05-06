@@ -12,7 +12,6 @@ class RecoverAccount1 extends StatefulWidget {
 class _RecoverAccount1State extends State<RecoverAccount1>
     with SingleTickerProviderStateMixin {
   TextEditingController _emailController = TextEditingController();
-  String emailName = 'johndoe@gmail.com';
 
   bool _validateEmailForm() {
     final email = _emailController.text.trim();
@@ -99,9 +98,6 @@ class _RecoverAccount1State extends State<RecoverAccount1>
                       filled: true,
                       fillColor: Theme.of(context).colorScheme.surface,
                     ),
-                    onChanged: (text) {
-                      emailName = text;
-                    },
                   ),
                   const SizedBox(height: 40),
                   Row(
@@ -129,7 +125,7 @@ class _RecoverAccount1State extends State<RecoverAccount1>
                             if (_validateEmailForm()) {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) =>
-                                      RecoverAccount2(emailName: emailName)));
+                                      RecoverAccount2(emailName: _emailController.text)));
                             }
                           },
                           child: const Text('Enviar'),

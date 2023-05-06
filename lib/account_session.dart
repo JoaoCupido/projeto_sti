@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import 'home_screen.dart';
+
 class AccountSessionScreen extends StatefulWidget {
   const AccountSessionScreen({Key? key}) : super(key: key);
 
@@ -405,7 +407,7 @@ class _AccountSessionScreenState extends State<AccountSessionScreen>
                           ),
                           TextButton(
                             onPressed: () {
-                              Navigator.of(context).pushReplacementNamed('/recover-account');
+                              Navigator.of(context).pushNamed('/recover-account');
                             },
                             child: Text(
                               'Esqueceu da senha?',
@@ -450,8 +452,7 @@ class _AccountSessionScreenState extends State<AccountSessionScreen>
                                       seconds: 2)); // simulating login delay
 
                                   // Navigate to the new route after the loading spinner is done
-                                  Navigator.of(context)
-                                      .pushReplacementNamed('/home');
+                                  Navigator.of(context).pushReplacementNamed('/home', arguments: _emailController.text);
 
                                   setState(() {
                                     _isLoading = false;
