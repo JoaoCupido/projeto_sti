@@ -5,8 +5,7 @@ import 'package:projeto_sti/account_session.dart';
 import 'package:projeto_sti/recover_account_1.dart';
 import 'package:projeto_sti/recover_account_2.dart';
 import 'package:projeto_sti/recover_account_3.dart';
-import 'package:projeto_sti/home_screen.dart';
-import 'package:projeto_sti/wishlistScreen.dart';
+import 'package:projeto_sti/bottom_nav_bar_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,11 +28,9 @@ class MyApp extends StatelessWidget {
             '/tutorial': (context) => const OnboardingScreen(),
             '/login': (context) => const AccountSessionScreen(),
             '/recover-account': (context) => const RecoverAccount1(),
-            '/recover-account-2': (context) =>
-                const RecoverAccount2(emailName: ''),
+            '/recover-account-2': (context) => const RecoverAccount2(emailName: ''),
             '/recover-account-3': (context) => const RecoverAccount3(),
-            '/home': (context) => const MainMenuScreen(),
-            '/wishlistScreen': (context) => const WishlistScreen(),
+            '/home': (context) => const BottomNavBarScreen(),
           },
           theme: ThemeData(
             colorScheme: const ColorScheme(
@@ -85,8 +82,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
           ),
-          home:
-              const OnboardingScreen(), // Set OnboardingScreen as the home screen
+          home: const OnboardingScreen(), // Set OnboardingScreen as the home screen
         );
       },
     );

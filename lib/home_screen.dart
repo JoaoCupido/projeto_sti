@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:projeto_sti/wishlistScreen.dart';
 
-class MainMenuScreen extends StatefulWidget {
-  const MainMenuScreen({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  final String emailName;
+
+  const HomeScreen({Key? key, required this.emailName}) : super(key: key);
 
   @override
-  _MainMenuScreenState createState() => _MainMenuScreenState();
+  _HomeScreenState createState() => _HomeScreenState(emailName);
 }
 
 class Product {
@@ -29,57 +30,18 @@ class Product {
   });
 }
 
-class _MainMenuScreenState extends State<MainMenuScreen>
+class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   CarouselController carouselController = CarouselController();
-  late TabController _tabController;
 
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 5, vsync: this);
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
+  String emailName;
+  _HomeScreenState(this.emailName);
 
   final featuredImages = [
     'assets/images/campanha1.png',
     'assets/images/campanha2.png',
     'assets/images/campanha3.png'
   ];
-
-  void handleTabTap(int index) {
-    switch (index) {
-      case 0:
-        // First tab (index 0) - Home icon clicked
-        // Handle accordingly
-        break;
-      case 1:
-        // Second tab (index 1) - Category icon clicked
-        // Handle accordingly
-        break;
-      case 2:
-        // Third tab (index 2) - Cart icon clicked
-        // Handle accordingly
-        break;
-      case 3:
-        // Fourth tab (index 3) - Favorite icon clicked
-        // Handle accordingly
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => WishlistScreen()),
-        );
-        break;
-      case 4:
-        // Fifth tab (index 4) - Delivery icon clicked
-        // Handle accordingly
-        break;
-    }
-  }
 
   List<Product> popularProducts = [
     const Product(
@@ -120,6 +82,7 @@ class _MainMenuScreenState extends State<MainMenuScreen>
 
   @override
   Widget build(BuildContext context) {
+    //print(emailName);
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
@@ -153,10 +116,16 @@ class _MainMenuScreenState extends State<MainMenuScreen>
             child: IconButton(
               onPressed: () {
                 // TODO: Implementar ação de conta do usuário
+                if(emailName.isEmpty) {
+                  Navigator.of(context).pushReplacementNamed('/login');
+                }
+                else {
+                  Navigator.of(context).pushReplacementNamed('/login');
+                }
               },
               icon: Icon(
                 Icons.account_circle,
-                color: Theme.of(context).colorScheme.onBackground,
+                color: emailName.isEmpty ? Theme.of(context).colorScheme.onBackground : Theme.of(context).colorScheme.primary,
                 size: 36,
               ),
             ),
@@ -167,10 +136,7 @@ class _MainMenuScreenState extends State<MainMenuScreen>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            //const SizedBox(height: 16),
             _buildPromotionCarousel(context),
-            //const SizedBox(height: 16),
-            //const SizedBox(height: 16),
             _buildPopularProductsList(context, 'Produtos mais populares'),
             const SizedBox(height: 8),
             _buildPopularProductsList(context, 'Produtos em destaque'),
@@ -180,35 +146,10 @@ class _MainMenuScreenState extends State<MainMenuScreen>
           ],
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: TabBar(
-          controller: _tabController,
-          indicator: BoxDecoration(
-            border: Border(
-              top: BorderSide(
-                width: 2.0,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-            ),
-          ),
-          indicatorSize: TabBarIndicatorSize.tab,
-          labelColor: Theme.of(context).colorScheme.primary,
-          unselectedLabelColor: Theme.of(context).colorScheme.onSurface,
-          tabs: const [
-            Tab(icon: Icon(Icons.home_outlined)),
-            Tab(icon: Icon(Icons.category_outlined)),
-            Tab(icon: Icon(Icons.shopping_cart_outlined)),
-            Tab(icon: Icon(Icons.favorite_outline)),
-            Tab(icon: Icon(Icons.delivery_dining_outlined)),
-          ],
-          onTap: handleTabTap,
-        ),
-      ),
     );
   }
 
   Widget _buildPromotionCarousel(BuildContext context) {
-    // TODO: Implementar o carossel de imagens
     return Center(
       child: SizedBox(
         width: 450,
