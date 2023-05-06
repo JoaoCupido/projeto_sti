@@ -40,9 +40,7 @@ class _SearchBarState extends State<SearchBar>
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        height: 56,
-        child: EasySearchBar(
+    return EasySearchBar(
           putActionsOnRight: true,
           openOverlayOnSearch: true,
           title: SvgPicture.asset(
@@ -87,6 +85,6 @@ class _SearchBarState extends State<SearchBar>
               ),
             ),
           ],
-        ));
+        );
   }
 }
