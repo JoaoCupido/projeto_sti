@@ -18,7 +18,7 @@ class WishlistScreen extends StatefulWidget {
 class _WishlistScreenState extends State<WishlistScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  String _newWishlistName = "";
+  String _newWishlistName = "Lista pré-definida";
   List<WishlistItem> _wishlistItems = [];
   List<Map<String, dynamic>> _wishlists = [];
   String _currentWishlistName = "My Wishlist";
