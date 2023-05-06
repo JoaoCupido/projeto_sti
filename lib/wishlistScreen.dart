@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'WishlistItemsScreen.dart';
 
 class WishlistItem {
   final String name;
@@ -267,6 +268,13 @@ class _WishlistScreenState extends State<WishlistScreen>
                         Text('Quantidade de itens: ${wishlistItems.length}'),
                     onTap: () {
                       // Handle list tap
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              WishlistItemsScreen(wishlistItems: wishlistItems),
+                        ),
+                      );
                     },
                     trailing: IconButton(
                       icon: Icon(Icons.delete),
