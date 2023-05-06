@@ -10,26 +10,38 @@ class RecoverAccount3 extends StatefulWidget {
 
 class _RecoverAccount3State extends State<RecoverAccount3>
     with SingleTickerProviderStateMixin {
-  TextEditingController _email1 = TextEditingController();
-  TextEditingController _email2 = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  TextEditingController _confirmPasswordController = TextEditingController();
 
-  bool _validateEmailForm() {
-    final email1 = _email1.text.trim();
-    final email2 = _email2.text.trim();
+  bool _validateChangePasswordForm() {
+    final password = _passwordController.text.trim();
+    final confirmPassword = _confirmPasswordController.text.trim();
 
-    final RegExp emailRegex = RegExp(
-      r'^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+',
-    );
+    final RegExp passwordRegex = RegExp(r'^\S+$');
 
-    if (email1.isEmpty && email2.isEmpty) {
+    if (password.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: const Text('O campo "Email" é obrigatório!'),
+        content: const Text('O campo "Nova senha" é obrigatório!'),
         backgroundColor: Theme.of(context).colorScheme.error,
       ));
       return false;
-    } else if (email1 != email2) {
+    } else if (!passwordRegex.hasMatch(password)) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: const Text('As senhas são diferentes.'),
+        content: const Text('A nova senha não pode conter espaços em branco!'),
+        backgroundColor: Theme.of(context).colorScheme.error,
+      ));
+      return false;
+    }
+
+    if (confirmPassword.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text('O campo "Confirmar senha" é obrigatório!'),
+        backgroundColor: Theme.of(context).colorScheme.error,
+      ));
+      return false;
+    } else if (password != confirmPassword) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text('As senhas não coincidem!'),
         backgroundColor: Theme.of(context).colorScheme.error,
       ));
       return false;
@@ -80,9 +92,9 @@ class _RecoverAccount3State extends State<RecoverAccount3>
                 children: [
                   TextField(
                     obscureText: true,
-                    controller: _email1,
+                    controller: _passwordController,
                     decoration: InputDecoration(
-                      labelText: 'Nova Senha',
+                      labelText: 'Nova senha',
                       labelStyle: Theme.of(context).textTheme.bodyMedium,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(4.0),
@@ -103,9 +115,9 @@ class _RecoverAccount3State extends State<RecoverAccount3>
                   const SizedBox(height: 40),
                   TextField(
                     obscureText: true,
-                    controller: _email2,
+                    controller: _confirmPasswordController,
                     decoration: InputDecoration(
-                      labelText: 'Confirmar Senha',
+                      labelText: 'Confirmar senha',
                       labelStyle: Theme.of(context).textTheme.bodyMedium,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(4.0),
@@ -129,9 +141,29 @@ class _RecoverAccount3State extends State<RecoverAccount3>
                     children: [
                       ElevatedButton(
                         onPressed: () {
-                          if (_validateEmailForm()) {
-                            Navigator.of(context)
-                                .pushReplacementNamed('/login');
+                          if (_validateChangePasswordForm()) {
+                            // implementar função de alterar senha - backend
+                            showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (context) => Center(
+                                child: AlertDialog(
+                                  title: const Text('Sucesso!'),
+                                  content: const Text(
+                                      'A senha foi alterada com sucesso.'),
+                                  actions: [
+                                    Center(
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pushReplacementNamed('/login');
+                                        },
+                                        child: const Text('Continuar'),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
                           }
                         },
                         child: const Text('Salvar'),

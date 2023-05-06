@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:projeto_sti/recover_account_1.dart';
 
 class AccountSessionScreen extends StatefulWidget {
   const AccountSessionScreen({Key? key}) : super(key: key);
@@ -405,16 +404,8 @@ class _AccountSessionScreenState extends State<AccountSessionScreen>
                             ],
                           ),
                           TextButton(
-                            style: ButtonStyle(
-                              foregroundColor:
-                                  MaterialStateProperty.all<Color>(Colors.blue),
-                            ),
                             onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const RecoverAccount1()));
+                              Navigator.of(context).pushReplacementNamed('/recover-account');
                             },
                             child: Text(
                               'Esqueceu da senha?',
@@ -433,8 +424,7 @@ class _AccountSessionScreenState extends State<AccountSessionScreen>
                             child: OutlinedButton(
                               onPressed: () {
                                 // implement function
-                                Navigator.of(context)
-                                    .pushReplacementNamed('/home');
+                                Navigator.of(context).pushReplacementNamed('/home');
                               },
                               style: OutlinedButton.styleFrom(
                                 side: BorderSide(
@@ -682,6 +672,7 @@ class _AccountSessionScreenState extends State<AccountSessionScreen>
                                   // implementar função de criar conta - backend
                                   showDialog(
                                     context: context,
+                                    barrierDismissible: false,
                                     builder: (context) => Center(
                                       child: AlertDialog(
                                         title: const Text('Sucesso!'),

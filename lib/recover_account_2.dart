@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class RecoverAccount2 extends StatefulWidget {
@@ -14,7 +15,9 @@ class _RecoverAccount2State extends State<RecoverAccount2>
     with SingleTickerProviderStateMixin {
   String emailName;
   _RecoverAccount2State(this.emailName);
-  TextEditingController _emailController = TextEditingController();
+
+  bool _isLoading = false;
+
   final FocusNode _firstTextFieldFocusNode = FocusNode();
   final FocusNode _secondTextFieldFocusNode = FocusNode();
   final FocusNode _thirdTextFieldFocusNode = FocusNode();
@@ -114,57 +117,133 @@ class _RecoverAccount2State extends State<RecoverAccount2>
                           controller: _firstTextFieldController,
                           focusNode: _firstTextFieldFocusNode,
                           decoration: InputDecoration(
-                            border: OutlineInputBorder(),
                             hintText: '_',
+                            hintStyle: Theme.of(context).textTheme.bodyMedium,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4.0),
+                              borderSide: BorderSide(
+                                color: Theme.of(context).colorScheme.outlineVariant,
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4.0),
+                              borderSide: BorderSide(
+                                color: Theme.of(context).colorScheme.outlineVariant,
+                              ),
+                            ),
+                            filled: true,
+                            fillColor: Theme.of(context).colorScheme.surface,
                           ),
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                          ],
                           onChanged: (value) {
-                            FocusScope.of(context)
-                                .requestFocus(_secondTextFieldFocusNode);
+                            if (value.length == 1) {
+                              FocusScope.of(context).requestFocus(_secondTextFieldFocusNode);
+                            }
                           },
                         ),
                       ),
-                      SizedBox(
-                          width: 8), // Add some spacing between the sections
+                      const SizedBox(width: 8), // Add some spacing between the sections
                       Expanded(
                         child: TextField(
                           controller: _secondTextFieldController,
                           focusNode: _secondTextFieldFocusNode,
                           decoration: InputDecoration(
-                            border: OutlineInputBorder(),
                             hintText: '_',
+                            hintStyle: Theme.of(context).textTheme.bodyMedium,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4.0),
+                              borderSide: BorderSide(
+                                color: Theme.of(context).colorScheme.outlineVariant,
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4.0),
+                              borderSide: BorderSide(
+                                color: Theme.of(context).colorScheme.outlineVariant,
+                              ),
+                            ),
+                            filled: true,
+                            fillColor: Theme.of(context).colorScheme.surface,
                           ),
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                          ],
                           onChanged: (value) {
-                            FocusScope.of(context)
-                                .requestFocus(_thirdTextFieldFocusNode);
+                            if (value.length == 1) {
+                              FocusScope.of(context).requestFocus(_thirdTextFieldFocusNode);
+                            }
                           },
                         ),
                       ),
-                      SizedBox(width: 8),
+                      const SizedBox(width: 8),
                       Expanded(
                         child: TextField(
                           controller: _thirdTextFieldController,
                           focusNode: _thirdTextFieldFocusNode,
                           decoration: InputDecoration(
-                            border: OutlineInputBorder(),
                             hintText: '_',
+                            hintStyle: Theme.of(context).textTheme.bodyMedium,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4.0),
+                              borderSide: BorderSide(
+                                color: Theme.of(context).colorScheme.outlineVariant,
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4.0),
+                              borderSide: BorderSide(
+                                color: Theme.of(context).colorScheme.outlineVariant,
+                              ),
+                            ),
+                            filled: true,
+                            fillColor: Theme.of(context).colorScheme.surface,
                           ),
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                          ],
                           onChanged: (value) {
-                            FocusScope.of(context)
-                                .requestFocus(_fourthTextFieldFocusNode);
+                            if (value.length == 1) {
+                              FocusScope.of(context).requestFocus(_fourthTextFieldFocusNode);
+                            }
                           },
                         ),
                       ),
-                      SizedBox(width: 8),
+                      const SizedBox(width: 8),
                       Expanded(
                         child: TextField(
                           controller: _fourthTextFieldController,
                           focusNode: _fourthTextFieldFocusNode,
                           decoration: InputDecoration(
-                            border: OutlineInputBorder(),
                             hintText: '_',
+                            hintStyle: Theme.of(context).textTheme.bodyMedium,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4.0),
+                              borderSide: BorderSide(
+                                color: Theme.of(context).colorScheme.outlineVariant,
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4.0),
+                              borderSide: BorderSide(
+                                color: Theme.of(context).colorScheme.outlineVariant,
+                              ),
+                            ),
+                            filled: true,
+                            fillColor: Theme.of(context).colorScheme.surface,
                           ),
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                          ],
                           onChanged: (value) {
-                            FocusScope.of(context).unfocus();
+                            if (value.length == 1) {
+                              FocusScope.of(context).unfocus();
+                            }
                           },
                         ),
                       ),
@@ -172,11 +251,9 @@ class _RecoverAccount2State extends State<RecoverAccount2>
                   ),
                   const SizedBox(height: 40),
                   TextButton(
-                    style: ButtonStyle(
-                      foregroundColor:
-                          MaterialStateProperty.all<Color>(Colors.blue),
-                    ),
-                    onPressed: () {},
+                    onPressed: () {
+                      //Implementar backend de reenviar codigo
+                    },
                     child: Text(
                       'Reenviar código',
                       style: TextStyle(
@@ -207,13 +284,38 @@ class _RecoverAccount2State extends State<RecoverAccount2>
                       const SizedBox(width: 20),
                       Expanded(
                         child: ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async {
                             if (_validateEmailForm()) {
-                              Navigator.of(context)
-                                  .pushReplacementNamed('/recover-account-3');
+                              setState(() {
+                                _isLoading = true;
+                              });
+
+                              // implement login function here
+                              await Future.delayed(const Duration(
+                                  seconds: 2)); // simulating login delay
+
+                              // Navigate to the new route after the loading spinner is done
+                              Navigator.of(context).pushReplacementNamed('/recover-account-3');
+
+                              setState(() {
+                                _isLoading = false;
+                              });
                             }
                           },
-                          child: const Text('Validar'),
+                          child: _isLoading
+                              ? SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              valueColor:
+                              AlwaysStoppedAnimation<Color>(
+                                  Theme.of(context)
+                                      .colorScheme
+                                      .onPrimary),
+                            ),
+                          )
+                              : const Text('Validar'),
                         ),
                       ),
                     ],
