@@ -132,7 +132,7 @@ class OnboardingPage extends StatelessWidget {
             width: 400,
             height: 400,
           ),
-          Text(title, style: Theme.of(context).textTheme.displaySmall),
+          Text(title, style: Theme.of(context).textTheme.displaySmall, textAlign: TextAlign.center),
           const SizedBox(height: 16.0),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24.0),
