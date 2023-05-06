@@ -271,8 +271,8 @@ class _WishlistScreenState extends State<WishlistScreen>
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              WishlistItemsScreen(wishlistItems: wishlistItems),
+                          builder: (context) => WishlistItemsScreen(
+                              wishlistItems1: wishlistItems),
                         ),
                       );
                     },
