@@ -10,15 +10,20 @@ class WishlistItem {
 }
 
 class WishlistScreen extends StatefulWidget {
-  const WishlistScreen({super.key});
+  final String emailName;
+
+  const WishlistScreen({Key? key, required this.emailName}) : super(key: key);
 
   @override
-  State<WishlistScreen> createState() => _WishlistScreenState();
+  _WishlistScreenState createState() => _WishlistScreenState(emailName);
 }
 
 class _WishlistScreenState extends State<WishlistScreen>
     with SingleTickerProviderStateMixin {
-  late TabController _tabController;
+
+  String emailName;
+  _WishlistScreenState(this.emailName);
+
   String _newWishlistName = "Lista pré-definida";
   List<WishlistItem> _wishlistItems = [];
   List<Map<String, dynamic>> _wishlists = [
@@ -57,81 +62,11 @@ class _WishlistScreenState extends State<WishlistScreen>
     });
   }
 
-  void handleTabTap(int index) {
-    switch (index) {
-      case 0:
-        // First tab (index 0) - Home icon clicked
-        // Handle accordingly
-        break;
-      case 1:
-        // Second tab (index 1) - Category icon clicked
-        // Handle accordingly
-        break;
-      case 2:
-        // Third tab (index 2) - Cart icon clicked
-        // Handle accordingly
-        break;
-      case 3:
-        // Fourth tab (index 3) - Favorite icon clicked
-        // Handle accordingly
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => WishlistScreen()),
-        );
-        break;
-      case 4:
-        // Fifth tab (index 4) - Delivery icon clicked
-        // Handle accordingly
-        break;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     if (_wishlists.isEmpty) {
       return Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.background,
-          elevation: 0,
-          title: TextField(
-            decoration: InputDecoration(
-              hintText: 'Pesquisar...',
-              hintStyle: Theme.of(context).textTheme.bodyMedium,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(4.0),
-                borderSide: BorderSide(
-                  color: Theme.of(context).colorScheme.outlineVariant,
-                ),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(4.0),
-                borderSide: BorderSide(
-                  color: Theme.of(context).colorScheme.outlineVariant,
-                ),
-              ),
-              filled: true,
-              fillColor: Theme.of(context).colorScheme.surface,
-              prefixIcon: const Icon(Icons.search),
-              contentPadding: EdgeInsets.zero,
-            ),
-          ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 20),
-              child: IconButton(
-                onPressed: () {
-                  // TODO: Implementar ação de conta do usuário
-                },
-                icon: Icon(
-                  Icons.account_circle,
-                  color: Theme.of(context).colorScheme.onBackground,
-                  size: 36,
-                ),
-              ),
-            ),
-          ],
-        ),
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -196,47 +131,6 @@ class _WishlistScreenState extends State<WishlistScreen>
     }
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.background,
-        elevation: 0,
-        title: TextField(
-          decoration: InputDecoration(
-            hintText: 'Pesquisar...',
-            hintStyle: Theme.of(context).textTheme.bodyMedium,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(4.0),
-              borderSide: BorderSide(
-                color: Theme.of(context).colorScheme.outlineVariant,
-              ),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(4.0),
-              borderSide: BorderSide(
-                color: Theme.of(context).colorScheme.outlineVariant,
-              ),
-            ),
-            filled: true,
-            fillColor: Theme.of(context).colorScheme.surface,
-            prefixIcon: const Icon(Icons.search),
-            contentPadding: EdgeInsets.zero,
-          ),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 20),
-            child: IconButton(
-              onPressed: () {
-                // TODO: Implementar ação de conta do usuário
-              },
-              icon: Icon(
-                Icons.account_circle,
-                color: Theme.of(context).colorScheme.onBackground,
-                size: 36,
-              ),
-            ),
-          ),
-        ],
-      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
