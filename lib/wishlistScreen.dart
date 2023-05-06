@@ -35,20 +35,13 @@ class _WishlistScreenState extends State<WishlistScreen>
     super.dispose();
   }
 
-  void _createNewWishlist(String name) {
-    setState(() {
-      _wishlistItems = [];
-      _newWishlistName = name;
-    });
-  }
-
-  void _confirmNewWishlist() {
+  void _confirmNewWishlist(String name) {
     setState(() {
       _wishlists.add({
         "name": _newWishlistName,
         "items": _wishlistItems,
       });
-      _newWishlistName = "";
+      _newWishlistName = name;
       _wishlistItems = [];
     });
   }
@@ -150,6 +143,41 @@ class _WishlistScreenState extends State<WishlistScreen>
                   "Adicine listas de artigos favoritos e/ou\nque futuramente queira adquirir.\nCrie listas e adicione artigos favoritos.",
                   style: Theme.of(context).textTheme.bodyLarge,
                   textAlign: TextAlign.center),
+              const SizedBox(height: 16.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      // implementar função de alterar senha - backend
+                      showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (context) => Center(
+                          child: AlertDialog(
+                            title: const Text('Sucesso!'),
+                            content: const Text('A lista foi criada.'),
+                            actions: [
+                              Center(
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    _confirmNewWishlist("My Wishlist");
+                                    Navigator.of(context).pop();
+                                    Navigator.of(context).pushReplacementNamed(
+                                        '/WishlistScreen');
+                                  },
+                                  child: const Text('Continuar'),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                    child: const Text('Adicionar lista'),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
