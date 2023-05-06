@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:projeto_sti/search_bar.dart';
+import 'package:projeto_sti/wishlistScreen.dart';
 import 'home_screen.dart';
 
 class BottomNavBarScreen extends StatefulWidget {
@@ -33,7 +34,7 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> with SingleTick
       HomeScreen(emailName: emailName),
       HomeScreen(emailName: emailName),
       HomeScreen(emailName: emailName),
-      HomeScreen(emailName: emailName),
+      WishlistScreen(),
       HomeScreen(emailName: emailName),
     ];
   }
@@ -54,6 +55,8 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> with SingleTick
   Widget build(BuildContext context) {
     //print(emailName);
     return _screens.isNotEmpty ? Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
+      appBar: SearchBar(emailName: emailName),
       body: TabBarView(
         controller: _tabController,
         children: _screens,

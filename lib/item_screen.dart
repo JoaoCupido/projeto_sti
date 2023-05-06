@@ -36,7 +36,7 @@ class _ItemScreenState extends State<ItemScreen>
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: ListView(children: [
-        const SearchBar(),
+        //const SearchBar(),
         Container(
           margin: const EdgeInsets.only(bottom: 10, left: 10, right: 10),
           height: 50,

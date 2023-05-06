@@ -85,53 +85,6 @@ class _HomeScreenState extends State<HomeScreen>
     //print(emailName);
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.background,
-        elevation: 0,
-        title: TextField(
-          decoration: InputDecoration(
-            hintText: 'Pesquisar...',
-            hintStyle: Theme.of(context).textTheme.bodyMedium,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(4.0),
-              borderSide: BorderSide(
-                color: Theme.of(context).colorScheme.outlineVariant,
-              ),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(4.0),
-              borderSide: BorderSide(
-                color: Theme.of(context).colorScheme.outlineVariant,
-              ),
-            ),
-            filled: true,
-            fillColor: Theme.of(context).colorScheme.surface,
-            prefixIcon: const Icon(Icons.search),
-            contentPadding: EdgeInsets.zero,
-          ),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 20),
-            child: IconButton(
-              onPressed: () {
-                // TODO: Implementar ação de conta do usuário
-                if(emailName.isEmpty) {
-                  Navigator.of(context).pushReplacementNamed('/login');
-                }
-                else {
-                  Navigator.of(context).pushReplacementNamed('/login');
-                }
-              },
-              icon: Icon(
-                Icons.account_circle,
-                color: emailName.isEmpty ? Theme.of(context).colorScheme.onBackground : Theme.of(context).colorScheme.primary,
-                size: 36,
-              ),
-            ),
-          ),
-        ],
-      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
