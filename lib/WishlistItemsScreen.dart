@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
-import 'wishlist_item.dart';
+import 'classes/wishlist.dart';
 
 class WishlistItemsScreen extends StatelessWidget {
-  final List<WishlistItem> wishlistItems;
 
-  WishlistItemsScreen({required this.wishlistItems});
+  final Wishlist wishlist;
+  WishlistItemsScreen({Key? key, required this.wishlist});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Wishlist Items'),
+        title: Text(wishlist.name),
       ),
       body: ListView.builder(
-        itemCount: wishlistItems.length,
+        itemCount: wishlist.products.length,
         itemBuilder: (context, index) {
-          final item = wishlistItems[index];
+          final item = wishlist.products[index];
           return ListTile(
-            title: Text(item.name),
-            leading: Image.network(item.imageUrl),
+            title: Text(item.title),
+            leading: Image.asset(item.imageUrl),
           );
         },
       ),
