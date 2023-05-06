@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:projeto_sti/wishlistScreen.dart';
 
 class MainMenuScreen extends StatefulWidget {
   const MainMenuScreen({Key? key}) : super(key: key);
@@ -28,7 +29,8 @@ class Product {
   });
 }
 
-class _MainMenuScreenState extends State<MainMenuScreen> with SingleTickerProviderStateMixin {
+class _MainMenuScreenState extends State<MainMenuScreen>
+    with SingleTickerProviderStateMixin {
   CarouselController carouselController = CarouselController();
   late TabController _tabController;
 
@@ -49,6 +51,35 @@ class _MainMenuScreenState extends State<MainMenuScreen> with SingleTickerProvid
     'assets/images/campanha2.png',
     'assets/images/campanha3.png'
   ];
+
+  void handleTabTap(int index) {
+    switch (index) {
+      case 0:
+        // First tab (index 0) - Home icon clicked
+        // Handle accordingly
+        break;
+      case 1:
+        // Second tab (index 1) - Category icon clicked
+        // Handle accordingly
+        break;
+      case 2:
+        // Third tab (index 2) - Cart icon clicked
+        // Handle accordingly
+        break;
+      case 3:
+        // Fourth tab (index 3) - Favorite icon clicked
+        // Handle accordingly
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => WishlistScreen()),
+        );
+        break;
+      case 4:
+        // Fifth tab (index 4) - Delivery icon clicked
+        // Handle accordingly
+        break;
+    }
+  }
 
   List<Product> popularProducts = [
     const Product(
@@ -101,8 +132,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> with SingleTickerProvid
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(4.0),
               borderSide: BorderSide(
-                color:
-                Theme.of(context).colorScheme.outlineVariant,
+                color: Theme.of(context).colorScheme.outlineVariant,
               ),
             ),
             enabledBorder: OutlineInputBorder(
@@ -171,6 +201,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> with SingleTickerProvid
             Tab(icon: Icon(Icons.favorite_outline)),
             Tab(icon: Icon(Icons.delivery_dining_outlined)),
           ],
+          onTap: handleTabTap,
         ),
       ),
     );
@@ -284,19 +315,28 @@ class _MainMenuScreenState extends State<MainMenuScreen> with SingleTickerProvid
                                 children: [
                                   Text(
                                     '€${popularProduct.price}',
-                                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      color: Theme.of(context).colorScheme.primary,
-                                    ),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                        ),
                                   ),
                                   if (popularProduct.discountPrice != null)
                                     Padding(
                                       padding: const EdgeInsets.only(left: 8),
                                       child: Text(
                                         '€${popularProduct.discountPrice}',
-                                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                          decoration: TextDecoration.lineThrough,
-                                        ),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall
+                                            ?.copyWith(
+                                              decoration:
+                                                  TextDecoration.lineThrough,
+                                            ),
                                       ),
                                     ),
                                 ],
@@ -304,11 +344,16 @@ class _MainMenuScreenState extends State<MainMenuScreen> with SingleTickerProvid
                               const SizedBox(height: 4),
                               Row(
                                 children: [
-                                  Icon(Icons.star, color: Theme.of(context).colorScheme.surfaceVariant, size: 16),
+                                  Icon(Icons.star,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .surfaceVariant,
+                                      size: 16),
                                   const SizedBox(width: 4),
                                   Text(
                                     '${popularProduct.rating}',
-                                    style: Theme.of(context).textTheme.bodySmall,
+                                    style:
+                                        Theme.of(context).textTheme.bodySmall,
                                   ),
                                 ],
                               ),

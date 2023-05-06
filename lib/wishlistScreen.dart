@@ -59,8 +59,8 @@ class _WishlistScreenState extends State<WishlistScreen> {
   @override
   Widget build(BuildContext context) {
     if (_wishlists.isEmpty) {
-      return Container();
+      return Scaffold();
     }
-    return Container();
+    return Scaffold();
   }
 }
