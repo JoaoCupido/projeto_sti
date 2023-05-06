@@ -40,6 +40,8 @@ dependencies:
 
   easy_search_bar: ^2.5.0
 
+  carousel_slider: ^4.2.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -67,6 +69,7 @@ flutter:
     - assets/
     - assets/images/
     - assets/images/onboarding/
+    - assets/images/carousel-item/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

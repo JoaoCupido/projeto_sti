@@ -1,27 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:easy_search_bar/easy_search_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:projeto_sti/search_bar.dart';
-import 'compare_item.dart';
-import 'item_description.dart';
-import 'item_review.dart';
+import 'package:projeto_sti/compare_item.dart';
+import 'package:projeto_sti/item_description.dart';
+import 'package:projeto_sti/item_review.dart';
 
 class ItemScreen extends StatefulWidget {
-  const ItemScreen({Key? key}) : super(key: key);
+  final String emailName;
+  const ItemScreen({Key? key, required this.emailName}) : super(key: key);
 
   @override
-  _ItemScreenState createState() => _ItemScreenState();
+  _ItemScreenState createState() => _ItemScreenState(emailName);
 }
 
 class _ItemScreenState extends State<ItemScreen>
     with SingleTickerProviderStateMixin {
   late TabController controller;
+  String emailName;
+  _ItemScreenState(this.emailName);
 
   @override
   void initState() {
     super.initState();
 
     controller = TabController(length: 3, vsync: this);
+    controller.addListener((_handleTabSelection));
+  }
+
+  _handleTabSelection() {
+    if (controller.indexIsChanging) {
+      setState(() {});
+    }
   }
 
   @override
@@ -36,34 +45,32 @@ class _ItemScreenState extends State<ItemScreen>
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: ListView(children: [
-        const SearchBar(),
+        SearchBar(
+          emailName: emailName,
+        ),
         Container(
           margin: const EdgeInsets.only(bottom: 10, left: 10, right: 10),
-          height: 50,
-          child: Scaffold(
-            appBar: AppBar(
-              title: TabBar(
-                controller: controller,
-                tabs: const [
-                  Tab(icon: Icon(Icons.menu)),
-                  Tab(icon: Icon(Icons.star)),
-                  Tab(icon: Icon(Icons.tune))
-                ],
-                labelColor: Theme.of(context).colorScheme.primary,
-                indicatorColor: Theme.of(context).colorScheme.primary,
-                unselectedLabelColor: Colors.blueGrey,
-              ),
-              backgroundColor: Theme.of(context).colorScheme.surface,
-            ),
-            body: TabBarView(
+          child: AppBar(
+            title: TabBar(
               controller: controller,
-              children: const [
-                ItemDescriptionScreen(),
-                ItemReviewScreen(),
-                CompareItemScreen(),
+              tabs: const [
+                Tab(icon: Icon(Icons.menu)),
+                Tab(icon: Icon(Icons.star)),
+                Tab(icon: Icon(Icons.tune)),
               ],
+              labelColor: Theme.of(context).colorScheme.primary,
+              indicatorColor: Theme.of(context).colorScheme.primary,
+              unselectedLabelColor: Colors.blueGrey,
             ),
+            backgroundColor: Theme.of(context).colorScheme.surface,
           ),
+        ),
+        Center(
+          child: [
+            const ItemDescriptionScreen(),
+            const ItemReviewScreen(),
+            const CompareItemScreen(),
+          ][controller.index],
         )
       ]),
     );
