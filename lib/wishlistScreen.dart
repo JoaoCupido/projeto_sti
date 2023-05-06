@@ -41,15 +41,15 @@ class _WishlistScreenState extends State<WishlistScreen>
   void _confirmNewWishlist(String name, WishlistItem list) {
     setState(() {
       _wishlists.add({
-        "name": _newWishlistName,
-        "item": [
+        "name": name,
+        "items": [
           {'name': 'Item 3', 'imageUrl': 'image3.jpg'},
           {'name': 'Item 4', 'imageUrl': 'image4.jpg'},
           {'name': 'Item 5', 'imageUrl': 'image5.jpg'},
         ],
       });
-      _newWishlistName = name;
-      _wishlistItems = list;
+      //_newWishlistName = name;
+      //_wishlistItems = list;
     });
   }
 
