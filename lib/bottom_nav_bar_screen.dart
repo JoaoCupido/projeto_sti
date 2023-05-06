@@ -34,7 +34,7 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> with SingleTick
       HomeScreen(emailName: emailName),
       HomeScreen(emailName: emailName),
       HomeScreen(emailName: emailName),
-      WishlistScreen(),
+      WishlistScreen(emailName: emailName),
       HomeScreen(emailName: emailName),
     ];
   }
