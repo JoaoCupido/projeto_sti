@@ -47,13 +47,30 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
             Container(
               height: 125,
               color: Theme.of(context).colorScheme.surface,
-              child: Align(
-                alignment: Alignment.center,
-                child: Icon(
-                  Icons.account_circle,
-                  size: 100,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
+              child: Stack(
+                children: [
+                  Positioned(
+                    top: 0,
+                    right: 0,
+                    child: Image.asset(
+                      'assets/images/patternLogo.png',
+                      width: 400,
+                      height: 300,
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: CircleAvatar(
+                      radius: 50,
+                      backgroundColor: Theme.of(context).colorScheme.surface,
+                      child: Icon(
+                        Icons.account_circle,
+                        size: 100,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: 16.0),
