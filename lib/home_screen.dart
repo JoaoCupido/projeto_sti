@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:projeto_sti/classes/product.dart';
 
+import 'classes/wishlist.dart';
+
 class HomeScreen extends StatefulWidget {
   final String emailName;
 
@@ -26,6 +28,21 @@ class _HomeScreenState extends State<HomeScreen>
     'assets/images/campanha3.png'
   ];
 
+  List<Product>? _shuffledProducts;
+  List<Wishlist> _wishlistList = [];
+
+  void _shuffleProducts() {
+    final random = Random();
+    _shuffledProducts = List.of(popularProducts)..shuffle(random);
+    _wishlistList = List.of(wishlistList);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _shuffleProducts();
+  }
+
   @override
   Widget build(BuildContext context) {
     //print(emailName);
@@ -36,11 +53,11 @@ class _HomeScreenState extends State<HomeScreen>
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             _buildPromotionCarousel(context),
-            _buildPopularProductsList(context, 'Produtos mais populares'),
+            _buildPopularProductsList(context, 'Produtos mais populares', emailName),
             const SizedBox(height: 8),
-            _buildPopularProductsList(context, 'Produtos em destaque'),
+            _buildPopularProductsList(context, 'Produtos em destaque', emailName),
             const SizedBox(height: 8),
-            _buildPopularProductsList(context, 'Produtos mais recentes'),
+            _buildPopularProductsList(context, 'Produtos mais recentes', emailName),
             const SizedBox(height: 8),
           ],
         ),
@@ -101,10 +118,7 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  Widget _buildPopularProductsList(BuildContext context, String textLabel) {
-    final random = Random();
-    final List<Product> shuffledProducts = List.of(popularProducts)..shuffle(random);
-
+  Widget _buildPopularProductsList(BuildContext context, String textLabel, String emailName) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -119,91 +133,167 @@ class _HomeScreenState extends State<HomeScreen>
           height: 225,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: shuffledProducts.length,
+            itemCount: _shuffledProducts?.length ?? 0,
             itemBuilder: (BuildContext context, int index) {
-              final popularProduct = shuffledProducts[index];
+              final popularProduct = _shuffledProducts![index];
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 5),
-                child: SizedBox(
-                  width: 150,
-                  child: Card(
-                    elevation: 4,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: AspectRatio(
-                            aspectRatio: 1,
-                            child: Image.asset(
-                              popularProduct.imageUrl,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                child: GestureDetector(
+                  onTap: () {
+                    //TODO: Navigate to product details screen
+                  },
+                  child: SizedBox(
+                    width: 150,
+                    child: Card(
+                      elevation: 4,
+                      child: Stack(
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text(
-                                popularProduct.title,
-                                style: Theme.of(context).textTheme.titleMedium,
-                              ),
-                              const SizedBox(height: 4),
-                              Text(
-                                popularProduct.brand,
-                                style: Theme.of(context).textTheme.bodySmall,
-                              ),
-                              const SizedBox(height: 4),
-                              Row(
-                                children: [
-                                  Text(
-                                    '€${popularProduct.price}',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium
-                                        ?.copyWith(
-                                          fontWeight: FontWeight.bold,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .primary,
-                                        ),
+                              Expanded(
+                                child: AspectRatio(
+                                  aspectRatio: 1,
+                                  child: Image.asset(
+                                    popularProduct.imageUrl,
                                   ),
-                                  if (popularProduct.discountPrice != null)
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 8),
-                                      child: Text(
-                                        '€${popularProduct.discountPrice}',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall
-                                            ?.copyWith(
-                                              decoration:
-                                                  TextDecoration.lineThrough,
-                                            ),
-                                      ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      popularProduct.title,
+                                      style: Theme.of(context).textTheme.titleMedium,
                                     ),
-                                ],
-                              ),
-                              const SizedBox(height: 4),
-                              Row(
-                                children: [
-                                  Icon(Icons.star,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .surfaceVariant,
-                                      size: 16),
-                                  const SizedBox(width: 4),
-                                  Text(
-                                    '${popularProduct.rating}',
-                                    style:
-                                        Theme.of(context).textTheme.bodySmall,
-                                  ),
-                                ],
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      popularProduct.brand,
+                                      style: Theme.of(context).textTheme.bodySmall,
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          '€${popularProduct.price}',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleMedium
+                                              ?.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .primary,
+                                          ),
+                                        ),
+                                        if (popularProduct.discountPrice != null)
+                                          Padding(
+                                            padding: const EdgeInsets.only(left: 8),
+                                            child: Text(
+                                              '€${popularProduct.discountPrice}',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall
+                                                  ?.copyWith(
+                                                decoration:
+                                                TextDecoration.lineThrough,
+                                              ),
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Row(
+                                      children: [
+                                        Icon(Icons.star,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .surfaceVariant,
+                                            size: 16),
+                                        const SizedBox(width: 4),
+                                        Text(
+                                          '${popularProduct.rating}',
+                                          style: Theme.of(context).textTheme.bodySmall,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
-                        ),
-                      ],
+                          if (emailName.isNotEmpty)
+                            Positioned(
+                              top: -5,
+                              right: -5,
+                              child: IconButton(
+                                icon: Icon(
+                                  popularProduct.isFavorite
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
+                                  color: popularProduct.isFavorite
+                                      ? Theme.of(context).colorScheme.error
+                                      : Theme.of(context).colorScheme.outline,
+                                ),
+                                onPressed: () {
+                                  if(!popularProduct.isFavorite) {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: const Text('Adicionar à lista'),
+                                          content: SingleChildScrollView(
+                                            child: ListBody(
+                                              children: [
+                                                const Text(
+                                                    'Escolhe a lista para adicionar o produto:'),
+                                                ...List.generate(
+                                                  _wishlistList.length,
+                                                      (index) =>
+                                                      RadioListTile(
+                                                        title: Text(
+                                                            _wishlistList[index]
+                                                                .name),
+                                                        value: _wishlistList[index]
+                                                            .id,
+                                                        groupValue: null,
+                                                        onChanged: (value) {
+                                                          setState(() {
+                                                            popularProduct
+                                                                .isFavorite =
+                                                            !popularProduct
+                                                                .isFavorite;
+                                                            _wishlistList[index]
+                                                                .products.add(
+                                                                popularProduct);
+                                                          });
+                                                          Navigator.pop(context);
+                                                        },
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  }
+                                  else {
+                                    setState(() {
+                                      popularProduct
+                                          .isFavorite =
+                                      !popularProduct
+                                          .isFavorite;
+                                      //TODO: Remove product from wishlist - backend
+                                    });
+                                  }
+                                },
+                              ),
+                            ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -214,4 +304,5 @@ class _HomeScreenState extends State<HomeScreen>
       ],
     );
   }
+
 }
