@@ -151,6 +151,7 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
                     title: const Text('Ajuda'),
                     onTap: () {
                       // Implementar a funcionalidade da tab Ajuda aqui
+                      Navigator.of(context).pushNamed('/help');
                     },
                   ),
                   ListTile(

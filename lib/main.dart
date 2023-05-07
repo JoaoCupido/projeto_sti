@@ -9,6 +9,8 @@ import 'package:projeto_sti/bottom_nav_bar_screen.dart';
 import 'package:projeto_sti/user_account_screen.dart';
 import 'package:projeto_sti/user_profile_screen.dart';
 
+import 'help_screen.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -35,6 +37,7 @@ class MyApp extends StatelessWidget {
             '/home': (context) => const BottomNavBarScreen(),
             '/user-account': (context) => const UserAccountScreen(),
             '/user-profile': (context) => const UserProfileScreen(),
+            '/help': (context) => const HelpScreen(),
           },
           theme: ThemeData(
             colorScheme: const ColorScheme(
