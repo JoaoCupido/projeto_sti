@@ -146,6 +146,20 @@ bool validateGenderInput(BuildContext context, TextEditingController genderContr
   return true;
 }
 
+bool validateNewWishlistName(BuildContext context, TextEditingController newWishlistNameController) {
+  final wishlistName = newWishlistNameController.text.trim();
+
+  if (wishlistName.isEmpty) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: const Text('O campo "Nome da lista" é obrigatório!'),
+      backgroundColor: Theme.of(context).colorScheme.error,
+    ));
+    return false;
+  }
+
+  return true;
+}
+
 bool validateLoginForm(BuildContext context,
     TextEditingController emailController,
     TextEditingController passwordController) {

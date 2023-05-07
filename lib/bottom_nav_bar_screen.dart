@@ -3,6 +3,7 @@ import 'package:projeto_sti/components/search_bar.dart';
 import 'package:projeto_sti/wishlist_screen.dart';
 import 'category_screen.dart';
 import 'home_screen.dart';
+import 'order_screen.dart';
 
 class BottomNavBarScreen extends StatefulWidget {
   const BottomNavBarScreen({Key? key}) : super(key: key);
@@ -36,7 +37,7 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> with SingleTick
       const CategoryScreen(),
       HomeScreen(emailName: emailName),
       WishlistScreen(emailName: emailName),
-      HomeScreen(emailName: emailName),
+      OrderScreen(emailName: emailName),
     ];
   }
 

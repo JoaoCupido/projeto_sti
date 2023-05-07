@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'components/input_validation.dart';
 import 'components/wishlist.dart';
 
 
@@ -31,20 +32,6 @@ class _WishlistScreenState extends State<WishlistScreen>
     _wishlistList = List.of(wishlistList);
     _wishlistChosen = Wishlist(id: 0, name: '', products: [], type: WishlistType.private);
     _textEditingController = TextEditingController(text: _wishlistChosen.name);
-  }
-
-  bool _validateNewWishlistName() {
-    final wishlistName = _newWishlistNameController.text.trim();
-
-    if (wishlistName.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: const Text('O campo "Nome da lista" é obrigatório!'),
-        backgroundColor: Theme.of(context).colorScheme.error,
-      ));
-      return false;
-    }
-
-    return true;
   }
 
   void _addNewWishlist(String name) {
@@ -195,7 +182,7 @@ class _WishlistScreenState extends State<WishlistScreen>
                                 children: [
                                   ElevatedButton(
                                     onPressed: () {
-                                      if(_validateNewWishlistName()) {
+                                      if(validateNewWishlistName(context, _newWishlistNameController)) {
                                         _addNewWishlist(_newWishlistNameController.text);
                                         Navigator.of(context).pop();
                                       }
@@ -800,7 +787,7 @@ class _WishlistScreenState extends State<WishlistScreen>
                                 children: [
                                   ElevatedButton(
                                     onPressed: () {
-                                      if(_validateNewWishlistName()) {
+                                      if(validateNewWishlistName(context, _newWishlistNameController)) {
                                         _addNewWishlist(_newWishlistNameController.text);
                                         Navigator.of(context).pop();
                                       }
