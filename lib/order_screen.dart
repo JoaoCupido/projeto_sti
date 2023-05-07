@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'components/billing.dart';
 import 'components/credit_card.dart';
 import 'components/order.dart';
+import 'components/order_progress_bar.dart';
 
 
 class OrderScreen extends StatefulWidget {
@@ -23,20 +24,13 @@ class _OrderScreenState extends State<OrderScreen>
   List<Order> _orderList = [];
 
   late Order _orderChosen;
+  final List<String> _textSteps = ['Confirmada', 'A preparar', 'A ser entregue', 'Entregue'];
 
   @override
   void initState() {
     super.initState();
     _orderList = List.of(orderList);
-    _orderChosen = Order(id: 0, code: 0,
-        dateCreated: '', dateEstimated: '',
-        products: [],
-        billing: Billing(owner: '',
-            nif: 0, address: '', zipCode:
-            '', city: '', phoneNumber: 0),
-        payment: CreditCard(number: 0,
-            cvv: 0, owner: '',
-            dateExpiration: ''));
+    _orderChosen = orderDebug;
   }
 
   @override
@@ -147,16 +141,38 @@ class _OrderScreenState extends State<OrderScreen>
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const SizedBox(height: 32.0),
-
+                  Text("Encomenda #${_orderChosen.code}",
+                      style: Theme.of(context).textTheme.displaySmall,
+                      textAlign: TextAlign.center),
                   const SizedBox(height: 16.0),
-
+                  Text(
+                    'Criada: ${_orderChosen.dateCreated}\nEstimada: ${_orderChosen.dateEstimated}',
+                    style: Theme.of(context).textTheme.titleMedium,
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 24.0),
+                  OrderProgress(textSteps: _textSteps,
+                      currentStep: _orderChosen.stageProgress ?? 0),
                   const SizedBox(height: 24.0),
                   Text(
-                    'O meu carrinho (${_orderChosen.products.length} ${_orderChosen.products.length == 1 ? 'artigo' : 'artigos'})',
+                    'Detalhes da encomenda',
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(height: 8.0),
-
+                  _buildOrderProductsList(context,
+                      'O meu carrinho (${_orderChosen.products.length} ${_orderChosen.products.length == 1 ? 'artigo' : 'artigos'})'),
+                  const SizedBox(height: 8.0),
+                  _buildBillingRectangle(context, 'Dados de faturação'),
+                  const SizedBox(height: 8.0),
+                  _buildPaymentRectangle(context, 'Método de pagamento'),
+                  if (_orderChosen.isGift != null)
+                    Column(
+                      children: [
+                        const SizedBox(height: 8.0),
+                        _buildGiftRectangle(context, 'Presente'),
+                      ],
+                    ),
+                  const SizedBox(height: 64.0),
                 ],
               ),
             ),
@@ -165,15 +181,7 @@ class _OrderScreenState extends State<OrderScreen>
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             setState(() {
-              _orderChosen = Order(id: 0, code: 0,
-                  dateCreated: '', dateEstimated: '',
-                  products: [],
-                  billing: Billing(owner: '',
-                      nif: 0, address: '', zipCode:
-                      '', city: '', phoneNumber: 0),
-                  payment: CreditCard(number: 0,
-                      cvv: 0, owner: '',
-                      dateExpiration: ''));
+              _orderChosen = orderDebug;
             });
           },
           backgroundColor: Theme.of(context).colorScheme.primary,
@@ -300,4 +308,206 @@ class _OrderScreenState extends State<OrderScreen>
     );
   }
 
+  Widget _buildOrderProductsList(BuildContext context, String textLabel) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+          child: Text(
+            textLabel,
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+        ),
+        SizedBox(
+          height: 225,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: _orderChosen.products.length,
+            itemBuilder: (BuildContext context, int index) {
+              final popularProduct = _orderChosen.products[index];
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                child: GestureDetector(
+                  onTap: () {
+                    //TODO: Navigate to product details screen
+                  },
+                  child: SizedBox(
+                    width: 150,
+                    child: Card(
+                      elevation: 4,
+                      child: Stack(
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: AspectRatio(
+                                  aspectRatio: 1,
+                                  child: Image.asset(
+                                    popularProduct.imageUrl,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      popularProduct.title,
+                                      style: Theme.of(context).textTheme.titleMedium,
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      popularProduct.brand,
+                                      style: Theme.of(context).textTheme.bodySmall,
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          '€${popularProduct.price}',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleMedium
+                                              ?.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .primary,
+                                          ),
+                                        ),
+                                        if (popularProduct.discountPrice != null)
+                                          Padding(
+                                            padding: const EdgeInsets.only(left: 8),
+                                            child: Text(
+                                              '€${popularProduct.discountPrice}',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall
+                                                  ?.copyWith(
+                                                decoration:
+                                                TextDecoration.lineThrough,
+                                              ),
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Row(
+                                      children: [
+                                        Icon(Icons.star,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .surfaceVariant,
+                                            size: 16),
+                                        const SizedBox(width: 4),
+                                        Text(
+                                          '${popularProduct.rating}',
+                                          style: Theme.of(context).textTheme.bodySmall,
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      'Quantidade: 1',
+                                      style: Theme.of(context).textTheme.bodySmall,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildBillingRectangle(BuildContext context, String textLabel) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+          child: Text(
+            textLabel,
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+        ),
+        Card(
+          child: ListTile(
+            title: const Text('Detalhes:', textAlign: TextAlign.center),
+            subtitle:
+              Text('Nome e Apelido: ${_orderChosen.billing.owner}\n'
+                'NIF: ${_orderChosen.billing.nif}\n'
+                'Morada: ${_orderChosen.billing.address}\n'
+                '${_orderChosen.billing.zipCode} ${_orderChosen.billing.city} - ${_orderChosen.billing.country}\n'
+                'Telemóvel: ${_orderChosen.billing.phoneNumber}\n',
+                textAlign: TextAlign.center
+              ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPaymentRectangle(BuildContext context, String textLabel) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+          child: Text(
+            textLabel,
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+        ),
+        Card(
+          child: ListTile(
+            title: const Text('Detalhes:', textAlign: TextAlign.center),
+            subtitle:
+            Text('Método: Cartão de Crédito\n'
+                'Nome do titular: ${_orderChosen.payment.owner}\n'
+                'Número do cartão: ${_orderChosen.payment.number}\n',
+                textAlign: TextAlign.center
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildGiftRectangle(BuildContext context, String textLabel) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+          child: Text(
+            textLabel,
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+        ),
+        Card(
+          child: ListTile(
+            title: const Text('Detalhes:', textAlign: TextAlign.center),
+            subtitle:
+            Text('Mensagem: ${_orderChosen.giftDescription}\n'
+                'Destinatário: ${_orderChosen.giftEmail}\n',
+                textAlign: TextAlign.center
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 }

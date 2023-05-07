@@ -1,5 +1,5 @@
 class CreditCard {
-  final int number;
+  final String number;
   final int cvv;
   final String owner;
   final String dateExpiration;
@@ -12,5 +12,5 @@ class CreditCard {
   });
 }
 
-CreditCard creditCard1 = CreditCard(number: 1234123412341234, cvv: 1234, owner: 'Fulano de Tal', dateExpiration: '10-2026');
-CreditCard creditCard2 = CreditCard(number: 5687568678658676, cvv: 6789, owner: 'Fulano de Tal', dateExpiration: '05-2028');
+CreditCard creditCard1 = CreditCard(number: '**** **** **** 1234', cvv: 1234, owner: 'Fulano de Tal', dateExpiration: '10-2026');
+CreditCard creditCard2 = CreditCard(number: '**** **** **** 8676', cvv: 6789, owner: 'Fulano de Tal', dateExpiration: '05-2028');

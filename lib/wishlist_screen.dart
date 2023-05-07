@@ -30,7 +30,7 @@ class _WishlistScreenState extends State<WishlistScreen>
   void initState() {
     super.initState();
     _wishlistList = List.of(wishlistList);
-    _wishlistChosen = Wishlist(id: 0, name: '', products: [], type: WishlistType.private);
+    _wishlistChosen = wishlistDebug;
     _textEditingController = TextEditingController(text: _wishlistChosen.name);
   }
 
@@ -75,11 +75,11 @@ class _WishlistScreenState extends State<WishlistScreen>
               const SizedBox(height: 32.0),
               Text("As minhas listas",
                   style: Theme.of(context).textTheme.displaySmall,
-                  textAlign: TextAlign.left),
+                  textAlign: TextAlign.center),
               const SizedBox(height: 8.0),
               Text("0 listas",
                   style: Theme.of(context).textTheme.bodyLarge,
-                  textAlign: TextAlign.left),
+                  textAlign: TextAlign.center),
               SvgPicture.asset(
                 'assets/images/271-Wishlist.svg',
                 width: 300,
@@ -123,11 +123,11 @@ class _WishlistScreenState extends State<WishlistScreen>
               const SizedBox(height: 32.0),
               Text("As minhas listas",
                   style: Theme.of(context).textTheme.displaySmall,
-                  textAlign: TextAlign.left),
+                  textAlign: TextAlign.center),
               const SizedBox(height: 8.0),
               Text("0 listas",
                   style: Theme.of(context).textTheme.bodyLarge,
-                  textAlign: TextAlign.left),
+                  textAlign: TextAlign.center),
               SvgPicture.asset(
                 'assets/images/271-Wishlist.svg',
                 width: 300,
@@ -235,7 +235,7 @@ class _WishlistScreenState extends State<WishlistScreen>
                       child: TextField(
                         controller: _textEditingController,
                         style: Theme.of(context).textTheme.titleLarge,
-                        textAlign: TextAlign.left,
+                        textAlign: TextAlign.center,
                         decoration: InputDecoration(
                           labelText: 'Nome da lista',
                           labelStyle: Theme.of(context).textTheme.titleLarge?.copyWith(
@@ -329,7 +329,7 @@ class _WishlistScreenState extends State<WishlistScreen>
           floatingActionButton: FloatingActionButton(
             onPressed: () {
               setState(() {
-                _wishlistChosen = Wishlist(id: 0, name: '', products: [], type: WishlistType.private);
+                _wishlistChosen = wishlistDebug;
               });
             },
             backgroundColor: Theme.of(context).colorScheme.primary,
@@ -353,7 +353,7 @@ class _WishlistScreenState extends State<WishlistScreen>
                   child: TextField(
                     controller: _textEditingController,
                     style: Theme.of(context).textTheme.titleLarge,
-                    textAlign: TextAlign.left,
+                    textAlign: TextAlign.center,
                     decoration: InputDecoration(
                       labelText: 'Nome da lista',
                       labelStyle: Theme.of(context).textTheme.titleLarge?.copyWith(
@@ -576,7 +576,7 @@ class _WishlistScreenState extends State<WishlistScreen>
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             setState(() {
-              _wishlistChosen = Wishlist(id: 0, name: '', products: [], type: WishlistType.private);
+              _wishlistChosen = wishlistDebug;
             });
           },
           backgroundColor: Theme.of(context).colorScheme.primary,
@@ -596,13 +596,13 @@ class _WishlistScreenState extends State<WishlistScreen>
             Text(
               "As minhas listas",
               style: Theme.of(context).textTheme.displaySmall,
-              textAlign: TextAlign.left,
+              textAlign: TextAlign.center,
             ),
             const SizedBox(height: 8.0),
             Text(
               "${_wishlistList.length} ${_wishlistList.length == 1 ? 'lista' : 'listas'}",
               style: Theme.of(context).textTheme.bodyLarge,
-              textAlign: TextAlign.left,
+              textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16.0),
             SizedBox(

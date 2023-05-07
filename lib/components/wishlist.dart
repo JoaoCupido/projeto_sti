@@ -44,6 +44,13 @@ class Wishlist {
   }
 }
 
+Wishlist wishlistDebug = Wishlist(
+    id: 0,
+    name: '',
+    products: [],
+    type: WishlistType.private,
+);
+
 Wishlist myWishlist1 = Wishlist(
   id: 1,
   name: 'Lista de desejos 1',
