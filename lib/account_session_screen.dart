@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'classes/input_validation.dart';
+import 'components/input_validation.dart';
 
 
 class AccountSessionScreen extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'classes/input_validation.dart';
+import 'components/input_validation.dart';
 
 class UserProfileScreen extends StatefulWidget {
   const UserProfileScreen({Key? key}) : super(key: key);

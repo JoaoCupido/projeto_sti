@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import 'classes/category.dart';
+import 'components/category.dart';
 
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({Key? key}) : super(key: key);

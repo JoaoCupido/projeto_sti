@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'recover_account_2.dart';
+import 'recover_account_screen2.dart';
 
 class RecoverAccount1 extends StatefulWidget {
   const RecoverAccount1({super.key});

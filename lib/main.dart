@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:projeto_sti/onboarding_screen.dart';
-import 'package:projeto_sti/account_session.dart';
-import 'package:projeto_sti/recover_account_1.dart';
-import 'package:projeto_sti/recover_account_2.dart';
-import 'package:projeto_sti/recover_account_3.dart';
+import 'package:projeto_sti/account_session_screen.dart';
+import 'package:projeto_sti/recover_account_screen1.dart';
+import 'package:projeto_sti/recover_account_screen2.dart';
+import 'package:projeto_sti/recover_account_screen3.dart';
 import 'package:projeto_sti/bottom_nav_bar_screen.dart';
 import 'package:projeto_sti/user_account_screen.dart';
 import 'package:projeto_sti/user_profile_screen.dart';

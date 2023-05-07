@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_sti/search_bar.dart';
-import 'package:projeto_sti/wishlistScreen.dart';
+import 'package:projeto_sti/components/search_bar.dart';
+import 'package:projeto_sti/wishlist_screen.dart';
 import 'category_screen.dart';
 import 'home_screen.dart';
 

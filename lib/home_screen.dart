@@ -2,9 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:projeto_sti/classes/product.dart';
+import 'package:projeto_sti/components/product.dart';
 
-import 'classes/wishlist.dart';
+import 'components/wishlist.dart';
 
 class HomeScreen extends StatefulWidget {
   final String emailName;

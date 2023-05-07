@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'classes/product.dart';
-import 'classes/wishlist.dart';
+import 'components/wishlist.dart';
 
 
 class WishlistScreen extends StatefulWidget {
