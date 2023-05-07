@@ -78,7 +78,7 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> with SingleTick
           unselectedLabelColor: Theme.of(context).colorScheme.onSurface,
           tabs: const [
             Tab(icon: Icon(Icons.home_outlined)),
-            Tab(icon: Icon(Icons.category_outlined)),
+            Tab(icon: Icon(Icons.menu_outlined)),
             Tab(icon: Icon(Icons.shopping_cart_outlined)),
             Tab(icon: Icon(Icons.favorite_outline)),
             Tab(icon: Icon(Icons.delivery_dining_outlined)),
