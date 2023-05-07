@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'classes/input_validation.dart';
 
-import 'home_screen.dart';
 
 class AccountSessionScreen extends StatefulWidget {
   const AccountSessionScreen({Key? key}) : super(key: key);
@@ -25,152 +25,6 @@ class _AccountSessionScreenState extends State<AccountSessionScreen>
   TextEditingController _birthdayController = TextEditingController();
 
   DateTime _selectedDate = DateTime.now();
-
-  bool _validateLoginForm() {
-    final email = _emailController.text.trim();
-    final password = _passwordController.text.trim();
-
-    final RegExp emailRegex = RegExp(
-      r'^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+',
-    );
-    final RegExp passwordRegex = RegExp(r'^\S+$');
-
-    if (email.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: const Text('O campo "Email" é obrigatório!'),
-        backgroundColor: Theme.of(context).colorScheme.error,
-      ));
-      return false;
-    } else if (!emailRegex.hasMatch(email)) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: const Text('Por favor, digite um email válido!'),
-        backgroundColor: Theme.of(context).colorScheme.error,
-      ));
-      return false;
-    }
-
-    if (password.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: const Text('O campo "Senha" é obrigatório!'),
-        backgroundColor: Theme.of(context).colorScheme.error,
-      ));
-      return false;
-    } else if (!passwordRegex.hasMatch(password)) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: const Text('A senha não pode conter espaços em branco!'),
-        backgroundColor: Theme.of(context).colorScheme.error,
-      ));
-      return false;
-    }
-
-    return true;
-  }
-
-  bool _validateCreateAccountForm() {
-    final email = _emailController.text.trim();
-    final username = _usernameController.text.trim();
-    final password = _passwordController.text.trim();
-    final confirmPassword = _confirmPasswordController.text.trim();
-
-    final RegExp emailRegex = RegExp(
-      r'^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+',
-    );
-    final RegExp usernameRegex = RegExp(r'^[\w\s]+$');
-    final RegExp passwordRegex = RegExp(r'^\S+$');
-
-    if (email.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: const Text('O campo "Email" é obrigatório!'),
-        backgroundColor: Theme.of(context).colorScheme.error,
-      ));
-      return false;
-    } else if (!emailRegex.hasMatch(email)) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: const Text('Por favor, digite um email válido!'),
-        backgroundColor: Theme.of(context).colorScheme.error,
-      ));
-      return false;
-    }
-
-    if (username.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: const Text('O campo "Nome do utilizador" é obrigatório!'),
-        backgroundColor: Theme.of(context).colorScheme.error,
-      ));
-      return false;
-    } else if (!usernameRegex.hasMatch(username)) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: const Text(
-            'Por favor, digite um nome de usuário válido (apenas letras e números)!'),
-        backgroundColor: Theme.of(context).colorScheme.error,
-      ));
-      return false;
-    }
-
-    if (password.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: const Text('O campo "Senha" é obrigatório!'),
-        backgroundColor: Theme.of(context).colorScheme.error,
-      ));
-      return false;
-    } else if (!passwordRegex.hasMatch(password)) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: const Text('A senha não pode conter espaços em branco!'),
-        backgroundColor: Theme.of(context).colorScheme.error,
-      ));
-      return false;
-    }
-
-    if (confirmPassword.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: const Text('O campo "Confirmar senha" é obrigatório!'),
-        backgroundColor: Theme.of(context).colorScheme.error,
-      ));
-      return false;
-    } else if (password != confirmPassword) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: const Text('As senhas não coincidem!'),
-        backgroundColor: Theme.of(context).colorScheme.error,
-      ));
-      return false;
-    }
-
-    if (!_agreeToTerms) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content:
-            const Text('Você precisa concordar com os Termos & Condições!'),
-        backgroundColor: Theme.of(context).colorScheme.error,
-      ));
-      return false;
-    }
-
-    if (_selectedDate == null) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content:
-            const Text('Por favor, selecione uma data de nascimento válida!'),
-        backgroundColor: Theme.of(context).colorScheme.error,
-      ));
-      return false;
-    } else if (_selectedDate.isAfter(DateTime.now())) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: const Text(
-            'A data de nascimento não pode ser posterior à data atual!'),
-        backgroundColor: Theme.of(context).colorScheme.error,
-      ));
-      return false;
-    } else if (_selectedDate
-        .isAfter((DateTime.now()).subtract(const Duration(days: 365 * 18)))) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: const Text(
-            'Por motivos legais, você precisa de ter pelo menos 18 anos para realizar esta ação!'),
-        backgroundColor: Theme.of(context).colorScheme.error,
-      ));
-      return false;
-    }
-
-    // The validation was successful
-    return true;
-  }
 
   List<int> _daysInMonth(int year, int month) {
     var days = 31;
@@ -442,7 +296,7 @@ class _AccountSessionScreenState extends State<AccountSessionScreen>
                           Expanded(
                             child: ElevatedButton(
                               onPressed: () async {
-                                if (_validateLoginForm()) {
+                                if (validateLoginForm(context, _emailController, _passwordController)) {
                                   setState(() {
                                     _isLoading = true;
                                   });
@@ -669,7 +523,12 @@ class _AccountSessionScreenState extends State<AccountSessionScreen>
                           Expanded(
                             child: ElevatedButton(
                               onPressed: () {
-                                if (_validateCreateAccountForm()) {
+                                if (validateCreateAccountForm(context,
+                                    _emailController,
+                                    _usernameController,
+                                    _passwordController,
+                                    _confirmPasswordController,
+                                    _selectedDate, _agreeToTerms)) {
                                   // implementar função de criar conta - backend
                                   showDialog(
                                     context: context,

@@ -72,7 +72,7 @@ class _SearchBarState extends State<SearchBar>
                   if (emailName.isEmpty) {
                     Navigator.of(context).pushReplacementNamed('/login');
                   } else {
-                    Navigator.of(context).pushReplacementNamed('/login');
+                    Navigator.of(context).pushNamed('/user-account');
                   }
                 },
                 icon: Icon(
