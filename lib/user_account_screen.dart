@@ -112,6 +112,7 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
                       title: const Text('Métodos de pagamento'),
                       onTap: () {
                         // Implementar a funcionalidade da tab Métodos de pagamento aqui
+                        Navigator.of(context).pushNamed('/metodos_pagamento');
                       },
                     ),
                     ListTile(
