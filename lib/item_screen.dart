@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:projeto_sti/components/search_bar.dart';
+import 'package:projeto_sti/search_bar.dart';
 import 'package:projeto_sti/compare_item.dart';
 import 'package:projeto_sti/item_description.dart';
 import 'package:projeto_sti/item_review.dart';
 
 class ItemScreen extends StatefulWidget {
   final String emailName;
-  const ItemScreen({Key? key, required this.emailName}) : super(key: key);
+  final String itemTitle;
+  const ItemScreen({Key? key, required this.emailName, required this.itemTitle})
+      : super(key: key);
 
   @override
-  _ItemScreenState createState() => _ItemScreenState(emailName);
+  _ItemScreenState createState() => _ItemScreenState(emailName, itemTitle);
 }
 
 class _ItemScreenState extends State<ItemScreen>
     with SingleTickerProviderStateMixin {
   late TabController controller;
   String emailName;
-  _ItemScreenState(this.emailName);
+  String itemTitle;
+  _ItemScreenState(this.emailName, this.itemTitle);
 
   @override
   void initState() {
@@ -44,13 +47,12 @@ class _ItemScreenState extends State<ItemScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      body: ListView(children: [
-        SearchBar(
-          emailName: emailName,
-          query: '',
-        ),
+      appBar: SearchBar(
+        emailName: emailName,
+      ),
+      body: Column(children: [
         Container(
-          margin: const EdgeInsets.only(bottom: 10, left: 10, right: 10),
+          margin: const EdgeInsets.all(10),
           child: AppBar(
             title: TabBar(
               controller: controller,
@@ -66,13 +68,15 @@ class _ItemScreenState extends State<ItemScreen>
             backgroundColor: Theme.of(context).colorScheme.surface,
           ),
         ),
-        Center(
+        Expanded(
+            child: SingleChildScrollView(
+                child: Center(
           child: [
-            const ItemDescriptionScreen(),
-            const ItemReviewScreen(),
-            const CompareItemScreen(),
+            ItemDescriptionScreen(itemTitle: itemTitle),
+            ItemReviewScreen(itemTitle: itemTitle),
+            CompareItemScreen(),
           ][controller.index],
-        )
+        )))
       ]),
     );
   }
