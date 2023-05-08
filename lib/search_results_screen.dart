@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:projeto_sti/components/search_bar.dart';
 
 import 'bottom_nav_bar_screen.dart';
@@ -87,6 +88,73 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> with SingleTi
 
   @override
   Widget build(BuildContext context) {
+    if (_productsList.isEmpty) {
+      return Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        appBar: SearchBar(emailName: emailName, query: query),
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 54.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                child: Text(
+                  'Mostrar ${_productsList.length} resultados para "$query"',
+                  style: Theme.of(context).textTheme.titleMedium,
+                  textAlign: TextAlign.start,
+                ),
+              ),
+              const SizedBox(height: 8.0),
+              SvgPicture.asset(
+                'assets/images/458-error404.svg',
+                width: 300,
+                height: 300,
+              ),
+              Center(
+                child: Text("Sem resultados",
+                  style: Theme.of(context).textTheme.displaySmall,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              const SizedBox(height: 16.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Text(
+                    "Verifica a ortografia das palavras inseridas, introduz uma outra nova palavra-chave ou introduz palavras-chave mais gerais.",
+                    style: Theme.of(context).textTheme.bodyLarge,
+                    textAlign: TextAlign.center),
+              ),
+              const SizedBox(height: 24.0),
+            ],
+          ),
+        ),
+        bottomNavigationBar: BottomAppBar(
+          child: TabBar(
+            controller: _tabController,
+            indicator: BoxDecoration(
+              border: Border(
+                top: BorderSide(
+                  width: 2.0,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ),
+            ),
+            indicatorSize: TabBarIndicatorSize.tab,
+            labelColor: Theme.of(context).colorScheme.primary,
+            unselectedLabelColor: Theme.of(context).colorScheme.onSurface,
+            tabs: const [
+              Tab(icon: Icon(Icons.home_outlined)),
+              Tab(icon: Icon(Icons.menu_outlined)),
+              Tab(icon: Icon(Icons.shopping_cart_outlined)),
+              Tab(icon: Icon(Icons.favorite_outline)),
+              Tab(icon: Icon(Icons.delivery_dining_outlined)),
+            ],
+            onTap: handleTabTap,
+          ),
+        ),
+      );
+    }
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: SearchBar(emailName: emailName, query: query),
