@@ -6,9 +6,9 @@ import 'package:projeto_sti/recover_account_screen1.dart';
 import 'package:projeto_sti/recover_account_screen2.dart';
 import 'package:projeto_sti/recover_account_screen3.dart';
 import 'package:projeto_sti/bottom_nav_bar_screen.dart';
+import 'package:projeto_sti/search_results_screen.dart';
 import 'package:projeto_sti/user_account_screen.dart';
 import 'package:projeto_sti/user_profile_screen.dart';
-
 import 'help_screen.dart';
 
 void main() {
@@ -34,10 +34,11 @@ class MyApp extends StatelessWidget {
             '/recover-account': (context) => const RecoverAccount1(),
             '/recover-account-2': (context) => const RecoverAccount2(emailName: ''),
             '/recover-account-3': (context) => const RecoverAccount3(),
-            '/home': (context) => const BottomNavBarScreen(),
+            '/home': (context) => const BottomNavBarScreen(args: {'index': 0, 'emailName': ''}),
             '/user-account': (context) => const UserAccountScreen(),
             '/user-profile': (context) => const UserProfileScreen(),
             '/help': (context) => const HelpScreen(),
+            '/search': (context) => const SearchResultsScreen(args: {'emailName': '', 'query' : ''}),
           },
           theme: ThemeData(
             colorScheme: const ColorScheme(

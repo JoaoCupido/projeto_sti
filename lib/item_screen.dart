@@ -47,6 +47,7 @@ class _ItemScreenState extends State<ItemScreen>
       body: ListView(children: [
         SearchBar(
           emailName: emailName,
+          query: '',
         ),
         Container(
           margin: const EdgeInsets.only(bottom: 10, left: 10, right: 10),

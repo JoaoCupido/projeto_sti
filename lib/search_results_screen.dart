@@ -1,27 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_sti/components/search_bar.dart';
-import 'package:projeto_sti/wishlist_screen.dart';
-import 'category_screen.dart';
-import 'home_screen.dart';
-import 'order_screen.dart';
 
-class BottomNavBarScreen extends StatefulWidget {
+import 'bottom_nav_bar_screen.dart';
+
+class SearchResultsScreen extends StatefulWidget {
   final Map args;
 
-  const BottomNavBarScreen({Key? key, required this.args}) : super(key: key);
+  const SearchResultsScreen({Key? key, required this.args}) : super(key: key);
 
   @override
-  _BottomNavBarScreenState createState() => _BottomNavBarScreenState(args);
+  _SearchResultsScreenState createState() => _SearchResultsScreenState(args);
 }
 
-class _BottomNavBarScreenState extends State<BottomNavBarScreen> with SingleTickerProviderStateMixin {
+class _SearchResultsScreenState extends State<SearchResultsScreen> with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   Map args;
-  _BottomNavBarScreenState(this.args);
+  _SearchResultsScreenState(this.args);
 
-  late List<Widget> _screens = [];
   late String emailName = '';
+  late String query = '';
 
   @override
   void initState() {
@@ -33,14 +31,7 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> with SingleTick
   void didChangeDependencies() {
     super.didChangeDependencies();
     emailName = args['emailName'];
-    _tabController.index = args['index'];
-    _screens = [
-      HomeScreen(emailName: emailName),
-      const CategoryScreen(),
-      HomeScreen(emailName: emailName),
-      WishlistScreen(emailName: emailName),
-      OrderScreen(emailName: emailName),
-    ];
+    query = args['query'];
   }
 
   @override
@@ -50,20 +41,25 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> with SingleTick
   }
 
   void handleTabTap(int index) {
-    setState(() {
-      _tabController.index = index;
-    });
+    Navigator.popUntil(context, (route) => !Navigator.canPop(context));
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+            builder: (context) =>
+                BottomNavBarScreen(
+                    args: {'index': index, 'emailName': emailName}
+                )
+        )
+    );
   }
+
 
   @override
   Widget build(BuildContext context) {
-    //print(emailName);
-    return _screens.isNotEmpty ? Scaffold(
+    return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: SearchBar(emailName: emailName, query: ''),
-      body: TabBarView(
-        controller: _tabController,
-        children: _screens,
+      appBar: SearchBar(emailName: emailName, query: query),
+      body: const Center(
+        child: Text('This is a test.'),
       ),
       bottomNavigationBar: BottomAppBar(
         child: TabBar(
@@ -89,7 +85,6 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> with SingleTick
           onTap: handleTabTap,
         ),
       ),
-    ) : const Scaffold();
+    );
   }
-
 }

@@ -451,7 +451,7 @@ class _OrderScreenState extends State<OrderScreen>
                 'NIF: ${_orderChosen.billing.nif}\n'
                 'Morada: ${_orderChosen.billing.address}\n'
                 '${_orderChosen.billing.zipCode} ${_orderChosen.billing.city} - ${_orderChosen.billing.country}\n'
-                'Telemóvel: ${_orderChosen.billing.phoneNumber}\n',
+                'Telemóvel: ${_orderChosen.billing.phoneNumber}',
                 textAlign: TextAlign.center
               ),
           ),
@@ -477,7 +477,7 @@ class _OrderScreenState extends State<OrderScreen>
             subtitle:
             Text('Método: Cartão de Crédito\n'
                 'Nome do titular: ${_orderChosen.payment.owner}\n'
-                'Número do cartão: ${_orderChosen.payment.number}\n',
+                'Número do cartão: ${_orderChosen.payment.number}',
                 textAlign: TextAlign.center
             ),
           ),
@@ -502,7 +502,7 @@ class _OrderScreenState extends State<OrderScreen>
             title: const Text('Detalhes:', textAlign: TextAlign.center),
             subtitle:
             Text('Mensagem: ${_orderChosen.giftDescription}\n'
-                'Destinatário: ${_orderChosen.giftEmail}\n',
+                'Destinatário: ${_orderChosen.giftEmail}',
                 textAlign: TextAlign.center
             ),
           ),

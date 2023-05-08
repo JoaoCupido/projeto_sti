@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:projeto_sti/bottom_nav_bar_screen.dart';
 import 'components/input_validation.dart';
 
 
@@ -280,7 +281,14 @@ class _AccountSessionScreenState extends State<AccountSessionScreen>
                             child: OutlinedButton(
                               onPressed: () {
                                 // implement function
-                                Navigator.of(context).pushReplacementNamed('/home');
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const BottomNavBarScreen(
+                                                args: {'index': 0, 'emailName': ''}
+                                            )
+                                  )
+                                );
                               },
                               style: OutlinedButton.styleFrom(
                                 side: BorderSide(
@@ -306,7 +314,14 @@ class _AccountSessionScreenState extends State<AccountSessionScreen>
                                       seconds: 2)); // simulating login delay
 
                                   // Navigate to the new route after the loading spinner is done
-                                  Navigator.of(context).pushReplacementNamed('/home', arguments: _emailController.text);
+                                  Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              BottomNavBarScreen(
+                                                  args: {'index': 0, 'emailName': _emailController.text}
+                                              )
+                                      )
+                                  );
 
                                   setState(() {
                                     _isLoading = false;
@@ -506,8 +521,14 @@ class _AccountSessionScreenState extends State<AccountSessionScreen>
                             child: OutlinedButton(
                               onPressed: () {
                                 // implement function
-                                Navigator.of(context)
-                                    .pushReplacementNamed('/home');
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const BottomNavBarScreen(
+                                                args: {'index': 0, 'emailName': ''}
+                                            )
+                                    )
+                                );
                               },
                               style: OutlinedButton.styleFrom(
                                 side: BorderSide(
