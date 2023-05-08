@@ -122,13 +122,17 @@ class _RecoverAccount2State extends State<RecoverAccount2>
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(4.0),
                               borderSide: BorderSide(
-                                color: Theme.of(context).colorScheme.outlineVariant,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .outlineVariant,
                               ),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(4.0),
                               borderSide: BorderSide(
-                                color: Theme.of(context).colorScheme.outlineVariant,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .outlineVariant,
                               ),
                             ),
                             filled: true,
@@ -140,12 +144,14 @@ class _RecoverAccount2State extends State<RecoverAccount2>
                           ],
                           onChanged: (value) {
                             if (value.length == 1) {
-                              FocusScope.of(context).requestFocus(_secondTextFieldFocusNode);
+                              FocusScope.of(context)
+                                  .requestFocus(_secondTextFieldFocusNode);
                             }
                           },
                         ),
                       ),
-                      const SizedBox(width: 8), // Add some spacing between the sections
+                      const SizedBox(
+                          width: 8), // Add some spacing between the sections
                       Expanded(
                         child: TextField(
                           controller: _secondTextFieldController,
@@ -156,13 +162,17 @@ class _RecoverAccount2State extends State<RecoverAccount2>
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(4.0),
                               borderSide: BorderSide(
-                                color: Theme.of(context).colorScheme.outlineVariant,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .outlineVariant,
                               ),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(4.0),
                               borderSide: BorderSide(
-                                color: Theme.of(context).colorScheme.outlineVariant,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .outlineVariant,
                               ),
                             ),
                             filled: true,
@@ -174,7 +184,8 @@ class _RecoverAccount2State extends State<RecoverAccount2>
                           ],
                           onChanged: (value) {
                             if (value.length == 1) {
-                              FocusScope.of(context).requestFocus(_thirdTextFieldFocusNode);
+                              FocusScope.of(context)
+                                  .requestFocus(_thirdTextFieldFocusNode);
                             }
                           },
                         ),
@@ -190,13 +201,17 @@ class _RecoverAccount2State extends State<RecoverAccount2>
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(4.0),
                               borderSide: BorderSide(
-                                color: Theme.of(context).colorScheme.outlineVariant,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .outlineVariant,
                               ),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(4.0),
                               borderSide: BorderSide(
-                                color: Theme.of(context).colorScheme.outlineVariant,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .outlineVariant,
                               ),
                             ),
                             filled: true,
@@ -208,7 +223,8 @@ class _RecoverAccount2State extends State<RecoverAccount2>
                           ],
                           onChanged: (value) {
                             if (value.length == 1) {
-                              FocusScope.of(context).requestFocus(_fourthTextFieldFocusNode);
+                              FocusScope.of(context)
+                                  .requestFocus(_fourthTextFieldFocusNode);
                             }
                           },
                         ),
@@ -224,13 +240,17 @@ class _RecoverAccount2State extends State<RecoverAccount2>
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(4.0),
                               borderSide: BorderSide(
-                                color: Theme.of(context).colorScheme.outlineVariant,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .outlineVariant,
                               ),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(4.0),
                               borderSide: BorderSide(
-                                color: Theme.of(context).colorScheme.outlineVariant,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .outlineVariant,
                               ),
                             ),
                             filled: true,
@@ -295,7 +315,8 @@ class _RecoverAccount2State extends State<RecoverAccount2>
                                   seconds: 2)); // simulating login delay
 
                               // Navigate to the new route after the loading spinner is done
-                              Navigator.of(context).pushReplacementNamed('/recover-account-3');
+                              Navigator.of(context)
+                                  .pushReplacementNamed('/recover-account-3');
 
                               setState(() {
                                 _isLoading = false;
@@ -304,17 +325,16 @@ class _RecoverAccount2State extends State<RecoverAccount2>
                           },
                           child: _isLoading
                               ? SizedBox(
-                            height: 20,
-                            width: 20,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              valueColor:
-                              AlwaysStoppedAnimation<Color>(
-                                  Theme.of(context)
-                                      .colorScheme
-                                      .onPrimary),
-                            ),
-                          )
+                                  height: 20,
+                                  width: 20,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                        Theme.of(context)
+                                            .colorScheme
+                                            .onPrimary),
+                                  ),
+                                )
                               : const Text('Validar'),
                         ),
                       ),
