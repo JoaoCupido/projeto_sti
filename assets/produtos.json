@@ -1,0 +1,70 @@
+{
+    "Biscoito para cão Biscrok": {
+                "itemTitle": "Biscoito para cão Biscrok",
+                "itemBrand": "Pedigree",
+                "itemDescription":
+                    "Pedigree Complete Nutrition - Comida seca para perros adultos con sabor a carne y verduras, bolsa de 30 libras",
+                "itemDetails":
+                    "Ingredientes: Cereais, Carnes E Subprodutos Animais (Inclui No Mínimo 4% De Ossobuco, No Mínimo 4% De Carne De Vaca), Açúcares, Óleos E Gorduras, Substâncias Minerais, Subprodutos De Origem Vegetal -- Informação Nutricional: -- Composição: Cereais, carnes e subprodutos animais (inclui 4% de frango em biscoito branco, 4% de carne de vaca em biscoito marrom e 4% de cordeiro em biscoito vermelho), subprodutos de origem vegetal, óleos e gorduras, substâncias minerais, sementes, ervas aromáticas. Componentes analíticos (%): Proteína: 13,5 / teor de gordura: 8 / matéria inorgânica: 6 / fibras brutas: 2 / cálcio: 1,2 / ácidos graxos ômega 3: 605 mg/kg. Aditivos nutricionais: Antioxidantes e conservantes / Aditivos nutricionais: Vitamina A: 5712 UI, Vitamina E (alfa-tocoferóis): 57,1 mg, Ferro sulfato mono-hidratado 52,2 mg. Tamanho: Porte Pequeno, Porte Médio e Porte Grande Idade Recomendada: Adulto e Sénior",
+                "itemSpecs":
+                    "Ingredientes: Cereais, Carnes E Subprodutos Animais (Inclui No Mínimo 4% De Ossobuco, No Mínimo 4% De Carne De Vaca), Açúcares, Óleos E Gorduras, Substâncias Minerais, Subprodutos De Origem Vegetal -- Informação Nutricional: -- Composição: Cereais, carnes e subprodutos animais (inclui 4% de frango em biscoito branco, 4% de carne de vaca em biscoito marrom e 4% de cordeiro em biscoito vermelho), subprodutos de origem vegetal, óleos e gorduras, substâncias minerais, sementes, ervas aromáticas. Componentes analíticos (%): Proteína: 13,5 / teor de gordura: 8 / matéria inorgânica: 6 / fibras brutas: 2 / cálcio: 1,2 / ácidos graxos ômega 3: 605 mg/kg. Aditivos nutricionais: Antioxidantes e conservantes / Aditivos nutricionais: Vitamina A: 5712 UI, Vitamina E (alfa-tocoferóis): 57,1 mg, Ferro sulfato mono-hidratado 52,2 mg. Tamanho: Porte Pequeno, Porte Médio e Porte Grande Idade Recomendada: Adulto e Sénior",
+                "itemMoreInfo":
+                    "Ingredientes: Cereais, Carnes E Subprodutos Animais (Inclui No Mínimo 4% De Ossobuco, No Mínimo 4% De Carne De Vaca), Açúcares, Óleos E Gorduras, Substâncias Minerais, Subprodutos De Origem Vegetal -- Informação Nutricional: -- Composição: Cereais, carnes e subprodutos animais (inclui 4% de frango em biscoito branco, 4% de carne de vaca em biscoito marrom e 4% de cordeiro em biscoito vermelho), subprodutos de origem vegetal, óleos e gorduras, substâncias minerais, sementes, ervas aromáticas. Componentes analíticos (%): Proteína: 13,5 / teor de gordura: 8 / matéria inorgânica: 6 / fibras brutas: 2 / cálcio: 1,2 / ácidos graxos ômega 3: 605 mg/kg. Aditivos nutricionais: Antioxidantes e conservantes / Aditivos nutricionais: Vitamina A: 5712 UI, Vitamina E (alfa-tocoferóis): 57,1 mg, Ferro sulfato mono-hidratado 52,2 mg. Tamanho: Porte Pequeno, Porte Médio e Porte Grande Idade Recomendada: Adulto e Sénior",
+                "itemReview": "4.7",
+                "allReviewPercentage": [
+                    {
+                        "type": "5",
+                        "percentage": "0.6"
+                    },
+                    {
+                        "type": "4",
+                        "percentage": "0.55"
+                    },
+                    {
+                        "type": "3",
+                        "percentage": "0.8"
+                    },
+                    {
+                        "type": "2",
+                        "percentage": "0.2"
+                    },
+                    {
+                        "type": "1",
+                        "percentage": "0.1"
+                    },
+                    {
+                        "type": "0",
+                        "percentage": "0"
+                    }
+                ],
+                "itemComments": [
+                    {
+                        "userName": "Sam Mathias",
+                        "comment": "Meus cachorros adoram esses biscoitos. O Standard Poodle me supervisiona enquanto eu os preparo. Meu marido disse que a casa cheirava tão bem enquanto eles assavam que ele queria um",
+                        "stars": "4",
+                        "images": [
+                            "assets/images/reviews/imagereview1.svg",
+                            "assets/images/reviews/imagereview2.svg"
+                        ]
+                    },
+                    {
+                        "userName": "Sam Mathias",
+                        "comment": "Meus cachorros adoram esses biscoitos. O Standard Poodle me supervisiona enquanto eu os preparo. Meu marido disse que a casa cheirava tão bem enquanto eles assavam que ele queria um",
+                        "stars": "5",
+                        "images": [
+                            "assets/images/reviews/imagereview1.svg",
+                            "assets/images/reviews/imagereview2.svg"
+                        ]
+                    },
+                    {
+                        "userName": "Sam Mathias",
+                        "comment": "Meus cachorros adoram esses biscoitos. O Standard Poodle me supervisiona enquanto eu os preparo. Meu marido disse que a casa cheirava tão bem enquanto eles assavam que ele queria um",
+                        "stars": "3",
+                        "images": [
+                            "assets/images/reviews/imagereview1.svg",
+                            "assets/images/reviews/imagereview2.svg"
+                        ]
+                    }
+                ]
+    }
+}
