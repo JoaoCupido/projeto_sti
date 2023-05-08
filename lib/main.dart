@@ -9,6 +9,7 @@ import 'package:projeto_sti/bottom_nav_bar_screen.dart';
 import 'package:projeto_sti/user_account_screen.dart';
 import 'package:projeto_sti/user_profile_screen.dart';
 import 'dados_faturação.dart';
+import 'dados_faturação2.dart';
 import 'help_screen.dart';
 
 void main() {
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
             '/user-profile': (context) => const UserProfileScreen(),
             '/help': (context) => const HelpScreen(),
             '/dados_faturação': (context) => BillingDataPage(),
+            '/dados_faturação2': (context) => BillingDataPage2(),
           },
           theme: ThemeData(
             colorScheme: const ColorScheme(

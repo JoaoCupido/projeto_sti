@@ -42,6 +42,7 @@ class _BillingDataPageState extends State<BillingDataPage> {
                   child: Text('Adicionar método de faturação'),
                   onPressed: () {
                     // Add method of faturação logic here
+                    Navigator.of(context).pushNamed('/dados_faturação2');
                   },
                 ),
               ],
@@ -60,6 +61,7 @@ class _BillingDataPageState extends State<BillingDataPage> {
                         child: Text('Criar outro método de faturação'),
                         onPressed: () {
                           // Add logic to create another method of faturação
+                          Navigator.of(context).pushNamed('/dados_faturação2');
                         },
                       ),
                     );
