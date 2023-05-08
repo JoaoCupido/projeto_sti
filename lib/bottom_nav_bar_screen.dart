@@ -36,7 +36,7 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> with SingleTick
     _tabController.index = args['index'];
     _screens = [
       HomeScreen(emailName: emailName),
-      const CategoryScreen(),
+      CategoryScreen(emailName: emailName),
       HomeScreen(emailName: emailName),
       WishlistScreen(emailName: emailName),
       OrderScreen(emailName: emailName),

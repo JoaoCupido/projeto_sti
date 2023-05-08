@@ -314,6 +314,7 @@ class _AccountSessionScreenState extends State<AccountSessionScreen>
                                       seconds: 2)); // simulating login delay
 
                                   // Navigate to the new route after the loading spinner is done
+                                  Navigator.popUntil(context, (route) => !Navigator.canPop(context));
                                   Navigator.of(context).pushReplacement(
                                       MaterialPageRoute(
                                           builder: (context) =>

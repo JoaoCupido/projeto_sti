@@ -438,7 +438,7 @@ class _WishlistScreenState extends State<WishlistScreen>
                         children: [
                           ListTile(
                             onTap: () {
-                              // TODO: Implement Go To Product Item Screen
+                              //TODO: Navigate to product details screen
                             },
                             leading: Image.asset(product.imageUrl),
                             title: Text(product.title),
@@ -542,14 +542,14 @@ class _WishlistScreenState extends State<WishlistScreen>
                                 IconButton(
                                   icon: const Icon(Icons.compare_arrows_outlined),
                                   onPressed: () {
-                                    // TODO: Implement compare functionality
+                                    //TODO: Implement compare functionality
                                   },
                                   color: Theme.of(context).colorScheme.primary,
                                 ),
                                 //const Spacer(),
                                 ElevatedButton.icon(
                                   onPressed: () {
-                                    // TODO: Implement buy functionality
+                                    //TODO: Implement buy functionality
                                   },
                                   icon: const Icon(Icons.shopping_cart_outlined),
                                   label: const Text('Comprar'),

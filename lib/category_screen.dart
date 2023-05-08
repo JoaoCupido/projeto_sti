@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:projeto_sti/search_results_screen.dart';
 
 import 'components/category.dart';
 
 class CategoryScreen extends StatefulWidget {
-  const CategoryScreen({Key? key}) : super(key: key);
+  final String emailName;
+
+  const CategoryScreen({Key? key, required this.emailName}) : super(key: key);
 
   @override
-  _CategoryScreenState createState() => _CategoryScreenState();
+  _CategoryScreenState createState() => _CategoryScreenState(emailName);
 }
 
 class _CategoryScreenState extends State<CategoryScreen> {
+  String emailName;
+  _CategoryScreenState(this.emailName);
+
   int _selectedIndex = 0;
 
   @override
@@ -98,7 +104,14 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
     return GestureDetector(
       onTap: () {
-        //TODO: Add navigation to search with results screen
+        Navigator.of(context).push(
+            MaterialPageRoute(
+                builder: (context) =>
+                    SearchResultsScreen(
+                        args: {'query': name, 'emailName': emailName}
+                    )
+            )
+        );
       },
       child: Card(
         shape: RoundedRectangleBorder(
