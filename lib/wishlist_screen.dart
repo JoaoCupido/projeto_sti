@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'components/input_validation.dart';
 import 'components/wishlist.dart';
+import 'item_screen.dart';
 
 
 class WishlistScreen extends StatefulWidget {
@@ -439,6 +440,14 @@ class _WishlistScreenState extends State<WishlistScreen>
                           ListTile(
                             onTap: () {
                               //TODO: Navigate to product details screen
+                              Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ItemScreen(
+                                              args: {'query': '', 'emailName': emailName, 'itemTitle': 'Biscoito para cão Biscrok'}
+                                          )
+                                  )
+                              );
                             },
                             leading: Image.asset(product.imageUrl),
                             title: Text(product.title),

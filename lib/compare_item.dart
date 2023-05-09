@@ -6,20 +6,22 @@ import 'package:flutter_svg/svg.dart';
 
 class CompareItemScreen extends StatefulWidget {
   final String itemTitle;
+  final String emailName;
 
-  const CompareItemScreen({Key? key, required this.itemTitle})
+  const CompareItemScreen({Key? key, required this.itemTitle, required this.emailName})
       : super(key: key);
 
   @override
-  _CompareItemScreenState createState() => _CompareItemScreenState(itemTitle);
+  _CompareItemScreenState createState() => _CompareItemScreenState(itemTitle, emailName);
 }
 
 class _CompareItemScreenState extends State<CompareItemScreen>
     with SingleTickerProviderStateMixin {
   String itemTitle;
+  String emailName;
   List<CompareItem> _compareItems = [];
   bool availableData = false;
-  _CompareItemScreenState(this.itemTitle);
+  _CompareItemScreenState(this.itemTitle, this.emailName);
 
   Future<void> readJson() async {
     final String response = await rootBundle.loadString('assets/produtos.json');
@@ -109,40 +111,33 @@ class _CompareItemScreenState extends State<CompareItemScreen>
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Expanded(
-                                                child: IconButton(
-                                                    onPressed: () {
-                                                      // TODO: Implementar ação de conta do usuário
-                                                      if (itemTitle.isEmpty) {
-                                                        Navigator.of(context)
-                                                            .pushReplacementNamed(
-                                                                '/login');
-                                                      } else {
-                                                        Navigator.of(context)
-                                                            .pushReplacementNamed(
-                                                                '/login');
-                                                      }
-                                                    },
-                                                    icon: const Icon(
-                                                      Icons.remove_circle,
-                                                      size: 30,
-                                                      color: Colors.red,
-                                                    ))),
+                                            IconButton(
+                                                onPressed: () {
+                                                  //TODO: Implementar remoção de um produto ao comparar
+                                                },
+                                                icon: const Icon(
+                                                  Icons.remove_circle,
+                                                  size: 30,
+                                                  color: Colors.red,
+                                                ),
+                                            ),
                                             Padding(
                                                 padding:
-                                                    const EdgeInsets.all(12),
+                                                    const EdgeInsets.all(16),
                                                 child: SvgPicture.asset(
                                                     item.image,
                                                     width: 130,
                                                     height: 130)),
-                                            const Expanded(
-                                                child: Padding(
-                                                    padding: EdgeInsets.only(
-                                                      top: 10,
-                                                    ),
-                                                    child: Icon(
-                                                        Icons.favorite_border,
-                                                        size: 30)))
+                                            if (emailName.isNotEmpty)
+                                              const Padding(
+                                                padding: EdgeInsets.only(
+                                                  top: 10,
+                                                ),
+                                                child: Icon(
+                                                    Icons.favorite_border,
+                                                    size: 28
+                                                ),
+                                              ),
                                           ],
                                         )
                                       ])),
@@ -152,12 +147,14 @@ class _CompareItemScreenState extends State<CompareItemScreen>
                                           border:
                                               Border.all(color: Colors.grey)),
                                       child: Column(children: [
+                                        SizedBox(height: 10.0),
                                         Container(
                                             child: Text(
                                           item.name,
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                               fontSize: 20,
-                                              color: Colors.black87),
+                                              color: Theme.of(context).colorScheme.onBackground,
+                                          ),
                                           overflow: TextOverflow.ellipsis,
                                         )),
                                         Padding(

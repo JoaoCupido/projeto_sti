@@ -140,15 +140,15 @@ class _ItemReviewScreenState extends State<ItemReviewScreen>
                             Container(
                                 padding: const EdgeInsets.only(right: 5),
                                 child: Text(review.type)),
-                            const Padding(
-                                padding: EdgeInsets.only(right: 5),
+                            Padding(
+                                padding: const EdgeInsets.only(right: 5),
                                 child: Icon(
                                   Icons.star,
-                                  color: Colors.yellow,
+                                  color: Theme.of(context).colorScheme.surfaceVariant,
                                   size: 20,
                                 )),
                             Container(
-                              width: 280,
+                              width: MediaQuery.of(context).size.width * 0.68,
                               height: 20.0,
                               decoration: BoxDecoration(
                                 color: Colors.grey[300],

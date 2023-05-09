@@ -5,6 +5,7 @@ import 'components/billing.dart';
 import 'components/credit_card.dart';
 import 'components/order.dart';
 import 'components/order_progress_bar.dart';
+import 'item_screen.dart';
 
 
 class OrderScreen extends StatefulWidget {
@@ -331,6 +332,14 @@ class _OrderScreenState extends State<OrderScreen>
                 child: GestureDetector(
                   onTap: () {
                     //TODO: Navigate to product details screen
+                    Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                ItemScreen(
+                                    args: {'query': '', 'emailName': emailName, 'itemTitle': 'Biscoito para cão Biscrok'}
+                                )
+                        )
+                    );
                   },
                   child: SizedBox(
                     width: 150,

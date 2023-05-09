@@ -5,6 +5,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:projeto_sti/components/product.dart';
 
 import 'components/wishlist.dart';
+import 'item_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final String emailName;
@@ -141,6 +142,14 @@ class _HomeScreenState extends State<HomeScreen>
                 child: GestureDetector(
                   onTap: () {
                     //TODO: Navigate to product details screen
+                    Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                ItemScreen(
+                                    args: {'query': '', 'emailName': emailName, 'itemTitle': 'Biscoito para cão Biscrok'}
+                                )
+                        )
+                    );
                   },
                   child: SizedBox(
                     width: 150,

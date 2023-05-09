@@ -6,6 +6,7 @@ import 'bottom_nav_bar_screen.dart';
 import 'components/category.dart';
 import 'components/product.dart';
 import 'components/wishlist.dart';
+import 'item_screen.dart';
 
 class SearchResultsScreen extends StatefulWidget {
   final Map args;
@@ -132,16 +133,16 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> with SingleTi
         bottomNavigationBar: BottomAppBar(
           child: TabBar(
             controller: _tabController,
-            indicator: BoxDecoration(
+            indicator: const BoxDecoration(
               border: Border(
                 top: BorderSide(
-                  width: 2.0,
-                  color: Theme.of(context).colorScheme.primary,
+                  width: 0.0,
+                  color: Colors.transparent,
                 ),
               ),
             ),
             indicatorSize: TabBarIndicatorSize.tab,
-            labelColor: Theme.of(context).colorScheme.primary,
+            labelColor: Theme.of(context).colorScheme.onSurface,
             unselectedLabelColor: Theme.of(context).colorScheme.onSurface,
             tabs: const [
               Tab(icon: Icon(Icons.home_outlined)),
@@ -205,6 +206,14 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> with SingleTi
                 return GestureDetector(
                   onTap: () {
                     //TODO: Navigate to product details screen
+                    Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                ItemScreen(
+                                    args: {'query': query, 'emailName': emailName, 'itemTitle': 'Biscoito para cão Biscrok'}
+                                )
+                        )
+                    );
                   },
                   child: Card(
                     child: Row(
@@ -694,16 +703,16 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> with SingleTi
       bottomNavigationBar: BottomAppBar(
         child: TabBar(
           controller: _tabController,
-          indicator: BoxDecoration(
+          indicator: const BoxDecoration(
             border: Border(
               top: BorderSide(
-                width: 2.0,
-                color: Theme.of(context).colorScheme.primary,
+                width: 0.0,
+                color: Colors.transparent,
               ),
             ),
           ),
           indicatorSize: TabBarIndicatorSize.tab,
-          labelColor: Theme.of(context).colorScheme.primary,
+          labelColor: Theme.of(context).colorScheme.onSurface,
           unselectedLabelColor: Theme.of(context).colorScheme.onSurface,
           tabs: const [
             Tab(icon: Icon(Icons.home_outlined)),
