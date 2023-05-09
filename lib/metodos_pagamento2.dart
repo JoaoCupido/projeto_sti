@@ -9,6 +9,10 @@ class PaymentMethodsPage2 extends StatefulWidget {
 class _PaymentMethodsPage2State extends State<PaymentMethodsPage2> {
   String selectedMethod = 'credit_card';
   TextEditingController dateController = TextEditingController();
+  TextEditingController multibancoController = TextEditingController();
+  TextEditingController paypalLoginController = TextEditingController();
+  TextEditingController paypalPasswordController = TextEditingController();
+  TextEditingController mbwPhoneNumberController = TextEditingController();
 
   void selectMethod(int index) {
     String method = '';
@@ -34,6 +38,10 @@ class _PaymentMethodsPage2State extends State<PaymentMethodsPage2> {
   @override
   void dispose() {
     dateController.dispose();
+    multibancoController.dispose();
+    paypalLoginController.dispose();
+    paypalPasswordController.dispose();
+    mbwPhoneNumberController.dispose();
     super.dispose();
   }
 
@@ -101,18 +109,71 @@ class _PaymentMethodsPage2State extends State<PaymentMethodsPage2> {
                 Expanded(
                   child: TextField(
                     controller: dateController,
+                    inputFormatters: [_DateInputFormatter()], // Add this line
                     decoration: InputDecoration(
-                      labelText: 'Data (AAAA/MM/DD)',
+                      labelText: 'Data (DD/MM/AAAA)',
                       hintText: 'Digite a data',
                     ),
-                    inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly,
-                      LengthLimitingTextInputFormatter(8),
-                      _DateInputFormatter(),
-                    ],
                   ),
                 ),
               ],
+            ),
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  // TODO: Handle create button press
+                },
+                child: Text('Criar'),
+              ),
+            ),
+          ],
+          if (selectedMethod == 'house') ...[
+            TextField(
+              controller: multibancoController,
+              decoration: InputDecoration(
+                labelText: 'Referência Multibanco',
+              ),
+            ),
+            SizedBox(height: 16),
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  // TODO: Handle create button press
+                },
+                child: Text('Criar'),
+              ),
+            ),
+          ],
+          if (selectedMethod == 'paypal') ...[
+            TextField(
+              controller: paypalLoginController,
+              decoration: InputDecoration(
+                labelText: 'Login',
+              ),
+            ),
+            SizedBox(height: 16),
+            TextField(
+              controller: paypalPasswordController,
+              decoration: InputDecoration(
+                labelText: 'Password',
+              ),
+            ),
+            SizedBox(height: 16),
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  // TODO: Handle create button press
+                },
+                child: Text('Criar'),
+              ),
+            ),
+          ],
+          if (selectedMethod == 'mbw') ...[
+            TextField(
+              controller: mbwPhoneNumberController,
+              decoration: InputDecoration(
+                labelText: 'Phone Number',
+              ),
             ),
             SizedBox(height: 16),
             Center(
@@ -150,12 +211,14 @@ class _DateInputFormatter extends TextInputFormatter {
   String _formatDate(String value) {
     value = value.replaceAll(RegExp(r'\D'), '');
 
-    if (value.length < 5) {
+    if (value.length < 3) {
       return value;
-    } else if (value.length < 7) {
-      return '${value.substring(0, 4)}/${value.substring(4)}';
+    } else if (value.length < 5) {
+      return '${value.substring(0, 2)}/${value.substring(2)}';
+    } else if (value.length < 9) {
+      return '${value.substring(0, 2)}/${value.substring(2, 4)}/${value.substring(4)}';
     } else {
-      return '${value.substring(0, 4)}/${value.substring(4, 6)}/${value.substring(6)}';
+      return '${value.substring(0, 2)}/${value.substring(2, 4)}/${value.substring(4, 8)}';
     }
   }
 }
