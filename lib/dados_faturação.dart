@@ -33,11 +33,15 @@ class _BillingDataPageState extends State<BillingDataPage> {
             Column(
               children: [
                 SvgPicture.asset(
-                  'assets/imagens/128-5-morada.svg',
+                  'assets/imagens/SemMorada.svg',
                   width: 350,
                   height: 350,
                 ),
-                Text('Dados de faturação vazia'),
+                Text(
+                  'Dados de faturação vazia',
+                  style: Theme.of(context).textTheme.displaySmall,
+                  textAlign: TextAlign.center,
+                ),
                 Text('Adicione um método de faturação'),
                 ElevatedButton(
                   child: Text('Adicionar método de faturação'),
