@@ -57,7 +57,6 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> with SingleTick
 
   @override
   Widget build(BuildContext context) {
-    //print(emailName);
     return _screens.isNotEmpty ? Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: SearchBar(emailName: emailName, query: ''),

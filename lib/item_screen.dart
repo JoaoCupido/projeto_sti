@@ -71,7 +71,6 @@ class _ItemScreenState extends State<ItemScreen>
 
   @override
   Widget build(BuildContext context) {
-    print(query);
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: SearchBar(
