@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:projeto_sti/search_bar.dart';
+import 'package:projeto_sti/components/search_bar.dart';
 import 'package:projeto_sti/compare_item.dart';
 import 'package:projeto_sti/item_description.dart';
 import 'package:projeto_sti/item_review.dart';
@@ -49,6 +49,7 @@ class _ItemScreenState extends State<ItemScreen>
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: SearchBar(
         emailName: emailName,
+        query: "",
       ),
       body: Column(children: [
         Container(
