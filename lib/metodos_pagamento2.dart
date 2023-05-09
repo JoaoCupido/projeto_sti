@@ -122,6 +122,7 @@ class _PaymentMethodsPage2State extends State<PaymentMethodsPage2> {
               child: ElevatedButton(
                 onPressed: () {
                   // TODO: Handle create button press
+                  Navigator.of(context).pushNamed('/metodos_pagamento');
                 },
                 child: Text('Criar'),
               ),
@@ -139,6 +140,7 @@ class _PaymentMethodsPage2State extends State<PaymentMethodsPage2> {
               child: ElevatedButton(
                 onPressed: () {
                   // TODO: Handle create button press
+                  Navigator.of(context).pushNamed('/metodos_pagamento');
                 },
                 child: Text('Criar'),
               ),
@@ -163,6 +165,7 @@ class _PaymentMethodsPage2State extends State<PaymentMethodsPage2> {
               child: ElevatedButton(
                 onPressed: () {
                   // TODO: Handle create button press
+                  Navigator.of(context).pushNamed('/metodos_pagamento');
                 },
                 child: Text('Criar'),
               ),
@@ -180,6 +183,7 @@ class _PaymentMethodsPage2State extends State<PaymentMethodsPage2> {
               child: ElevatedButton(
                 onPressed: () {
                   // TODO: Handle create button press
+                  Navigator.of(context).pushNamed('/metodos_pagamento');
                 },
                 child: Text('Criar'),
               ),
