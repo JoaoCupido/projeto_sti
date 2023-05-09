@@ -45,6 +45,7 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
               child: Text('Criar'),
               onPressed: () {
                 // Add logic to create a new payment method
+                Navigator.of(context).pushNamed('/metodos_pagamento2');
               },
             ),
           ],

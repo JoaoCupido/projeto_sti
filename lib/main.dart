@@ -12,6 +12,7 @@ import 'package:projeto_sti/user_profile_screen.dart';
 import 'dados_faturação.dart';
 import 'dados_faturação2.dart';
 import 'metodos_pagamento.dart';
+import 'metodos_pagamento2.dart';
 import 'help_screen.dart';
 
 void main() {
@@ -38,14 +39,17 @@ class MyApp extends StatelessWidget {
             '/recover-account-2': (context) =>
                 const RecoverAccount2(emailName: ''),
             '/recover-account-3': (context) => const RecoverAccount3(),
-            '/home': (context) => const BottomNavBarScreen(args: {'index': 0, 'emailName': ''}),
+            '/home': (context) =>
+                const BottomNavBarScreen(args: {'index': 0, 'emailName': ''}),
             '/user-account': (context) => const UserAccountScreen(),
             '/user-profile': (context) => const UserProfileScreen(),
             '/help': (context) => const HelpScreen(),
-            '/search': (context) => const SearchResultsScreen(args: {'emailName': '', 'query' : ''}),
+            '/search': (context) =>
+                const SearchResultsScreen(args: {'emailName': '', 'query': ''}),
             '/dados_faturação': (context) => BillingDataPage(),
             '/dados_faturação2': (context) => BillingDataPage2(),
             '/metodos_pagamento': (context) => PaymentMethodsPage(),
+            '/metodos_pagamento2': (context) => PaymentMethodsPage2(),
           },
           theme: ThemeData(
             colorScheme: const ColorScheme(
