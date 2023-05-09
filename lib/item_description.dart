@@ -27,6 +27,7 @@ class _ItemDescriptionScreenState extends State<ItemDescriptionScreen>
   String _itemSpecs = "";
   String _itemMoreInfo = "";
   List<ItemInfo> _itemInfo = [];
+  List<String> _imagesList = [];
   _ItemDescriptionScreenState(this.itemTitle);
 
   Future<void> readJson() async {
@@ -44,6 +45,9 @@ class _ItemDescriptionScreenState extends State<ItemDescriptionScreen>
         ItemInfo(name: "Especificações", info: _itemSpecs),
         ItemInfo(name: "Mais Informação", info: _itemMoreInfo)
       ];
+      for (var img in data[itemTitle]["itemImages"]) {
+        _imagesList.add(img);
+      }
       availableData = true;
     });
   }
@@ -72,7 +76,7 @@ class _ItemDescriptionScreenState extends State<ItemDescriptionScreen>
                 decoration: BoxDecoration(
                     border: Border.all(
                         color: Theme.of(context).colorScheme.secondary)),
-                child: const Carousel()),
+                child: Carousel(imagesList: _imagesList)),
             Container(
               alignment: Alignment.center,
               padding: const EdgeInsets.only(top: 20, left: 25, right: 25),

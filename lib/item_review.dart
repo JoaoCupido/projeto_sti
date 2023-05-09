@@ -23,6 +23,7 @@ class _ItemReviewScreenState extends State<ItemReviewScreen>
   String _itemReview = "";
   List<ReviewPercentage> _reviewPercentage = [];
   List<ItemComment> _itemComments = [];
+  List<String> _imagesList = [];
   _ItemReviewScreenState(this.itemTitle);
 
   Future<void> readJson() async {
@@ -46,6 +47,9 @@ class _ItemReviewScreenState extends State<ItemReviewScreen>
             review: comment["comment"],
             stars: comment["stars"],
             images: images));
+      }
+      for (var img in data[itemTitle]["itemImages"]) {
+        _imagesList.add(img);
       }
       availableData = true;
     });
@@ -76,7 +80,7 @@ class _ItemReviewScreenState extends State<ItemReviewScreen>
                   decoration: BoxDecoration(
                       border: Border.all(
                           color: Theme.of(context).colorScheme.secondary)),
-                  child: const Carousel()),
+                  child: Carousel(imagesList: _imagesList)),
               Container(
                 alignment: Alignment.center,
                 padding: const EdgeInsets.only(top: 20, left: 25, right: 25),

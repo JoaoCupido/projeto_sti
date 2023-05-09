@@ -3,20 +3,20 @@ import 'package:flutter_svg/svg.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 class Carousel extends StatefulWidget {
-  const Carousel({Key? key}) : super(key: key);
+  final List<String> imagesList;
+
+  const Carousel({Key? key, required this.imagesList}) : super(key: key);
 
   @override
-  _CarouselState createState() => _CarouselState();
+  _CarouselState createState() => _CarouselState(imagesList);
 }
 
 class _CarouselState extends State<Carousel>
     with SingleTickerProviderStateMixin {
   int _currentIndex = 0;
+  List<String> imagesList;
+  _CarouselState(this.imagesList);
   CarouselController buttonCarouselController = CarouselController();
-  final List<String> imagesList = [
-    'assets/images/carousel-item/biscoito.svg',
-    'assets/images/carousel-item/biscoito-1.svg'
-  ];
 
   @override
   void initState() {

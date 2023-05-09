@@ -74,7 +74,7 @@ class _ItemScreenState extends State<ItemScreen>
           child: [
             ItemDescriptionScreen(itemTitle: itemTitle),
             ItemReviewScreen(itemTitle: itemTitle),
-            CompareItemScreen(),
+            CompareItemScreen(itemTitle: itemTitle),
           ][controller.index],
         )))
       ]),
