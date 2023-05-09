@@ -6,6 +6,7 @@ import 'bottom_nav_bar_screen.dart';
 import 'components/category.dart';
 import 'components/product.dart';
 import 'components/wishlist.dart';
+import 'item_screen.dart';
 
 class SearchResultsScreen extends StatefulWidget {
   final Map args;
@@ -46,9 +47,9 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> with SingleTi
     'Whiskas',
   ];
   String? _selectedBrand;
-  RangeValues _selectedPriceRange = const RangeValues(0, 1000);
+  RangeValues _selectedPriceRange = const RangeValues(0, 200);
   final double _minPrice = 0;
-  final double _maxPrice = 1000;
+  final double _maxPrice = 200;
   final List<double> _ratingList = [0, 1, 2, 3, 4];
   double? _selectedRating;
 
@@ -132,16 +133,16 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> with SingleTi
         bottomNavigationBar: BottomAppBar(
           child: TabBar(
             controller: _tabController,
-            indicator: BoxDecoration(
+            indicator: const BoxDecoration(
               border: Border(
                 top: BorderSide(
-                  width: 2.0,
-                  color: Theme.of(context).colorScheme.primary,
+                  width: 0.0,
+                  color: Colors.transparent,
                 ),
               ),
             ),
             indicatorSize: TabBarIndicatorSize.tab,
-            labelColor: Theme.of(context).colorScheme.primary,
+            labelColor: Theme.of(context).colorScheme.onSurface,
             unselectedLabelColor: Theme.of(context).colorScheme.onSurface,
             tabs: const [
               Tab(icon: Icon(Icons.home_outlined)),
@@ -204,7 +205,15 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> with SingleTi
                 final popularProduct = _productsList[index];
                 return GestureDetector(
                   onTap: () {
-                    //TODO: Navigate to product details screen
+                    Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                ItemScreen(
+                                    args: {'query': query, 'emailName': emailName,
+                                      'itemTitle': 'Biscoito para cão Biscrok', 'index': 0}
+                                )
+                        )
+                    );
                   },
                   child: Card(
                     child: Row(
@@ -362,7 +371,16 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> with SingleTi
                                       IconButton(
                                         icon: const Icon(Icons.compare_arrows_outlined),
                                         onPressed: () {
-                                          //TODO: Implement compare functionality
+                                          Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ItemScreen(
+                                                          args: {'query': '', 'emailName': emailName,
+                                                            'itemTitle': 'Biscoito para cão Biscrok', 'index': 2
+                                                          }
+                                                      )
+                                              )
+                                          );
                                         },
                                         color: Theme.of(context).colorScheme.primary,
                                       ),
@@ -536,7 +554,7 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> with SingleTi
                           },
                         ),
                         const SizedBox(height: 8),
-                        Text(
+                        const Text(
                           "Categoria",
                           style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                         ),
@@ -574,7 +592,7 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> with SingleTi
                           },
                         ),
                         const SizedBox(height: 16),
-                        Text(
+                        const Text(
                           "Marca",
                           style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                         ),
@@ -606,7 +624,7 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> with SingleTi
                         ),
                       ),
                       const SizedBox(height: 16),
-                        Text(
+                        const Text(
                           "Preço",
                           style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                         ),
@@ -627,20 +645,20 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> with SingleTi
                           children: [
                             Text(
                               "€${_selectedPriceRange.start.round()}",
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             Text(
                               "€${_selectedPriceRange.end.round()}",
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                           ],
                         ),
                         const SizedBox(height: 16),
-                        Text(
+                        const Text(
                           "Avaliação",
                           style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                         ),
@@ -679,7 +697,7 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> with SingleTi
                             // apply filters
                             Navigator.pop(context);
                           },
-                          child: Text("Aplicar filtros"),
+                          child: const Text("Aplicar filtros"),
                         ),
                       ],
                     ),
@@ -694,16 +712,16 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> with SingleTi
       bottomNavigationBar: BottomAppBar(
         child: TabBar(
           controller: _tabController,
-          indicator: BoxDecoration(
+          indicator: const BoxDecoration(
             border: Border(
               top: BorderSide(
-                width: 2.0,
-                color: Theme.of(context).colorScheme.primary,
+                width: 0.0,
+                color: Colors.transparent,
               ),
             ),
           ),
           indicatorSize: TabBarIndicatorSize.tab,
-          labelColor: Theme.of(context).colorScheme.primary,
+          labelColor: Theme.of(context).colorScheme.onSurface,
           unselectedLabelColor: Theme.of(context).colorScheme.onSurface,
           tabs: const [
             Tab(icon: Icon(Icons.home_outlined)),

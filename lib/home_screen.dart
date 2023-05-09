@@ -5,6 +5,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:projeto_sti/components/product.dart';
 
 import 'components/wishlist.dart';
+import 'item_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final String emailName;
@@ -45,7 +46,6 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   Widget build(BuildContext context) {
-    //print(emailName);
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: SingleChildScrollView(
@@ -140,7 +140,15 @@ class _HomeScreenState extends State<HomeScreen>
                 padding: const EdgeInsets.symmetric(horizontal: 5),
                 child: GestureDetector(
                   onTap: () {
-                    //TODO: Navigate to product details screen
+                    Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                ItemScreen(
+                                    args: {'query': '', 'emailName': emailName,
+                                      'itemTitle': 'Biscoito para cão Biscrok', 'index': 0}
+                                )
+                        )
+                    );
                   },
                   child: SizedBox(
                     width: 150,
@@ -286,7 +294,6 @@ class _HomeScreenState extends State<HomeScreen>
                                           .isFavorite =
                                       !popularProduct
                                           .isFavorite;
-                                      //TODO: Remove product from wishlist - backend
                                     });
                                   }
                                 },

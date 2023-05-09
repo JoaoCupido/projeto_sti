@@ -11,6 +11,7 @@ import 'package:projeto_sti/user_account_screen.dart';
 import 'package:projeto_sti/user_profile_screen.dart';
 import 'dados_faturação.dart';
 import 'dados_faturação2.dart';
+import 'item_screen.dart';
 import 'metodos_pagamento.dart';
 import 'metodos_pagamento2.dart';
 import 'help_screen.dart';
@@ -50,6 +51,9 @@ class MyApp extends StatelessWidget {
             '/dados_faturação2': (context) => BillingDataPage2(),
             '/metodos_pagamento': (context) => PaymentMethodsPage(),
             '/metodos_pagamento2': (context) => PaymentMethodsPage2(),
+            '/item-screen': (context) =>
+                const ItemScreen(args: {'emailName': '', 'query': '',
+                  'itemTitle': 'Biscoito para cão Biscrok', 'index': 0}),
           },
           theme: ThemeData(
             colorScheme: const ColorScheme(
