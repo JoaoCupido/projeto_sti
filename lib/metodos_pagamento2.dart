@@ -57,139 +57,142 @@ class _PaymentMethodsPage2State extends State<PaymentMethodsPage2> {
           },
         ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ToggleButtons(
-                isSelected: [
-                  selectedMethod == 'credit_card',
-                  selectedMethod == 'house',
-                  selectedMethod == 'paypal',
-                  selectedMethod == 'mbw',
-                ],
-                onPressed: (index) {
-                  selectMethod(index);
-                },
-                children: [
-                  Icon(Icons.credit_card),
-                  Icon(Icons.home),
-                  Icon(Icons.paypal),
-                  Icon(Icons.mobile_screen_share),
-                ],
-              ),
-            ],
-          ),
-          SizedBox(height: 16),
-          if (selectedMethod == 'credit_card') ...[
-            TextField(
-              decoration: InputDecoration(
-                labelText: 'Número do cartão de crédito',
-              ),
-            ),
-            SizedBox(height: 16),
-            TextField(
-              decoration: InputDecoration(
-                labelText: 'Nome do Titular',
-              ),
-            ),
-            SizedBox(height: 16),
+      body: Container(
+        padding: EdgeInsets.all(16.0), // Add padding around the text fields
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Expanded(
-                  child: TextField(
-                    decoration: InputDecoration(
-                      labelText: 'CVV',
-                    ),
-                  ),
-                ),
-                SizedBox(width: 16),
-                Expanded(
-                  child: TextField(
-                    controller: dateController,
-                    inputFormatters: [_DateInputFormatter()], // Add this line
-                    decoration: InputDecoration(
-                      labelText: 'Data (DD/MM/AAAA)',
-                      hintText: 'Digite a data',
-                    ),
-                  ),
+                ToggleButtons(
+                  isSelected: [
+                    selectedMethod == 'credit_card',
+                    selectedMethod == 'house',
+                    selectedMethod == 'paypal',
+                    selectedMethod == 'mbw',
+                  ],
+                  onPressed: (index) {
+                    selectMethod(index);
+                  },
+                  children: [
+                    Icon(Icons.credit_card),
+                    Icon(Icons.home),
+                    Icon(Icons.paypal),
+                    Icon(Icons.mobile_screen_share),
+                  ],
                 ),
               ],
             ),
-            Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  // TODO: Handle create button press
-                  Navigator.of(context).pushNamed('/metodos_pagamento');
-                },
-                child: Text('Criar'),
-              ),
-            ),
-          ],
-          if (selectedMethod == 'house') ...[
-            TextField(
-              controller: multibancoController,
-              decoration: InputDecoration(
-                labelText: 'Referência Multibanco',
-              ),
-            ),
             SizedBox(height: 16),
-            Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  // TODO: Handle create button press
-                  Navigator.of(context).pushNamed('/metodos_pagamento');
-                },
-                child: Text('Criar'),
+            if (selectedMethod == 'credit_card') ...[
+              TextField(
+                decoration: InputDecoration(
+                  labelText: 'Número do cartão de crédito',
+                ),
               ),
-            ),
+              SizedBox(height: 16),
+              TextField(
+                decoration: InputDecoration(
+                  labelText: 'Nome do Titular',
+                ),
+              ),
+              SizedBox(height: 16),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        labelText: 'CVV',
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 16),
+                  Expanded(
+                    child: TextField(
+                      controller: dateController,
+                      inputFormatters: [_DateInputFormatter()], // Add this line
+                      decoration: InputDecoration(
+                        labelText: 'Data (DD/MM/AAAA)',
+                        hintText: 'Digite a data',
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    // TODO: Handle create button press
+                    Navigator.of(context).pushNamed('/metodos_pagamento');
+                  },
+                  child: Text('Criar'),
+                ),
+              ),
+            ],
+            if (selectedMethod == 'house') ...[
+              TextField(
+                controller: multibancoController,
+                decoration: InputDecoration(
+                  labelText: 'Referência Multibanco',
+                ),
+              ),
+              SizedBox(height: 16),
+              Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    // TODO: Handle create button press
+                    Navigator.of(context).pushNamed('/metodos_pagamento');
+                  },
+                  child: Text('Criar'),
+                ),
+              ),
+            ],
+            if (selectedMethod == 'paypal') ...[
+              TextField(
+                controller: paypalLoginController,
+                decoration: InputDecoration(
+                  labelText: 'Login',
+                ),
+              ),
+              SizedBox(height: 16),
+              TextField(
+                controller: paypalPasswordController,
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                ),
+              ),
+              SizedBox(height: 16),
+              Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    // TODO: Handle create button press
+                    Navigator.of(context).pushNamed('/metodos_pagamento');
+                  },
+                  child: Text('Criar'),
+                ),
+              ),
+            ],
+            if (selectedMethod == 'mbw') ...[
+              TextField(
+                controller: mbwPhoneNumberController,
+                decoration: InputDecoration(
+                  labelText: 'Phone Number',
+                ),
+              ),
+              SizedBox(height: 16),
+              Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    // TODO: Handle create button press
+                    Navigator.of(context).pushNamed('/metodos_pagamento');
+                  },
+                  child: Text('Criar'),
+                ),
+              ),
+            ],
           ],
-          if (selectedMethod == 'paypal') ...[
-            TextField(
-              controller: paypalLoginController,
-              decoration: InputDecoration(
-                labelText: 'Login',
-              ),
-            ),
-            SizedBox(height: 16),
-            TextField(
-              controller: paypalPasswordController,
-              decoration: InputDecoration(
-                labelText: 'Password',
-              ),
-            ),
-            SizedBox(height: 16),
-            Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  // TODO: Handle create button press
-                  Navigator.of(context).pushNamed('/metodos_pagamento');
-                },
-                child: Text('Criar'),
-              ),
-            ),
-          ],
-          if (selectedMethod == 'mbw') ...[
-            TextField(
-              controller: mbwPhoneNumberController,
-              decoration: InputDecoration(
-                labelText: 'Phone Number',
-              ),
-            ),
-            SizedBox(height: 16),
-            Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  // TODO: Handle create button press
-                  Navigator.of(context).pushNamed('/metodos_pagamento');
-                },
-                child: Text('Criar'),
-              ),
-            ),
-          ],
-        ],
+        ),
       ),
     );
   }
