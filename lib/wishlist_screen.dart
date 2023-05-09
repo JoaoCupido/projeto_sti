@@ -439,12 +439,12 @@ class _WishlistScreenState extends State<WishlistScreen>
                         children: [
                           ListTile(
                             onTap: () {
-                              //TODO: Navigate to product details screen
                               Navigator.of(context).push(
                                   MaterialPageRoute(
                                       builder: (context) =>
                                           ItemScreen(
-                                              args: {'query': '', 'emailName': emailName, 'itemTitle': 'Biscoito para cão Biscrok'}
+                                              args: {'query': '', 'emailName': emailName,
+                                                'itemTitle': 'Biscoito para cão Biscrok', 'index': 0}
                                           )
                                   )
                               );
@@ -551,7 +551,16 @@ class _WishlistScreenState extends State<WishlistScreen>
                                 IconButton(
                                   icon: const Icon(Icons.compare_arrows_outlined),
                                   onPressed: () {
-                                    //TODO: Implement compare functionality
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ItemScreen(
+                                                    args: {'query': '', 'emailName': emailName,
+                                                      'itemTitle': 'Biscoito para cão Biscrok', 'index': 2
+                                                    }
+                                                )
+                                        )
+                                    );
                                   },
                                   color: Theme.of(context).colorScheme.primary,
                                 ),

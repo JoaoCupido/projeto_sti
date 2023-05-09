@@ -331,12 +331,12 @@ class _OrderScreenState extends State<OrderScreen>
                 padding: const EdgeInsets.symmetric(horizontal: 5),
                 child: GestureDetector(
                   onTap: () {
-                    //TODO: Navigate to product details screen
                     Navigator.of(context).push(
                         MaterialPageRoute(
                             builder: (context) =>
                                 ItemScreen(
-                                    args: {'query': '', 'emailName': emailName, 'itemTitle': 'Biscoito para cão Biscrok'}
+                                    args: {'query': '', 'emailName': emailName,
+                                      'itemTitle': 'Biscoito para cão Biscrok', 'index': 0}
                                 )
                         )
                     );

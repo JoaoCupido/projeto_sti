@@ -24,16 +24,12 @@ class _SearchBarState extends State<SearchBar>
 
   String searchValue = '';
   final List<String> _suggestions = [
-    'Afghanistan',
-    'Albania',
-    'Algeria',
-    'Australia',
-    'Brazil',
-    'German',
-    'Madagascar',
-    'Mozambique',
-    'Portugal',
-    'Zambia'
+    'Comida para cão',
+    'Brinquedos',
+    'Gato petiscos',
+    'mobilia',
+    'cama para gatos',
+    'coleiras para cães'
   ];
 
   @override

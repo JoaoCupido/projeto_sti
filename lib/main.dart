@@ -52,7 +52,8 @@ class MyApp extends StatelessWidget {
             '/metodos_pagamento': (context) => PaymentMethodsPage(),
             '/metodos_pagamento2': (context) => PaymentMethodsPage2(),
             '/item-screen': (context) =>
-                const ItemScreen(args: {'emailName': '', 'query': '', 'itemTitle': 'Biscoito para cão Biscrok'}),
+                const ItemScreen(args: {'emailName': '', 'query': '',
+                  'itemTitle': 'Biscoito para cão Biscrok', 'index': 0}),
           },
           theme: ThemeData(
             colorScheme: const ColorScheme(

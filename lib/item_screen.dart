@@ -42,6 +42,7 @@ class _ItemScreenState extends State<ItemScreen>
     emailName = args['emailName'];
     itemTitle = args['itemTitle'];
     query = args['query'];
+    controller.index = args['index'];
   }
 
   @override
