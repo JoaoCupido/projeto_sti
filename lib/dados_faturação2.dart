@@ -86,6 +86,7 @@ class _BillingDataPage2State extends State<BillingDataPage2> {
                 child: Text('Salvar e Sair'),
                 onPressed: () {
                   // Add logic to save form data and navigate back or perform additional actions
+                  Navigator.pop(context);
                 },
               ),
             ],
