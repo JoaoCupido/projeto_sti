@@ -33,7 +33,7 @@ class _BillingDataPageState extends State<BillingDataPage> {
             Column(
               children: [
                 SvgPicture.asset(
-                  'assets/imagens/128-5-morada.svg',
+                  'assets/imagens/128-5-moradappp.svg',
                   width: 350,
                   height: 350,
                 ),
