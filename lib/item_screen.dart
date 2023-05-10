@@ -132,7 +132,7 @@ class _ItemScreenState extends State<ItemScreen>
         )))
       ]),
          Visibility(
-             visible: _controller.index != 2,
+             visible: controller.index != 2,
              child: Buttons(
                    textLeft: CalculatePrice(
                    price: itemPrice,
