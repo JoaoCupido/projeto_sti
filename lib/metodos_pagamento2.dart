@@ -94,7 +94,7 @@ class _PaymentMethodsPage2State extends State<PaymentMethodsPage2> {
               SizedBox(height: 16),
               TextField(
                 decoration: InputDecoration(
-                  labelText: 'Nome do Titular',
+                  labelText: 'Nome do titular',
                 ),
               ),
               SizedBox(height: 16),
