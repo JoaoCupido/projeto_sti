@@ -7,10 +7,14 @@ class PaymentMethodsPage extends StatefulWidget {
 
 class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
   List<List<String>> paymentMethodLists = [
-    ['Visa', 'Mastercard', 'American Express'],
-    ['Entidade', 'Referência'],
-    ['Email', 'Senha'],
-    ['Número de telemóvel'],
+    [
+      '**** 4444 - Visa',
+      '**** 5555 - Mastercard',
+      '**** 7777 - American Express'
+    ],
+    ['45378475373456', '87346793457656'],
+    ['Paypal1', 'paypal2'],
+    ['123456789'],
   ];
   bool showItems = false;
 
