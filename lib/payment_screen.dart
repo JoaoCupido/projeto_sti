@@ -1,6 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:projeto_sti/compare_item.dart';
 import 'package:projeto_sti/components/credit_card.dart';
+import 'package:projeto_sti/components/price.dart';
 
 import 'components/billing.dart';
 
@@ -35,6 +40,9 @@ class _PaymentScreenState extends State<PaymentScreen>
   TextEditingController _presentMessageController = TextEditingController();
   TextEditingController _presentRecipientController = TextEditingController();
 
+  bool availableData = false;
+  List<ItemShopping> items = [];
+
   late String emailName = '';
 
   @override
@@ -48,6 +56,7 @@ class _PaymentScreenState extends State<PaymentScreen>
   void didChangeDependencies() {
     super.didChangeDependencies();
     emailName = args['emailName'];
+    items = args['items'];
   }
 
   _handleTabSelection() {
@@ -476,6 +485,188 @@ class _PaymentScreenState extends State<PaymentScreen>
     );
   }
 
+  ItemShopping searchItem(dynamic data, String item) {
+    return ItemShopping(
+        itemTitle: data[item]["itemTitle"],
+        itemBrand: data[item]["itemBrand"],
+        itemPrice: data[item]["itemPrice"],
+        itemDiscount: data[item]["itemDiscount"],
+        itemReview: data[item]["itemReview"],
+        itemImage: data[item]["itemImages"][0]);
+  }
+
+  Widget confirmBuy() {
+    return !availableData
+        ? const CircularProgressIndicator()
+        : Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.only(top: 20, left: 5),
+                alignment: Alignment.topLeft,
+                child: const Text("Confirmar Encomenda",
+                    style: TextStyle(fontSize: 30, color: Colors.black87),
+                    textAlign: TextAlign.start),
+              ),
+              Container(
+                padding: const EdgeInsets.only(top: 5, left: 5, bottom: 30),
+                alignment: Alignment.topLeft,
+                child: Text("${"O meu carrinho - ${items.length}"} artigos",
+                    style: const TextStyle(fontSize: 12, color: Colors.black54),
+                    textAlign: TextAlign.start),
+              ),
+              Container(
+                  margin: const EdgeInsets.only(bottom: 20),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: items
+                          .map((item) => Container(
+                                width: 150,
+                                height: 150,
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.grey),
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: Theme.of(context).colorScheme.surface,
+                                ),
+                                child: Column(
+                                  children: [
+                                    SvgPicture.asset(
+                                      item.itemImage,
+                                      width: 100,
+                                      height: 100,
+                                    ),
+                                    const Divider(),
+                                    Container(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        item.itemTitle,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                    Container(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        item.itemBrand,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                            child: CalculatePrice(
+                                                price: item.itemPrice,
+                                                discount: item.itemDiscount)),
+                                        Row(children: [
+                                          Container(
+                                              padding: const EdgeInsets.only(
+                                                  right: 5),
+                                              child: FittedBox(
+                                                  fit: BoxFit.fitWidth,
+                                                  child: Text(item.itemReview,
+                                                      style: const TextStyle(
+                                                          fontSize: 14,
+                                                          color: Colors
+                                                              .blueGrey)))),
+                                          Container(
+                                              child: const Icon(
+                                            Icons.star,
+                                            color: Colors.yellow,
+                                            size: 20,
+                                          ))
+                                        ])
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ))
+                          .toList(),
+                    ),
+                  )),
+              Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(5),
+                    color: Theme.of(context).colorScheme.surface,
+                  ),
+                  child: Column(children: [
+                    RadioListTile(
+                      activeColor: Theme.of(context).colorScheme.primary,
+                      title: Row(children: const [
+                        Expanded(child: Text("É um presente")),
+                        Icon(Icons.card_giftcard)
+                      ]),
+                      value: 1,
+                      groupValue: _isPresent,
+                      onChanged: (value) {
+                        setState(() {
+                          _isPresent = value!;
+                        });
+                      },
+                    ),
+                    const Divider(
+                      color: Colors.black87,
+                    ),
+                    Padding(
+                        padding: const EdgeInsets.only(
+                            bottom: 10, left: 20, right: 20, top: 10),
+                        child: TextField(
+                          controller: _presentMessageController,
+                          decoration: InputDecoration(
+                            labelText: 'Mensagem - Máximo de 100 carateres',
+                            labelStyle: Theme.of(context).textTheme.bodyMedium,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4.0),
+                              borderSide: BorderSide(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .outlineVariant,
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4.0),
+                              borderSide: BorderSide(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .outlineVariant,
+                              ),
+                            ),
+                            filled: true,
+                            fillColor: Theme.of(context).colorScheme.surface,
+                          ),
+                        )),
+                    Padding(
+                        padding: const EdgeInsets.only(
+                            bottom: 20, left: 20, right: 20, top: 10),
+                        child: TextField(
+                          controller: _presentRecipientController,
+                          decoration: InputDecoration(
+                            labelText: 'Destinatário do presente',
+                            labelStyle: Theme.of(context).textTheme.bodyMedium,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4.0),
+                              borderSide: BorderSide(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .outlineVariant,
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4.0),
+                              borderSide: BorderSide(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .outlineVariant,
+                              ),
+                            ),
+                            filled: true,
+                            fillColor: Theme.of(context).colorScheme.surface,
+                          ),
+                        ))
+                  ]))
+            ],
+          );
+  }
+
   Widget _buildDropdownButton(
     String label,
     List<dynamic> items,
@@ -592,6 +783,10 @@ class _PaymentScreenState extends State<PaymentScreen>
     return Container(height: 500, child: selectPresent());
   }
 
+  Widget _fourStep() {
+    return Container(height: 500, child: confirmBuy());
+  }
+
   @override
   Widget build(BuildContext context) {
     _steps = [
@@ -617,7 +812,7 @@ class _PaymentScreenState extends State<PaymentScreen>
         state: _currentStep > 3 ? StepState.complete : StepState.indexed,
         isActive: _currentStep >= 3,
         title: Text(''),
-        content: Text('Contenido del paso 4'),
+        content: _fourStep(),
       ),
     ];
     return Scaffold(
@@ -672,4 +867,21 @@ class _PaymentScreenState extends State<PaymentScreen>
               ))
         ]));
   }
+}
+
+class ItemShopping {
+  final String itemTitle;
+  final String itemBrand;
+  final String itemPrice;
+  final String itemDiscount;
+  final String itemImage;
+  final String itemReview;
+
+  ItemShopping(
+      {required this.itemTitle,
+      required this.itemBrand,
+      required this.itemPrice,
+      required this.itemDiscount,
+      required this.itemImage,
+      required this.itemReview});
 }
