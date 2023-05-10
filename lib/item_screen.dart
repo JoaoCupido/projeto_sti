@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:projeto_sti/components/search_bar.dart';
 import 'package:projeto_sti/compare_item.dart';
@@ -6,6 +8,8 @@ import 'package:projeto_sti/item_description.dart';
 import 'package:projeto_sti/item_review.dart';
 
 import 'bottom_nav_bar_screen.dart';
+import 'buttons.dart';
+import 'components/price.dart';
 
 class ItemScreen extends StatefulWidget {
   final Map args;
