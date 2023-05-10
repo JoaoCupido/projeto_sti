@@ -27,6 +27,10 @@ class _ItemScreenState extends State<ItemScreen>
   late String emailName = '';
   late String itemTitle = '';
   late String query = '';
+  
+   String itemPrice = "";
+  String itemDiscount = "";
+  bool availableData = false;
 
   @override
   void initState() {
@@ -34,6 +38,8 @@ class _ItemScreenState extends State<ItemScreen>
 
     controller = TabController(length: 3, vsync: this);
     _tabController = TabController(length: 5, vsync: this);
+    
+    readJson();
   }
 
   @override
@@ -69,16 +75,31 @@ class _ItemScreenState extends State<ItemScreen>
         )
     );
   }
+  
+    Future<void> readJson() async {
+    final String response = await rootBundle.loadString('assets/produtos.json');
+
+    setState(() {
+      final data = json.decode(response);
+      itemPrice = data[itemTitle]["itemPrice"];
+      itemDiscount = data[itemTitle]["itemDiscount"];
+
+      availableData = true;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return !availableData
+        ? const CircularProgressIndicator()
+        : Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: SearchBar(
         emailName: emailName,
         query: query,
       ),
-      body: Column(children: [
+      body: Stack(children: [
+         Column(children: [
         Container(
           margin: const EdgeInsets.all(10),
           color: Theme.of(context).colorScheme.surface,
@@ -106,6 +127,17 @@ class _ItemScreenState extends State<ItemScreen>
           ][controller.index],
         )))
       ]),
+         Visibility(
+             visible: _controller.index != 2,
+             child: Buttons(
+                   textLeft: CalculatePrice(
+                   price: itemPrice,
+                   discount: itemDiscount,
+               ),
+                   textRight: "Adicionar ao carrinho",
+                   icon: Icons.shopping_cart,
+                   onPress: () => {}))
+        ]),
       bottomNavigationBar: BottomAppBar(
         child: TabBar(
           controller: _tabController,
