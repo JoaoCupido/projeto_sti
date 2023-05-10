@@ -9,6 +9,7 @@ import 'package:projeto_sti/bottom_nav_bar_screen.dart';
 import 'package:projeto_sti/search_results_screen.dart';
 import 'package:projeto_sti/user_account_screen.dart';
 import 'package:projeto_sti/user_profile_screen.dart';
+import 'package:projeto_sti/shopping_card.dart';
 import 'dados_faturação.dart';
 import 'dados_faturação2.dart';
 import 'item_screen.dart';
@@ -54,6 +55,8 @@ class MyApp extends StatelessWidget {
             '/item-screen': (context) =>
                 const ItemScreen(args: {'emailName': '', 'query': '',
                   'itemTitle': 'Biscoito para cão Biscrok', 'index': 0}),
+            '/shoppingCard': (context) =>
+                const ShoppingCartScreen(emailName: ''),
           },
           theme: ThemeData(
             colorScheme: const ColorScheme(
