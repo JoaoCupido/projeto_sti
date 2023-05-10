@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:projeto_sti/components/search_bar.dart';
 import 'package:projeto_sti/wishlist_screen.dart';
 import 'category_screen.dart';
+import 'package:projeto_sti/shopping_card.dart';
 import 'home_screen.dart';
 import 'order_screen.dart';
 
@@ -38,6 +39,7 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> with SingleTick
       HomeScreen(emailName: emailName),
       CategoryScreen(emailName: emailName),
       HomeScreen(emailName: emailName),
+      ShoppingCartScreen(emailName: emailName),
       WishlistScreen(emailName: emailName),
       OrderScreen(emailName: emailName),
     ];
