@@ -120,6 +120,7 @@ class _PaymentMethodsPage2State extends State<PaymentMethodsPage2> {
                   ),
                 ],
               ),
+              SizedBox(height: 16),
               Center(
                 child: ElevatedButton(
                   onPressed: () {
