@@ -38,7 +38,6 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> with SingleTick
     _screens = [
       HomeScreen(emailName: emailName),
       CategoryScreen(emailName: emailName),
-      HomeScreen(emailName: emailName),
       ShoppingCartScreen(emailName: emailName),
       WishlistScreen(emailName: emailName),
       OrderScreen(emailName: emailName),
