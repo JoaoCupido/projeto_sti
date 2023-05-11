@@ -147,166 +147,169 @@ class _ShoppingCartScreen extends State<ShoppingCartScreen>
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                   ),
-                  SingleChildScrollView(
-                      child: Column(
-                          children: _shoppingList
-                              .map(
-                                (item) => Row(
-                                  children: [
-                                    Container(
-                                      margin: const EdgeInsets.only(
-                                          top: 10, left: 20),
-                                      height: screenHeight * 0.2,
-                                      width: screenWidth * 0.5,
-                                      decoration: BoxDecoration(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .surface,
-                                        border: Border.all(
-                                          color: Colors.grey,
-                                          width: 3,
-                                        ),
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            alignment: Alignment.topRight,
-                                            margin: const EdgeInsets.only(
-                                                left: 5, top: 5),
-                                            child: const Icon(
-                                              Icons.remove_circle,
-                                              color: Colors.red,
-                                            ),
-                                          ),
-                                          Expanded(
-                                              child: SvgPicture.asset(
-                                            item.image,
-                                            width: screenWidth * 0.24,
-                                            height: screenHeight * 0.11,
-                                          )),
-                                        ],
+                  Expanded(
+                    child: SingleChildScrollView(
+                        child: Column(
+                            children: _shoppingList
+                                .map(
+                                  (item) => Row(
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.only(
+                                        top: 10, left: 20),
+                                    height: screenHeight * 0.2,
+                                    width: screenWidth * 0.5,
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .surface,
+                                      border: Border.all(
+                                        color: Colors.grey,
+                                        width: 3,
                                       ),
                                     ),
-                                    Container(
-                                      margin: const EdgeInsets.only(top: 10),
-                                      height: screenHeight * 0.2,
-                                      width: screenWidth * 0.4,
-                                      decoration: BoxDecoration(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .surface,
-                                        border: Border.all(
-                                          color: Colors.grey,
-                                          width: 3,
-                                        ),
-                                      ),
-                                      child: Column(children: [
+                                    child: Row(
+                                      children: [
                                         Container(
-                                          alignment:
-                                              AlignmentDirectional.topStart,
-                                          child: Text(
-                                            item.name,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .titleMedium,
-                                            overflow: TextOverflow.ellipsis,
+                                          alignment: Alignment.topRight,
+                                          margin: const EdgeInsets.only(
+                                              left: 5, top: 5),
+                                          child: const Icon(
+                                            Icons.remove_circle,
+                                            color: Colors.red,
                                           ),
                                         ),
-                                        Container(
-                                          alignment:
-                                              AlignmentDirectional.topStart,
-                                          child: Row(children: [
-                                            Text(item.brand,
+                                        Expanded(
+                                            child: SvgPicture.asset(
+                                              item.image,
+                                              width: screenWidth * 0.24,
+                                              height: screenHeight * 0.11,
+                                            )),
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.only(top: 10),
+                                    height: screenHeight * 0.2,
+                                    width: screenWidth * 0.4,
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .surface,
+                                      border: Border.all(
+                                        color: Colors.grey,
+                                        width: 3,
+                                      ),
+                                    ),
+                                    child: Column(children: [
+                                      Container(
+                                        alignment:
+                                        AlignmentDirectional.topStart,
+                                        child: Text(
+                                          item.name,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleMedium,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                      Container(
+                                        alignment:
+                                        AlignmentDirectional.topStart,
+                                        child: Row(children: [
+                                          Text(item.brand,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 70),
+                                            child: Text(item.review,
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .bodySmall),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 70),
-                                              child: Text(item.review,
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .bodySmall),
-                                            ),
-                                            const Icon(
-                                              Icons.star_half,
-                                              size: 15,
-                                            ),
-                                          ]),
+                                          ),
+                                          const Icon(
+                                            Icons.star_half,
+                                            size: 15,
+                                          ),
+                                        ]),
+                                      ),
+                                      Container(
+                                        height: screenHeight * 0.04,
+                                        alignment:
+                                        AlignmentDirectional.bottomCenter,
+                                        child: CalculatePrice(
+                                            price: item.price,
+                                            discount: item.discount,
+                                            quantity: item.quantity),
+                                      ),
+                                      Container(
+                                        margin:
+                                        const EdgeInsets.only(top: 20),
+                                        height: screenHeight * 0.05,
+                                        width: screenWidth * 0.28,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                            color: Colors.grey,
+                                            width: 2,
+                                          ),
                                         ),
-                                        Container(
-                                          height: screenHeight * 0.04,
-                                          alignment:
-                                              AlignmentDirectional.bottomCenter,
-                                          child: CalculatePrice(
-                                              price: item.price,
-                                              discount: item.discount,
-                                              quantity: item.quantity),
-                                        ),
-                                        Container(
-                                          margin:
-                                              const EdgeInsets.only(top: 20),
-                                          height: screenHeight * 0.05,
-                                          width: screenWidth * 0.28,
-                                          decoration: BoxDecoration(
-                                            border: Border.all(
-                                              color: Colors.grey,
-                                              width: 2,
+                                        child: Row(children: [
+                                          InkWell(
+                                            onTap: () =>
+                                                _decrementarContador(item),
+                                            child: Container(
+                                              margin: const EdgeInsets.all(6),
+                                              height: screenHeight * 0.05,
+                                              width: screenWidth * 0.08,
+                                              decoration: const BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: Colors.orange,
+                                              ),
+                                              child: Icon(
+                                                Icons.remove,
+                                                color: Theme.of(context).colorScheme.surface,
+                                              ),
                                             ),
                                           ),
-                                          child: Row(children: [
-                                            InkWell(
-                                              onTap: () =>
-                                                  _decrementarContador(item),
-                                              child: Container(
-                                                margin: const EdgeInsets.all(6),
-                                                height: screenHeight * 0.05,
-                                                width: screenWidth * 0.08,
-                                                decoration: const BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  color: Colors.orange,
+                                          Container(
+                                              width: screenWidth * 0.04,
+                                              child: FittedBox(
+                                                fit: BoxFit.contain,
+                                                child: Text(
+                                                  item.quantity.toString(),
+                                                  style: const TextStyle(
+                                                      fontSize: 14),
                                                 ),
-                                                child: Icon(
-                                                  Icons.remove,
-                                                  color: Theme.of(context).colorScheme.surface,
-                                                ),
+                                              )),
+                                          InkWell(
+                                            onTap: () =>
+                                                _incrementarContador(item),
+                                            child: Container(
+                                              margin: const EdgeInsets.all(6),
+                                              height: screenHeight * 0.05,
+                                              width: screenWidth * 0.08,
+                                              decoration: const BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: Colors.orange,
+                                              ),
+                                              child: Icon(
+                                                Icons.add,
+                                                color: Theme.of(context).colorScheme.surface,
                                               ),
                                             ),
-                                            Container(
-                                                width: screenWidth * 0.04,
-                                                child: FittedBox(
-                                                  fit: BoxFit.contain,
-                                                  child: Text(
-                                                    item.quantity.toString(),
-                                                    style: const TextStyle(
-                                                        fontSize: 14),
-                                                  ),
-                                                )),
-                                            InkWell(
-                                              onTap: () =>
-                                                  _incrementarContador(item),
-                                              child: Container(
-                                                margin: const EdgeInsets.all(6),
-                                                height: screenHeight * 0.05,
-                                                width: screenWidth * 0.08,
-                                                decoration: const BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  color: Colors.orange,
-                                                ),
-                                                child: Icon(
-                                                  Icons.add,
-                                                  color: Theme.of(context).colorScheme.surface,
-                                                ),
-                                              ),
-                                            ),
-                                          ]),
-                                        ),
-                                      ]),
-                                    ),
-                                  ],
-                                ),
-                              )
-                              .toList()))
+                                          ),
+                                        ]),
+                                      ),
+                                    ]),
+                                  ),
+                                ],
+                              ),
+                            )
+                                .toList())),
+                  ),
+                  const SizedBox(height: 32.0),
                 ],
               ),
               Buttons(
