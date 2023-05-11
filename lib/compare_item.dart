@@ -3,16 +3,19 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:projeto_sti/shopping_card.dart';
 
 class CompareItemScreen extends StatefulWidget {
   final String itemTitle;
   final String emailName;
 
-  const CompareItemScreen({Key? key, required this.itemTitle, required this.emailName})
+  const CompareItemScreen(
+      {Key? key, required this.itemTitle, required this.emailName})
       : super(key: key);
 
   @override
-  _CompareItemScreenState createState() => _CompareItemScreenState(itemTitle, emailName);
+  _CompareItemScreenState createState() =>
+      _CompareItemScreenState(itemTitle, emailName);
 }
 
 class _CompareItemScreenState extends State<CompareItemScreen>
@@ -112,14 +115,14 @@ class _CompareItemScreenState extends State<CompareItemScreen>
                                               CrossAxisAlignment.start,
                                           children: [
                                             IconButton(
-                                                onPressed: () {
-                                                  //TODO: Implementar remoção de um produto ao comparar
-                                                },
-                                                icon: const Icon(
-                                                  Icons.remove_circle,
-                                                  size: 30,
-                                                  color: Colors.red,
-                                                ),
+                                              onPressed: () {
+                                                //TODO: Implementar remoção de um produto ao comparar
+                                              },
+                                              icon: const Icon(
+                                                Icons.remove_circle,
+                                                size: 30,
+                                                color: Colors.red,
+                                              ),
                                             ),
                                             Padding(
                                                 padding:
@@ -135,8 +138,7 @@ class _CompareItemScreenState extends State<CompareItemScreen>
                                                 ),
                                                 child: Icon(
                                                     Icons.favorite_border,
-                                                    size: 28
-                                                ),
+                                                    size: 28),
                                               ),
                                           ],
                                         )
@@ -152,8 +154,10 @@ class _CompareItemScreenState extends State<CompareItemScreen>
                                             child: Text(
                                           item.name,
                                           style: TextStyle(
-                                              fontSize: 20,
-                                              color: Theme.of(context).colorScheme.onBackground,
+                                            fontSize: 20,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onBackground,
                                           ),
                                           overflow: TextOverflow.ellipsis,
                                         )),
@@ -165,26 +169,28 @@ class _CompareItemScreenState extends State<CompareItemScreen>
                                                     Theme.of(context)
                                                         .colorScheme
                                                         .primary,
-                                                fixedSize: const Size(120,
-                                                    30), // El color de fondo del botón
+                                                fixedSize: const Size(120, 30),
                                               ),
-                                              onPressed: () {
-                                                // Acción del botón
-                                              },
+                                              onPressed: () =>
+                                                  ShoppingCartScreen.addItem(
+                                                      item.name,
+                                                      item.brand,
+                                                      item.price,
+                                                      item.discount,
+                                                      item.review,
+                                                      item.review),
                                               child: Row(
                                                 children: const [
                                                   Icon(
                                                     Icons.shopping_cart,
                                                     color: Colors.white,
-                                                  ), // El icono del botón
-                                                  SizedBox(
-                                                      width:
-                                                          5), // Un pequeño espacio entre el icono y el texto
+                                                  ),
+                                                  SizedBox(width: 5),
                                                   Text(
                                                     'Carrinho',
                                                     style: TextStyle(
                                                         color: Colors.white),
-                                                  ), // El texto del botón
+                                                  ),
                                                 ],
                                               ),
                                             ))
