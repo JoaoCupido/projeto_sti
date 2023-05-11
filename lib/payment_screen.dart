@@ -1,17 +1,17 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:projeto_sti/compare_item.dart';
 import 'package:projeto_sti/components/credit_card.dart';
 import 'package:projeto_sti/components/price.dart';
 
+import 'bottom_nav_bar_screen.dart';
+import 'buttons.dart';
 import 'components/billing.dart';
+import 'components/search_bar.dart';
+import 'components/shopping_item.dart';
 
 class PaymentScreen extends StatefulWidget {
   final Map args;
-  const PaymentScreen({Key? key, required this.args}) : super(key: key);
+  PaymentScreen({Key? key, required this.args}) : super(key: key);
 
   @override
   _PaymentScreenState createState() => _PaymentScreenState(args);
@@ -32,6 +32,7 @@ class _PaymentScreenState extends State<PaymentScreen>
   List<Billing> _billings = [billing1];
   _PaymentScreenState(this.args);
 
+  late TabController _tabController;
   TextEditingController _nameController = TextEditingController();
   TextEditingController _cardController = TextEditingController();
   TextEditingController _cvvController = TextEditingController();
@@ -41,7 +42,8 @@ class _PaymentScreenState extends State<PaymentScreen>
   TextEditingController _presentRecipientController = TextEditingController();
 
   bool availableData = false;
-  List<ItemShopping> items = [];
+  late List<ShoppingCard> items = [];
+  late double total = 0;
 
   late String emailName = '';
 
@@ -49,6 +51,7 @@ class _PaymentScreenState extends State<PaymentScreen>
   void initState() {
     super.initState();
     _controller = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 5, vsync: this);
     _controller.addListener((_handleTabSelection));
   }
 
@@ -57,12 +60,20 @@ class _PaymentScreenState extends State<PaymentScreen>
     super.didChangeDependencies();
     emailName = args['emailName'];
     items = args['items'];
+    total = args['total'];
   }
 
   _handleTabSelection() {
     if (_controller.indexIsChanging) {
       setState(() {});
     }
+  }
+
+  void handleTabTap(int index) {
+    Navigator.popUntil(context, (route) => !Navigator.canPop(context));
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => BottomNavBarScreen(
+            args: {'index': index, 'emailName': emailName})));
   }
 
   @override
@@ -369,6 +380,107 @@ class _PaymentScreenState extends State<PaymentScreen>
     );
   }
 
+  Widget isNotPresent() {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey),
+        borderRadius: BorderRadius.circular(5),
+        color: Theme.of(context).colorScheme.surface,
+      ),
+      margin: const EdgeInsets.only(bottom: 20),
+      child: RadioListTile(
+        activeColor: Theme.of(context).colorScheme.primary,
+        title: Row(children: const [
+          Expanded(child: Text("Não é um presente")),
+          Icon(Icons.card_giftcard)
+        ]),
+        value: 0,
+        groupValue: _isPresent,
+        onChanged: (value) {
+          setState(() {
+            _isPresent = value!;
+          });
+        },
+      ),
+    );
+  }
+
+  Widget isPresent() {
+    return Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey),
+          borderRadius: BorderRadius.circular(5),
+          color: Theme.of(context).colorScheme.surface,
+        ),
+        child: Column(children: [
+          RadioListTile(
+            activeColor: Theme.of(context).colorScheme.primary,
+            title: Row(children: const [
+              Expanded(child: Text("É um presente")),
+              Icon(Icons.card_giftcard)
+            ]),
+            value: 1,
+            groupValue: _isPresent,
+            onChanged: (value) {
+              setState(() {
+                _isPresent = value!;
+              });
+            },
+          ),
+          const Divider(
+            color: Colors.black87,
+          ),
+          Padding(
+              padding: const EdgeInsets.only(
+                  bottom: 10, left: 20, right: 20, top: 10),
+              child: TextField(
+                controller: _presentMessageController,
+                decoration: InputDecoration(
+                  labelText: 'Mensagem - Máximo de 100 carateres',
+                  labelStyle: Theme.of(context).textTheme.bodyMedium,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4.0),
+                    borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.outlineVariant,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4.0),
+                    borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.outlineVariant,
+                    ),
+                  ),
+                  filled: true,
+                  fillColor: Theme.of(context).colorScheme.surface,
+                ),
+              )),
+          Padding(
+              padding: const EdgeInsets.only(
+                  bottom: 20, left: 20, right: 20, top: 10),
+              child: TextField(
+                controller: _presentRecipientController,
+                decoration: InputDecoration(
+                  labelText: 'Destinatário do presente',
+                  labelStyle: Theme.of(context).textTheme.bodyMedium,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4.0),
+                    borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.outlineVariant,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4.0),
+                    borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.outlineVariant,
+                    ),
+                  ),
+                  filled: true,
+                  fillColor: Theme.of(context).colorScheme.surface,
+                ),
+              ))
+        ]));
+  }
+
   Widget selectPresent() {
     return Column(
       children: [
@@ -386,6 +498,123 @@ class _PaymentScreenState extends State<PaymentScreen>
               style: TextStyle(fontSize: 14, color: Colors.black54),
               textAlign: TextAlign.start),
         ),
+        isNotPresent(),
+        isPresent()
+      ],
+    );
+  }
+
+  Widget confirmBuy() {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
+
+    return SingleChildScrollView(
+        child: Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.only(top: 20, left: 5),
+          alignment: Alignment.topLeft,
+          child: const Text("Confirmar Encomenda",
+              style: TextStyle(fontSize: 30, color: Colors.black87),
+              textAlign: TextAlign.start),
+        ),
+        Container(
+          padding: const EdgeInsets.only(top: 10, left: 5),
+          alignment: Alignment.topLeft,
+          child: Text("Total:  €$total",
+              style: const TextStyle(fontSize: 20, color: Colors.black87),
+              textAlign: TextAlign.start),
+        ),
+        Container(
+          padding: const EdgeInsets.only(top: 10, left: 5, bottom: 10),
+          alignment: Alignment.topLeft,
+          child: Text("${"O meu carrinho - ${items.length}"} artigos",
+              style: const TextStyle(fontSize: 12, color: Colors.black54),
+              textAlign: TextAlign.start),
+        ),
+        Container(
+            margin: const EdgeInsets.only(bottom: 10, left: 5),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: items
+                    .map((item) => Container(
+                          width: screenWidth * 0.35,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(5),
+                            color: Theme.of(context).colorScheme.surface,
+                          ),
+                          child: Column(
+                            children: [
+                              Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 10, left: 10, right: 10, bottom: 5),
+                                  child: SvgPicture.asset(
+                                    item.image,
+                                    width: screenWidth * 0.1,
+                                    height: screenHeight * 0.1,
+                                  )),
+                              const Divider(),
+                              Container(
+                                padding: const EdgeInsets.only(left: 5),
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  item.name,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              Container(
+                                padding: const EdgeInsets.only(left: 5),
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  item.brand,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                      child: Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 5),
+                                          child: CalculatePrice(
+                                              price: item.price,
+                                              discount: item.discount))),
+                                  Row(children: [
+                                    Container(
+                                        padding:
+                                            const EdgeInsets.only(right: 5),
+                                        child: FittedBox(
+                                            fit: BoxFit.fitWidth,
+                                            child: Text(item.review,
+                                                style: const TextStyle(
+                                                    fontSize: 14,
+                                                    color: Colors.blueGrey)))),
+                                    Container(
+                                        padding:
+                                            const EdgeInsets.only(right: 5),
+                                        child: const Icon(
+                                          Icons.star,
+                                          color: Colors.yellow,
+                                          size: 20,
+                                        ))
+                                  ])
+                                ],
+                              )
+                            ],
+                          ),
+                        ))
+                    .toList(),
+              ),
+            )),
+        Container(
+          padding: const EdgeInsets.only(top: 10, left: 5, bottom: 10),
+          alignment: Alignment.topLeft,
+          child: const Text("Dados de faturação",
+              style: TextStyle(fontSize: 12, color: Colors.black54),
+              textAlign: TextAlign.start),
+        ),
         Container(
           decoration: BoxDecoration(
             border: Border.all(color: Colors.grey),
@@ -395,276 +624,66 @@ class _PaymentScreenState extends State<PaymentScreen>
           margin: const EdgeInsets.only(bottom: 20),
           child: RadioListTile(
             activeColor: Theme.of(context).colorScheme.primary,
-            title: Row(children: const [
-              Expanded(child: Text("Não é um presente")),
-              Icon(Icons.card_giftcard)
+            title: Row(children: [
+              Expanded(
+                  child:
+                      Text("${_creditsCards[_selectedCard].number}  -  Visa")),
+              const Icon(Icons.credit_card)
             ]),
             value: 0,
-            groupValue: _isPresent,
+            groupValue: _selectedCard,
             onChanged: (value) {
               setState(() {
-                _isPresent = value!;
+                _selectedCard = value!;
               });
             },
           ),
         ),
         Container(
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey),
-              borderRadius: BorderRadius.circular(5),
-              color: Theme.of(context).colorScheme.surface,
-            ),
-            child: Column(children: [
-              RadioListTile(
-                activeColor: Theme.of(context).colorScheme.primary,
-                title: Row(children: const [
-                  Expanded(child: Text("É um presente")),
-                  Icon(Icons.card_giftcard)
-                ]),
-                value: 1,
-                groupValue: _isPresent,
-                onChanged: (value) {
-                  setState(() {
-                    _isPresent = value!;
-                  });
-                },
-              ),
-              const Divider(
-                color: Colors.black87,
-              ),
-              Padding(
-                  padding: const EdgeInsets.only(
-                      bottom: 10, left: 20, right: 20, top: 10),
-                  child: TextField(
-                    controller: _presentMessageController,
-                    decoration: InputDecoration(
-                      labelText: 'Mensagem - Máximo de 100 carateres',
-                      labelStyle: Theme.of(context).textTheme.bodyMedium,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4.0),
-                        borderSide: BorderSide(
-                          color: Theme.of(context).colorScheme.outlineVariant,
-                        ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4.0),
-                        borderSide: BorderSide(
-                          color: Theme.of(context).colorScheme.outlineVariant,
-                        ),
-                      ),
-                      filled: true,
-                      fillColor: Theme.of(context).colorScheme.surface,
-                    ),
-                  )),
-              Padding(
-                  padding: const EdgeInsets.only(
-                      bottom: 20, left: 20, right: 20, top: 10),
-                  child: TextField(
-                    controller: _presentRecipientController,
-                    decoration: InputDecoration(
-                      labelText: 'Destinatário do presente',
-                      labelStyle: Theme.of(context).textTheme.bodyMedium,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4.0),
-                        borderSide: BorderSide(
-                          color: Theme.of(context).colorScheme.outlineVariant,
-                        ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4.0),
-                        borderSide: BorderSide(
-                          color: Theme.of(context).colorScheme.outlineVariant,
-                        ),
-                      ),
-                      filled: true,
-                      fillColor: Theme.of(context).colorScheme.surface,
-                    ),
-                  ))
-            ]))
+          padding: const EdgeInsets.only(left: 5, bottom: 10),
+          alignment: Alignment.topLeft,
+          child: const Text("Método de pagamento",
+              style: TextStyle(fontSize: 12, color: Colors.black54),
+              textAlign: TextAlign.start),
+        ),
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.grey),
+            borderRadius: BorderRadius.circular(5),
+            color: Theme.of(context).colorScheme.surface,
+          ),
+          margin: const EdgeInsets.only(bottom: 20),
+          padding: const EdgeInsets.only(top: 10, bottom: 10),
+          child: RadioListTile(
+            activeColor: Theme.of(context).colorScheme.primary,
+            title:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text(_billings[_selectedAddress].owner),
+              Text(_billings[_selectedAddress].phoneNumber.toString()),
+              Text(_billings[_selectedAddress].address)
+            ]),
+            value: 0,
+            groupValue: _selectedAddress,
+            onChanged: (value) {
+              setState(() {
+                _selectedAddress = value!;
+              });
+            },
+          ),
+        ),
+        Container(
+          padding: const EdgeInsets.only(left: 5, bottom: 10),
+          alignment: Alignment.topLeft,
+          child: const Text("Presente",
+              style: TextStyle(fontSize: 12, color: Colors.black54),
+              textAlign: TextAlign.start),
+        ),
+        _isPresent == 0 ? isNotPresent() : isPresent(),
+        const SizedBox(
+          height: 100,
+        )
       ],
-    );
-  }
-
-  ItemShopping searchItem(dynamic data, String item) {
-    return ItemShopping(
-        itemTitle: data[item]["itemTitle"],
-        itemBrand: data[item]["itemBrand"],
-        itemPrice: data[item]["itemPrice"],
-        itemDiscount: data[item]["itemDiscount"],
-        itemReview: data[item]["itemReview"],
-        itemImage: data[item]["itemImages"][0]);
-  }
-
-  Widget confirmBuy() {
-    return !availableData
-        ? const CircularProgressIndicator()
-        : Column(
-            children: [
-              Container(
-                padding: const EdgeInsets.only(top: 20, left: 5),
-                alignment: Alignment.topLeft,
-                child: const Text("Confirmar Encomenda",
-                    style: TextStyle(fontSize: 30, color: Colors.black87),
-                    textAlign: TextAlign.start),
-              ),
-              Container(
-                padding: const EdgeInsets.only(top: 5, left: 5, bottom: 30),
-                alignment: Alignment.topLeft,
-                child: Text("${"O meu carrinho - ${items.length}"} artigos",
-                    style: const TextStyle(fontSize: 12, color: Colors.black54),
-                    textAlign: TextAlign.start),
-              ),
-              Container(
-                  margin: const EdgeInsets.only(bottom: 20),
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: items
-                          .map((item) => Container(
-                                width: 150,
-                                height: 150,
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.grey),
-                                  borderRadius: BorderRadius.circular(5),
-                                  color: Theme.of(context).colorScheme.surface,
-                                ),
-                                child: Column(
-                                  children: [
-                                    SvgPicture.asset(
-                                      item.itemImage,
-                                      width: 100,
-                                      height: 100,
-                                    ),
-                                    const Divider(),
-                                    Container(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        item.itemTitle,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                                    Container(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        item.itemBrand,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                            child: CalculatePrice(
-                                                price: item.itemPrice,
-                                                discount: item.itemDiscount)),
-                                        Row(children: [
-                                          Container(
-                                              padding: const EdgeInsets.only(
-                                                  right: 5),
-                                              child: FittedBox(
-                                                  fit: BoxFit.fitWidth,
-                                                  child: Text(item.itemReview,
-                                                      style: const TextStyle(
-                                                          fontSize: 14,
-                                                          color: Colors
-                                                              .blueGrey)))),
-                                          Container(
-                                              child: const Icon(
-                                            Icons.star,
-                                            color: Colors.yellow,
-                                            size: 20,
-                                          ))
-                                        ])
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              ))
-                          .toList(),
-                    ),
-                  )),
-              Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(5),
-                    color: Theme.of(context).colorScheme.surface,
-                  ),
-                  child: Column(children: [
-                    RadioListTile(
-                      activeColor: Theme.of(context).colorScheme.primary,
-                      title: Row(children: const [
-                        Expanded(child: Text("É um presente")),
-                        Icon(Icons.card_giftcard)
-                      ]),
-                      value: 1,
-                      groupValue: _isPresent,
-                      onChanged: (value) {
-                        setState(() {
-                          _isPresent = value!;
-                        });
-                      },
-                    ),
-                    const Divider(
-                      color: Colors.black87,
-                    ),
-                    Padding(
-                        padding: const EdgeInsets.only(
-                            bottom: 10, left: 20, right: 20, top: 10),
-                        child: TextField(
-                          controller: _presentMessageController,
-                          decoration: InputDecoration(
-                            labelText: 'Mensagem - Máximo de 100 carateres',
-                            labelStyle: Theme.of(context).textTheme.bodyMedium,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(4.0),
-                              borderSide: BorderSide(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .outlineVariant,
-                              ),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(4.0),
-                              borderSide: BorderSide(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .outlineVariant,
-                              ),
-                            ),
-                            filled: true,
-                            fillColor: Theme.of(context).colorScheme.surface,
-                          ),
-                        )),
-                    Padding(
-                        padding: const EdgeInsets.only(
-                            bottom: 20, left: 20, right: 20, top: 10),
-                        child: TextField(
-                          controller: _presentRecipientController,
-                          decoration: InputDecoration(
-                            labelText: 'Destinatário do presente',
-                            labelStyle: Theme.of(context).textTheme.bodyMedium,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(4.0),
-                              borderSide: BorderSide(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .outlineVariant,
-                              ),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(4.0),
-                              borderSide: BorderSide(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .outlineVariant,
-                              ),
-                            ),
-                            filled: true,
-                            fillColor: Theme.of(context).colorScheme.surface,
-                          ),
-                        ))
-                  ]))
-            ],
-          );
+    ));
   }
 
   Widget _buildDropdownButton(
@@ -787,8 +806,72 @@ class _PaymentScreenState extends State<PaymentScreen>
     return Container(height: 500, child: confirmBuy());
   }
 
+  Widget _encommended() {
+    return Stack(children: [
+      Column(children: [
+        Container(
+          padding: const EdgeInsets.only(top: 20, left: 20),
+          alignment: Alignment.topLeft,
+          child: Text("Encomenda confirmada",
+              style: Theme.of(context).textTheme.displayMedium,
+              textAlign: TextAlign.start),
+        ),
+        Container(
+          padding: const EdgeInsets.only(top: 20, left: 20),
+          alignment: Alignment.topLeft,
+          child: Text("Obrigado/a por fazer uma encomenda!",
+              style: Theme.of(context).textTheme.bodySmall,
+              textAlign: TextAlign.start),
+        ),
+        SvgPicture.asset(
+          'assets/images/billingPayment/127-1.svg',
+          width: 200,
+          height: 200,
+        ),
+        Container(
+          padding: const EdgeInsets.all(5),
+          child: Text(
+            "Encomenda #1234567890",
+            style: Theme.of(context).textTheme.displayMedium,
+            textAlign: TextAlign.center,
+          ),
+        ),
+        Container(
+          padding: const EdgeInsets.all(20),
+          margin: const EdgeInsets.only(right: 40, left: 40),
+          child: Text(
+            "Vai ser enviado um email de confirmação a johndoe@gmail.com",
+            style: Theme.of(context).textTheme.bodyLarge,
+            textAlign: TextAlign.center,
+          ),
+        )
+      ]),
+      Buttons(
+          textLeft: RichText(
+              text: TextSpan(
+                  text: "Total: €$total",
+                  style: const TextStyle(color: Colors.black87))),
+          textRight: "Concluir",
+          movement: 40,
+          onPress: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => BottomNavBarScreen(
+                      args: {'index': 0, 'emailName': emailName}),
+                ),
+              ))
+    ]);
+  }
+
+  bool isCompleted = false;
+  bool back = false;
+  String textNext = "Seguinte";
+
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
+
     _steps = [
       Step(
         state: _currentStep > 0 ? StepState.complete : StepState.indexed,
@@ -815,57 +898,107 @@ class _PaymentScreenState extends State<PaymentScreen>
         content: _fourStep(),
       ),
     ];
+
     return Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
-        resizeToAvoidBottomInset: false,
-        body: Stack(children: [
-          Stepper(
-            type: StepperType.horizontal,
-            currentStep: _currentStep,
-            steps: _steps,
-            onStepTapped: (index) {
-              setState(() => _currentStep = index);
-            },
-            controlsBuilder: (context, details) {
-              return const SizedBox.shrink();
-            },
-          ),
-          Positioned(
-              bottom: 15,
-              left: MediaQuery.of(context).size.width / 2 - 130,
-              child: Container(
-                margin: const EdgeInsets.only(top: 50),
-                child: Row(
-                  children: [
-                    Container(
-                        width: 100,
-                        child: ElevatedButton(
-                            onPressed: () {
-                              if (_currentStep != 0) {
-                                setState(() {
-                                  _currentStep--;
-                                });
-                              }
-                            },
-                            child: const Text("Atrás"))),
-                    const SizedBox(
-                      width: 40,
+      backgroundColor: Theme.of(context).colorScheme.background,
+      resizeToAvoidBottomInset: false,
+      appBar: SearchBar(
+        emailName: emailName,
+        query: '',
+      ),
+      body: isCompleted == false
+          ? Stack(children: [
+              Stepper(
+                type: StepperType.horizontal,
+                currentStep: _currentStep,
+                steps: _steps,
+                onStepTapped: (index) {
+                  setState(() => _currentStep = index);
+                },
+                controlsBuilder: (context, details) {
+                  return const SizedBox.shrink();
+                },
+              ),
+              Positioned(
+                  bottom: 15,
+                  left: screenWidth / 2 - 130,
+                  child: Container(
+                    color: Colors.transparent,
+                    margin: const EdgeInsets.only(top: 50),
+                    child: Row(
+                      children: [
+                        Visibility(
+                            visible: back,
+                            child: Container(
+                                width: screenWidth * 0.25,
+                                child: ElevatedButton(
+                                    onPressed: () {
+                                      if (_currentStep != 0) {
+                                        setState(() {
+                                          _currentStep--;
+                                          textNext = "Seguinte";
+                                          if (_currentStep == 0) {
+                                            back = false;
+                                          }
+                                        });
+                                      }
+                                    },
+                                    child: const Text("Atrás")))),
+                        SizedBox(
+                          width: screenWidth * 0.1,
+                        ),
+                        Container(
+                            margin: back == false
+                                ? EdgeInsets.only(left: screenWidth * 0.1)
+                                : null,
+                            width: screenWidth * 0.25,
+                            child: ElevatedButton(
+                                onPressed: () {
+                                  if (_currentStep != 3) {
+                                    setState(() {
+                                      _currentStep++;
+                                      back = true;
+                                      if (_currentStep == 3) {
+                                        textNext = "Confirmar";
+                                      }
+                                    });
+                                  } else {
+                                    setState(() {
+                                      isCompleted = true;
+                                    });
+                                  }
+                                },
+                                child: Text(textNext)))
+                      ],
                     ),
-                    Container(
-                        width: 100,
-                        child: ElevatedButton(
-                            onPressed: () {
-                              if (_currentStep != 3) {
-                                setState(() {
-                                  _currentStep++;
-                                });
-                              }
-                            },
-                            child: const Text("Seguinte")))
-                  ],
-                ),
-              ))
-        ]));
+                  ))
+            ])
+          : _encommended(),
+      bottomNavigationBar: BottomAppBar(
+        child: TabBar(
+          controller: _tabController,
+          indicator: const BoxDecoration(
+            border: Border(
+              top: BorderSide(
+                width: 0.0,
+                color: Colors.transparent,
+              ),
+            ),
+          ),
+          indicatorSize: TabBarIndicatorSize.tab,
+          labelColor: Theme.of(context).colorScheme.onSurface,
+          unselectedLabelColor: Theme.of(context).colorScheme.onSurface,
+          tabs: const [
+            Tab(icon: Icon(Icons.home_outlined)),
+            Tab(icon: Icon(Icons.menu_outlined)),
+            Tab(icon: Icon(Icons.shopping_cart_outlined)),
+            Tab(icon: Icon(Icons.favorite_outline)),
+            Tab(icon: Icon(Icons.delivery_dining_outlined)),
+          ],
+          onTap: handleTabTap,
+        ),
+      ),
+    );
   }
 }
 

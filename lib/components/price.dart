@@ -3,7 +3,12 @@ import 'package:flutter/material.dart';
 class CalculatePrice extends StatelessWidget {
   final String price;
   final String discount;
-  const CalculatePrice({Key? key, required this.price, required this.discount})
+  int quantity;
+  CalculatePrice(
+      {Key? key,
+      required this.price,
+      required this.discount,
+      this.quantity = 1})
       : super(key: key);
 
   Widget widgetPrice(String price, String discount) {
@@ -12,11 +17,12 @@ class CalculatePrice extends StatelessWidget {
         text: TextSpan(style: const TextStyle(fontSize: 16), children: [
           TextSpan(
             style: const TextStyle(color: Colors.black87),
-            text: "€${double.parse(price) - double.parse(discount)}",
+            text:
+                "€${(double.parse(price) * quantity - double.parse(discount) * quantity).toStringAsFixed(2)}",
           ),
           const TextSpan(text: "  "),
           TextSpan(
-            text: "€$price",
+            text: "€${(double.parse(price) * quantity).toStringAsFixed(2)}",
             style: const TextStyle(
                 decoration: TextDecoration.lineThrough, color: Colors.grey),
           )
@@ -26,7 +32,7 @@ class CalculatePrice extends StatelessWidget {
       return RichText(
         text: TextSpan(
           style: const TextStyle(color: Colors.black87, fontSize: 16),
-          text: "€${double.parse(price) - double.parse(discount)}",
+          text: "€${(double.parse(price) * quantity).toStringAsFixed(2)}",
         ),
       );
     }

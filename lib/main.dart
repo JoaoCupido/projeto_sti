@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:projeto_sti/onboarding_screen.dart';
 import 'package:projeto_sti/account_session_screen.dart';
+import 'package:projeto_sti/payment_screen.dart';
 import 'package:projeto_sti/recover_account_screen1.dart';
 import 'package:projeto_sti/recover_account_screen2.dart';
 import 'package:projeto_sti/recover_account_screen3.dart';
@@ -52,11 +53,21 @@ class MyApp extends StatelessWidget {
             '/dados_faturação2': (context) => BillingDataPage2(),
             '/metodos_pagamento': (context) => PaymentMethodsPage(),
             '/metodos_pagamento2': (context) => PaymentMethodsPage2(),
-            '/item-screen': (context) =>
-                const ItemScreen(args: {'emailName': '', 'query': '',
-                  'itemTitle': 'Biscoito para cão Biscrok', 'index': 0}),
-            '/shoppingCard': (context) =>
-                const ShoppingCartScreen(emailName: ''),
+            '/item-screen': (context) => const ItemScreen(args: {
+                  'emailName': '',
+                  'query': '',
+                  'itemTitle': 'Biscoito para cão Biscrok',
+                  'index': 0
+                }),
+            '/shoppingCard': (context) => const ShoppingCartScreen(
+                  emailName: '',
+                ),
+            '/payment': (context) => PaymentScreen(args: const {
+                  'items': [],
+                  'total': 0,
+                  'emailName': '',
+                  'query': '',
+                }),
           },
           theme: ThemeData(
             colorScheme: const ColorScheme(

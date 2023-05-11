@@ -4,20 +4,26 @@ class Buttons extends StatelessWidget {
   final IconData? icon;
   final Widget textLeft;
   final String textRight;
-  final Function onPress;
-  const Buttons(
+  Function onPress;
+  int movement;
+  Buttons(
       {Key? key,
       this.icon,
       required this.textLeft,
       required this.textRight,
-      required this.onPress})
+      required this.onPress,
+      this.movement = 0})
       : super(key: key);
+
+  void runFunction() {
+    onPress();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Positioned(
         bottom: 15,
-        left: MediaQuery.of(context).size.width / 2 - 150,
+        left: MediaQuery.of(context).size.width / 2 - 150 + movement,
         child: Container(
             color: Colors.transparent,
             child: Row(
@@ -36,7 +42,7 @@ class Buttons extends StatelessWidget {
                   child: textLeft,
                 ),
                 ElevatedButton(
-                    onPressed: (() => onPress),
+                    onPressed: (() => runFunction()),
                     child: Row(children: [
                       if (icon != null)
                         Icon(
