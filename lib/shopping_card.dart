@@ -1,8 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:projeto_sti/components/price.dart';
 import 'package:projeto_sti/payment_screen.dart';
-
 import 'buttons.dart';
 import 'components/shopping_item.dart';
 
@@ -24,7 +26,9 @@ class ShoppingCartScreen extends StatefulWidget {
 class _ShoppingCartScreen extends State<ShoppingCartScreen>
     with SingleTickerProviderStateMixin {
   String emailName;
+
   static List<ShoppingCard> _shoppingList = [shoppingCard1];
+
   _ShoppingCartScreen(this.emailName);
 
   @override
