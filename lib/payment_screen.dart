@@ -921,7 +921,7 @@ class _PaymentScreenState extends State<PaymentScreen>
               ),
               Positioned(
                   bottom: 15,
-                  left: screenWidth / 2 - 130,
+                  left: screenWidth / 2 - 120,
                   child: Container(
                     color: Colors.transparent,
                     margin: const EdgeInsets.only(top: 50),
@@ -931,7 +931,7 @@ class _PaymentScreenState extends State<PaymentScreen>
                             visible: back,
                             child: Container(
                                 width: screenWidth * 0.25,
-                                child: ElevatedButton(
+                                child: OutlinedButton(
                                     onPressed: () {
                                       if (_currentStep != 0) {
                                         setState(() {
@@ -943,7 +943,14 @@ class _PaymentScreenState extends State<PaymentScreen>
                                         });
                                       }
                                     },
-                                    child: const Text("Atrás")))),
+                                    style: OutlinedButton.styleFrom(
+                                      side: BorderSide(
+                                        color: Theme.of(context).colorScheme.primary,
+                                      ),
+                                      backgroundColor:
+                                      Theme.of(context).colorScheme.surface,
+                                    ),
+                                    child: const Text("Voltar")))),
                         SizedBox(
                           width: screenWidth * 0.1,
                         ),

@@ -44,7 +44,7 @@ class _ShoppingCartScreen extends State<ShoppingCartScreen>
 
   void _decrementarContador(ShoppingCard shoppingCard) {
     setState(() {
-      if (shoppingCard.quantity > 0) {
+      if (shoppingCard.quantity > 1) {
         shoppingCard.quantity--;
       }
     });
@@ -247,7 +247,7 @@ class _ShoppingCartScreen extends State<ShoppingCartScreen>
                                           margin:
                                               const EdgeInsets.only(top: 20),
                                           height: screenHeight * 0.05,
-                                          width: screenWidth * 0.27,
+                                          width: screenWidth * 0.28,
                                           decoration: BoxDecoration(
                                             border: Border.all(
                                               color: Colors.grey,
@@ -266,10 +266,9 @@ class _ShoppingCartScreen extends State<ShoppingCartScreen>
                                                   shape: BoxShape.circle,
                                                   color: Colors.orange,
                                                 ),
-                                                child: const Icon(
+                                                child: Icon(
                                                   Icons.remove,
-                                                  color: Color.fromARGB(
-                                                      255, 255, 255, 1),
+                                                  color: Theme.of(context).colorScheme.surface,
                                                 ),
                                               ),
                                             ),
@@ -294,10 +293,9 @@ class _ShoppingCartScreen extends State<ShoppingCartScreen>
                                                   shape: BoxShape.circle,
                                                   color: Colors.orange,
                                                 ),
-                                                child: const Icon(
+                                                child: Icon(
                                                   Icons.add,
-                                                  color: Color.fromARGB(
-                                                      255, 255, 255, 1),
+                                                  color: Theme.of(context).colorScheme.surface,
                                                 ),
                                               ),
                                             ),
@@ -321,15 +319,23 @@ class _ShoppingCartScreen extends State<ShoppingCartScreen>
                   textRight: "Comprar",
                   icon: Icons.shopping_cart,
                   onPress: () {
-                    (Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => PaymentScreen(args: {
-                                'items': getItems(),
-                                'total': calculateTotal(),
-                                'emailName': emailName
-                              })),
-                    ));
+                    if( emailName.isNotEmpty)
+                      {
+                        Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                  PaymentScreen(args: {
+                                    'items': getItems(),
+                                    'total': calculateTotal(),
+                                    'emailName': emailName,
+                                  })
+                            )
+                        );
+                      }
+                    else
+                      {
+                        Navigator.of(context).pushReplacementNamed('/login');
+                      }
                   })
             ]));
   }
