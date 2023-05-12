@@ -144,7 +144,9 @@ class _ItemReviewScreenState extends State<ItemReviewScreen>
                                 padding: const EdgeInsets.only(right: 5),
                                 child: Icon(
                                   Icons.star,
-                                  color: Theme.of(context).colorScheme.surfaceVariant,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .surfaceVariant,
                                   size: 20,
                                 )),
                             Container(
@@ -318,6 +320,9 @@ class _ItemReviewScreenState extends State<ItemReviewScreen>
                         ),
                       )
                       .toList()),
+              const SizedBox(
+                height: 80,
+              )
             ],
           );
   }

@@ -139,6 +139,9 @@ class _ItemDescriptionScreenState extends State<ItemDescriptionScreen>
                     .toList(),
               ),
             ),
+            const SizedBox(
+              height: 80,
+            )
           ]);
   }
 }

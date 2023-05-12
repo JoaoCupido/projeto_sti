@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:projeto_sti/components/popUp.dart';
 import 'package:projeto_sti/components/search_bar.dart';
 import 'package:projeto_sti/compare_item.dart';
 import 'package:projeto_sti/item_description.dart';
@@ -11,6 +12,7 @@ import 'package:projeto_sti/shopping_card.dart';
 import 'bottom_nav_bar_screen.dart';
 import 'buttons.dart';
 import 'components/price.dart';
+import 'components/shopping_list.dart';
 
 class ItemScreen extends StatefulWidget {
   final Map args;
@@ -142,13 +144,17 @@ class _ItemScreenState extends State<ItemScreen> with TickerProviderStateMixin {
                       ),
                       textRight: "Adicionar ao carrinho",
                       icon: Icons.shopping_cart,
-                      onPress: () => ShoppingCartScreen.addItem(
-                          itemTitle,
-                          itemBrand,
-                          itemPrice,
-                          itemDiscount,
-                          itemReview,
-                          itemImage)))
+                      onPress: () async {
+                        await ShoppingList.addItem(itemTitle, itemBrand,
+                            itemPrice, itemDiscount, itemReview, itemImage);
+                        setState(() {
+                          PopupMessage(
+                                  title: "Produto Adicionado!",
+                                  icon: Icons.check_circle,
+                                  durationSeconds: 2)
+                              .build(context);
+                        });
+                      }))
             ]),
             bottomNavigationBar: BottomAppBar(
               child: TabBar(

@@ -5,6 +5,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:projeto_sti/shopping_card.dart';
 
+import 'components/popUp.dart';
+import 'components/shopping_list.dart';
+
 class CompareItemScreen extends StatefulWidget {
   final String itemTitle;
   final String emailName;
@@ -110,38 +113,18 @@ class _CompareItemScreenState extends State<CompareItemScreen>
                                           border:
                                               Border.all(color: Colors.grey)),
                                       child: Column(children: [
-                                        Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            IconButton(
-                                              onPressed: () {
-                                                //TODO: Implementar remoção de um produto ao comparar
-                                              },
-                                              icon: const Icon(
-                                                Icons.remove_circle,
-                                                size: 30,
-                                                color: Colors.red,
-                                              ),
+                                        Padding(
+                                            padding: const EdgeInsets.all(16),
+                                            child: SvgPicture.asset(item.image,
+                                                width: 130, height: 130)),
+                                        if (emailName.isNotEmpty)
+                                          const Padding(
+                                            padding: EdgeInsets.only(
+                                              top: 10,
                                             ),
-                                            Padding(
-                                                padding:
-                                                    const EdgeInsets.all(16),
-                                                child: SvgPicture.asset(
-                                                    item.image,
-                                                    width: 130,
-                                                    height: 130)),
-                                            if (emailName.isNotEmpty)
-                                              const Padding(
-                                                padding: EdgeInsets.only(
-                                                  top: 10,
-                                                ),
-                                                child: Icon(
-                                                    Icons.favorite_border,
-                                                    size: 28),
-                                              ),
-                                          ],
-                                        )
+                                            child: Icon(Icons.favorite_border,
+                                                size: 28),
+                                          ),
                                       ])),
                                   Container(
                                       width: 250,
@@ -171,14 +154,24 @@ class _CompareItemScreenState extends State<CompareItemScreen>
                                                         .primary,
                                                 fixedSize: const Size(120, 30),
                                               ),
-                                              onPressed: () =>
-                                                  ShoppingCartScreen.addItem(
-                                                      item.name,
-                                                      item.brand,
-                                                      item.price,
-                                                      item.discount,
-                                                      item.review,
-                                                      item.review),
+                                              onPressed: () async {
+                                                await ShoppingList.addItem(
+                                                    item.name,
+                                                    item.brand,
+                                                    item.price,
+                                                    item.discount,
+                                                    item.review,
+                                                    item.image);
+                                                setState(() {
+                                                  PopupMessage(
+                                                          title:
+                                                              "Produto Adicionado!",
+                                                          icon: Icons
+                                                              .check_circle,
+                                                          durationSeconds: 2)
+                                                      .build(context);
+                                                });
+                                              },
                                               child: Row(
                                                 children: const [
                                                   Icon(
