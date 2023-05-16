@@ -21,7 +21,7 @@
 <h3 align="center">PetSupply</h3>
 
   <p align="center">
-    Nova aplicação "mobile" para facilitar a compra de produtos para animais de estimação em Portugal!
+    Nova aplicação "mobile" para facilitar a compra de produtos para animais de estimação em Portugal
     <br />
     <a href="https://github.com/joaocupido/projeto_sti"><strong>Explora a documentação »</strong></a>
     <br />
