@@ -47,7 +47,6 @@
       </ul>
     </li>
     <li><a href="#roadmap">Checklist</a></li>
-    <li><a href="#acknowledgments">Agradecimentos</a></li>
   </ol>
 </details>
 
@@ -85,16 +84,6 @@
 - [ ] Adicionar base de dados - backend
 
 Ver [problemas em aberto](https://github.com/joaocupido/projeto_sti/issues) para uma lista detalhada de funcionalidades propostas (e possíveis problemas encontrados).
-
-<p align="right">(<a href="#readme-top">voltar ao topo</a>)</p>
-
-
-
-
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-* [Full Credits](https://github.com/JoaoCupido/projeto_sti/blob/main/CREDITS.txt)
 
 <p align="right">(<a href="#readme-top">voltar ao topo</a>)</p>
 
