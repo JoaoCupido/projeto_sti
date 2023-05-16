@@ -17,7 +17,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/joaocupido/projeto_sti">
-    <img src="https://joaocupido.github.io/projeto_sti/petsupply-low-resolution-logo-color-on-transparent-background.png" alt="Logo">
+    <img src="https://github.com/JoaoCupido/projeto_sti/blob/main/petsupply-low-resolution-logo-color-on-transparent-background.png" alt="Logo">
   </a>
 
 <h3 align="center">PetSupply</h3>
