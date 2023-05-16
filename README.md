@@ -25,12 +25,12 @@
   <p align="center">
     Nova aplicação "mobile" para facilitar a compra de produtos para animais de estimação em Portugal!
     <br />
-    <a href="https://github.com/joaocupido/projeto_sti"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/joaocupido/projeto_sti"><strong>Explora a documentação »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/joaocupido/projeto_sti/issues">Report Bug</a>
+    <a href="https://github.com/joaocupido/projeto_sti/issues">Reportar bugs</a>
     ·
-    <a href="https://github.com/joaocupido/projeto_sti/issues">Request Feature</a>
+    <a href="https://github.com/joaocupido/projeto_sti/issues">Propor novo requisito</a>
   </p>
 </div>
 
